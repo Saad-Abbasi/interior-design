@@ -24,7 +24,7 @@ export class ThirdStepComponent implements OnInit {
   maxWidth=800;
   widthAreaBox ='800px';
   availableWidth;
-  @Input() public parentData;
+
   // boxWidthTest = '100px';
   // boxSmallWidthTest = '50px';
   currentWidth = 0;

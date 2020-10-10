@@ -25,12 +25,6 @@ export class SecondStepComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.parentData ={
-        widthCase:this.widthCase,
-        heightCase:this.heightCase,
-        depthCase:this.depthCase,
-        value:this.value
-    }
   }
   
 }
