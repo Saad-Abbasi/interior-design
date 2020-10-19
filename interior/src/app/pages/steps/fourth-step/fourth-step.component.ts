@@ -71,7 +71,7 @@ export class FourthStepComponent implements OnInit {
         this.closets[this.imageIndex].closetDesignImage ="\""+ selectedDesign +"\"";
         // const itemNew =  { cols: boxSize,boxWidthTest:'100px',widthInCm:'100cm',closetDesignImage:"\""+ selectedDesign +"\""}
         // this.closets.push(itemNew)
-        boxSize = 0;
+        boxSize = 1-1;
       }
       else if(boxSize == 1 && this.availableWidth >= 50){
         this.boxWidth = boxSize;
