@@ -11,6 +11,8 @@ import { FirstStepComponent } from './pages/steps/first-step/first-step.componen
 import { SidePanelComponent } from './pages/steps/shared/side-panel/side-panel.component';
 import { SecondStepComponent } from './pages/steps/second-step/second-step.component';
 import { ThirdStepComponent } from './pages/steps/third-step/third-step.component';
+import { FourthStepComponent } from './pages/steps/fourth-step/fourth-step.component';
+import { ChooseClosetComponent } from './pages/steps/dialogs/choose-closet/choose-closet.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ThirdStepComponent } from './pages/steps/third-step/third-step.componen
     FirstStepComponent,
     SidePanelComponent,
     SecondStepComponent,
-    ThirdStepComponent
+    ThirdStepComponent,
+    FourthStepComponent,
+    ChooseClosetComponent
   ],
   imports: [
     ReactiveFormsModule,

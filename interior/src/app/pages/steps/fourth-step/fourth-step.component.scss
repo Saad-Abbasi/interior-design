@@ -1,0 +1,207 @@
+html{
+    height: 100%;
+}
+.image-card {
+    border: 2px solid gold;
+    // padding: 0px;
+  }
+.selection_box{
+    height: 250px;
+    .full-closet{
+        display: flex;
+        justify-content: center;
+        
+        background-color: white;
+        // max-width: 480px;
+        margin: auto;
+        mat-grid-tile {
+        align-items: center;
+        border: 2px solid black;
+        
+        }
+       
+        .big-box{
+            height: 200px;
+            max-width: 100px;
+           background-color: lightcyan;
+            box-shadow:3px 3px 5px 6px #ccc;
+            color: black;
+            font-size: larger;
+            font-weight: bold;
+            p{  position: relative;
+                top: 50px;
+                text-align: center;
+                
+                .text-bottom{
+                    position: relative;
+                    top: 5px;
+                }
+            }
+            
+        }
+        .small-box{
+            @extend .big-box;
+            max-width: 50px;
+            box-shadow:3px 3px 5px 6px #ccc;
+            color: black;
+            font-size: smaller;
+            font-weight: bold;
+            margin-left: 30px;
+            p{
+                text-align: center;
+                .text-bottom{
+                    position: relative;
+                    top: 5px;
+                    font-size: xx-small;
+                }
+               
+            }
+            
+            
+        }
+    }
+}
+.closet-wraper{
+    margin: auto;
+    
+    outline-color: rosybrown;
+    outline-style: groove;
+    background-color:lightgray;
+    height: 400px;
+    span{
+       
+        min-width: 30px;
+        outline-color: white;
+        outline-style: solid;
+        background-color:white;
+        background-size: cover;
+        display: block;
+        text-align: center;
+        color: black;
+        
+        
+    }
+    
+}
+.full-box{
+    // box-shadow:3px 3px 5px 6px rgba(20, 20, 20, 0.774);
+    outline: rgb(77, 87, 97);
+    outline-style: groove;
+    width: 100%;
+    padding: 0px;
+    height: 400px;
+    background-color: lightcyan;
+    background-repeat: no-repeat;
+    background-position:center center;
+    background-size: 100% 100%;
+    
+}
+.half-box{
+    @extend .full-box;
+    // max-width:50px;
+}
+//Global
+
+mat-card{
+    background-color: white;
+    mat-card-subtitle{
+      color: black;
+      display: inline-block;
+
+    }
+    mat-card-footer{
+        @extend mat-card-subtitle;
+        margin:5px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+//right panel
+
+.mat-card-right-panel{
+    background-color: inherit;
+    padding: 0px;
+    .title{
+        background-color: black;
+        height: 50px;
+       position: relative;
+    }
+    mat-card-title{
+       padding-top: 15px;
+       padding-left: 15px;;
+      
+    }
+    
+    mat-card-content {
+        background-color: #fbf7f2;
+            color: black;
+            mat-list-item{
+            color: black;
+            }
+            .section-below{
+                padding-left: 16px;
+                mat-divider{
+                    background-color: black;
+                    padding-right: -16px;
+                }
+            }
+    }
+   
+}
+#total_price_number {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 5px 0;
+    color: #c89f74;
+    display: inline-block
+}
+#total_price{
+    @extend #total_price_number
+}
+.btw{
+    margin-left: 5px;
+    color: #c89f74;
+    font-size: 12px;
+}
+
+
+//For Closet design Overlay
+.submenu{
+     position: relative;
+    }
+.submenu::before{
+    position: absolute; 
+    top: 5%;
+    left: 20px;
+    content: ''; 
+    width: 0; 
+    height: 0;
+    border-left:10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 10px solid black;
+     
+    }
+.closet-design-wraper{
+    position: relative;
+    top: 30px;
+    background-color: blue;
+}
+::ng-deep.design-menu{
+    background-color: red !important;
+    margin-top: 5px;
+    max-width: none !important;
+}
+
+.custom-grid{
+    width: 800px; 
+    position: absolute;
+    mat-grid-list{
+        mat-grid-tile{
+            height: 400px;
+            width: 100px;
+            background-color: blue;
+        }
+    }
+
+}

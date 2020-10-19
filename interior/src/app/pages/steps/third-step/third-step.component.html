@@ -57,13 +57,13 @@
                                 <mat-card-content fxLayout="column"  >
                                     <mat-list role="list" fxFlex="100" >
                                         <mat-list-item  role="listitem">
-                                            <span fxFlex="50">Breedte kast (X1)</span> <span fxFlex="50">{{widthCase}} cm</span>
+                                            <span fxFlex="50">Breedte kast (X1)</span> <span fxFlex="50">{{cabnetWidth || 0}} cm</span>
                                         </mat-list-item>
                                         <mat-list-item  role="listitem">
-                                            <span fxFlex="50">Hoogte kast (Y1)</span> <span fxFlex="50">{{heightCase}} cm</span>
+                                            <span fxFlex="50">Hoogte kast (Y1)</span> <span fxFlex="50">{{cabnetHeight || 0}} cm</span>
                                         </mat-list-item>
                                         <mat-list-item  role="listitem">
-                                            <span fxFlex="50">Diepte kast</span> <span fxFlex="50">{{depthCase}} cm</span>
+                                            <span fxFlex="50">Diepte kast</span> <span fxFlex="50">{{cabnetDepth || 0}} cm</span>
                                         </mat-list-item>
                                         <mat-list-item  role="listitem">
                                             <span fxFlex="50">Kleur binnenkast</span> <span fxFlex="50">{{0}} cm</span>
