@@ -3,6 +3,7 @@ html{
 }
 .image-card {
     border: 2px solid gold;
+    
     // padding: 0px;
   }
 .selection_box{
@@ -63,7 +64,6 @@ html{
 }
 .closet-wraper{
     margin: auto;
-    
     outline-color: rosybrown;
     outline-style: groove;
     background-color:lightgray;
@@ -78,8 +78,13 @@ html{
         display: block;
         text-align: center;
         color: black;
-        
-        
+    }
+    .add_design_button{
+        position: relative;
+        top:50% !important;
+        font-size: larger;
+        background-color: transparent;
+        outline: none !important;
     }
     
 }
@@ -188,14 +193,15 @@ mat-card{
     background-color: blue;
 }
 ::ng-deep.design-menu{
-    background-color: red !important;
+    background-color:white !important;
     margin-top: 5px;
     max-width: none !important;
 }
 
 .custom-grid{
-    width: 800px; 
+    width: 100%; 
     position: absolute;
+
     mat-grid-list{
         mat-grid-tile{
             height: 400px;

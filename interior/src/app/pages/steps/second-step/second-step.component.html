@@ -7,11 +7,10 @@
                     <mat-icon>announcement</mat-icon>
                     bovenaan, Links en/of rechts wordt er altijd een uitvulstuk van 5cm voorzien. Onderaan is er steeds een plint van 10 cm.
                 </mat-card-subtitle>
-                <img src="../../../../assets/step-2.jpg" alt="" width="100%" height="100%">
+                <img [src]="imageUrl" alt="" width="100%" height="100%">
                 <mat-card-content>
                   <div class="size-form">
-                    <form class="form-container" [formGroup]="cabnetValuesForm"  >
-                      
+                    <form class="form-container" [formGroup]="cabnetValuesForm"  > 
                     <mat-form-field appearance="fill" >
                         <mat-label>Breedte kast (X1)</mat-label>
                         <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="90" autocomplete="off">

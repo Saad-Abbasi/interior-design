@@ -10,15 +10,18 @@
                         <mat-card *ngFor="let closet of closets;let i = index" [ngClass]="(closet.cols =='2')?'full-box':'half-box'"
                             [style.max-width]="closet.boxWidthTest"
                             [style.backgroundImage]="'url(' + closet.closetDesignImage + ')'" 
-                            [matMenuTriggerFor]="appMenu"
-                            (click)=" updateImageIndex(i)">
+                            (click)="updateImageIndex(i)"
+                            >
                             <span class="table-value">{{closet.widthInCm}}</span>
+                            <span class="add_design_button" >
+                                +
+                            </span>
                         </mat-card>
                     </div>
                 </mat-card>
             </mat-card>
-            
-                <mat-menu #appMenu="matMenu" class="design-menu ">
+            <!-- [matMenuTriggerFor]="appMenu"
+                <mat-menu #appMenu="matMenu" class="design-menu " >
                     <div class="submenu" style="height: 8px;width:100%;margin-top: -8px;; background-color:#d3d3d3;"></div>
                     <div class="custom-grid" >
                         <mat-card>
@@ -50,7 +53,7 @@
       
                         </mat-card>
                     </div>
-                </mat-menu>
+                </mat-menu> -->
         </div>
         <div fxFlex="30" class="sec2">
             <mat-card class="mat-card-right-panel">

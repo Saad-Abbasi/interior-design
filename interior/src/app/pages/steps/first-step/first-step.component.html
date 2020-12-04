@@ -1,10 +1,14 @@
 <div class="">
 	<div class="content" fxLayout="row"  fxLayoutGap="5px">
-
 		<div fxFlex>
 			<mat-card class="images-card">
-               
                 <mat-grid-list cols="3" gutterSize="20px" rowHeight="1:1">
+                    <mat-grid-tile> 
+                        <img mat-card-image #imge src="../../../../assets/5.png" alt="Photo of a Shiba Inu" (click)="selectedDesign(imge.src)" name='example'>
+                        <mat-grid-tile-footer>
+                            <span>Kast rechts - links vrijstaand</span>
+                        </mat-grid-tile-footer>
+                    </mat-grid-tile>
                     <mat-grid-tile>
                         <img mat-card-image src="../../../../assets/mediaPrdFeat_1_schuine kant links_.jpg" alt="Photo of a Shiba Inu">
                         <mat-grid-tile-footer>
@@ -31,11 +35,7 @@
                         </mat-grid-tile-footer>
                     </mat-grid-tile>
                     
-                    <mat-grid-tile> <img mat-card-image src="../../../../assets/mediaPrdFeat_5_mediaPrdFeat_5_test webshop_01 uitgevuld.png" alt="Photo of a Shiba Inu">
-                        <mat-grid-tile-footer>
-                            <span>Kast rechts - links vrijstaand</span>
-                        </mat-grid-tile-footer>
-                    </mat-grid-tile>
+                    
 
                     <mat-grid-tile> <img mat-card-image src="../../../../assets/mediaPrdFeat_6_test webshop_02 kast links.jpg" alt="Photo of a Shiba Inu">
                         <mat-grid-tile-footer>

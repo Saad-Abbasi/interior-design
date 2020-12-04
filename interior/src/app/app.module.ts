@@ -13,6 +13,7 @@ import { SecondStepComponent } from './pages/steps/second-step/second-step.compo
 import { ThirdStepComponent } from './pages/steps/third-step/third-step.component';
 import { FourthStepComponent } from './pages/steps/fourth-step/fourth-step.component';
 import { ChooseClosetComponent } from './pages/steps/dialogs/choose-closet/choose-closet.component';
+import { ChooseClosetSmallComponent } from './pages/steps/dialogs/choose-closet-small/choose-closet-small.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { ChooseClosetComponent } from './pages/steps/dialogs/choose-closet/choos
     SecondStepComponent,
     ThirdStepComponent,
     FourthStepComponent,
-    ChooseClosetComponent
+    ChooseClosetComponent,
+    ChooseClosetSmallComponent
   ],
   imports: [
     ReactiveFormsModule,

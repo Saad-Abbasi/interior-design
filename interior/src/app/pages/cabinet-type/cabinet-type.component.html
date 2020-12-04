@@ -2,78 +2,86 @@
 	<div class="content" fxLayout="row" fxLayout.xs="column" fxFlexFill>
 
 		<div fxFlex="100" class="sec1" fxFlex.xs="55">
-			  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-				<mat-step [stepControl]="firstFormGroup">
-				  <form [formGroup]="firstFormGroup">
+			  <mat-horizontal-stepper linear #stepper >
+				<mat-step  [completed]='isDesignSelected'  [editable]="true" >
 					<ng-template matStepLabel>TYPE MAATKAST</ng-template>
 					<app-first-step></app-first-step>
-				  </form>
-				  <div class="button-container" fxLayout="row">
-					<div class="button-prev" fxFlex="50">
-						<button mat-raised-button aria-label="Go to next step" matStepperNext>
-							<mat-icon>navigate_before</mat-icon> Previous 
-						  </button>
+				  <div class="button-container" fxLayout="row" >
+					  <div fxFlex='70' fxLayoutAlign="center">
+						<div class="button-prev">
+							<button mat-raised-button aria-label="Go to next step" matStepperNext>
+								<mat-icon>navigate_before</mat-icon> Back 
+							  </button>
+						  </div>
+						<div class="button-next" >
+							<button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+								Next <mat-icon>navigate_next</mat-icon>
+							  </button>
+						</div>
 					  </div>
-					<div class="button-next" fxFlex="50">
-						<button mat-raised-button aria-label="Go to next step" matStepperNext>
-							Next <mat-icon>navigate_next</mat-icon>
-						  </button>
-					  </div>
-					  
 				  </div>
 				  
 				</mat-step>
 
-				<mat-step [stepControl]="firstFormGroup">
-					<form [formGroup]="firstFormGroup">
+				<mat-step [stepControl]="frmStepTwo">
 						<ng-template matStepLabel>TYPE MAATKAST</ng-template>
-						<app-second-step></app-second-step>
-					</form>
-					<div class="button-container" fxLayout="row">
-						<div class="button-prev" fxFlex="50">
-							<button mat-raised-button aria-label="Go to next step" matStepperNext>
-								<mat-icon>navigate_before</mat-icon> Previous
-							</button>
+						<app-second-step ></app-second-step>
+						<div class="button-container" fxLayout="row" >
+							<div fxFlex='70' fxLayoutAlign="center">
+							  <div class="button-prev">
+								  <button mat-raised-button aria-label="Go to next step" matStepperNext>
+									  <mat-icon>navigate_before</mat-icon> Back 
+									</button>
+								</div>
+							  <div class="button-next" >
+								  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+									  Next <mat-icon>navigate_next</mat-icon>
+									</button>
+							  </div>
+							</div>
 						</div>
-						<div class="button-next" fxFlex="50">
-							<button mat-raised-button aria-label="Go to next step" matStepperNext>
-								Next <mat-icon>navigate_next</mat-icon>
-							</button>
-						</div>
-					</div>
 				</mat-step>
 				  
-				<mat-step [stepControl]="firstFormGroup">
-					<form [formGroup]="firstFormGroup">
+				<mat-step [completed]='true'>
+					<form >
 						<ng-template matStepLabel>TYPE MAATKAST</ng-template>
 						<app-third-step></app-third-step>
 					</form>
-					<div class="button-container" fxLayout="row">
-						<div class="button-prev" fxFlex="50">
-							<button mat-raised-button aria-label="Go to next step" matStepperNext>
-								<mat-icon>navigate_before</mat-icon> Previous
-							</button>
-						</div>
-						<div class="button-next" fxFlex="50">
-							<button mat-raised-button aria-label="Go to next step" matStepperNext>
-								Next <mat-icon>navigate_next</mat-icon>
-							</button>
+					<div class="button-container" fxLayout="row" >
+						<div fxFlex='70' fxLayoutAlign="center">
+						  <div class="button-prev">
+							  <button mat-raised-button aria-label="Go to next step" matStepperNext>
+								  <mat-icon>navigate_before</mat-icon> Back 
+								</button>
+							</div>
+						  <div class="button-next" >
+							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+								  Next <mat-icon>navigate_next</mat-icon>
+								</button>
+						  </div>
 						</div>
 					</div>
 				</mat-step>
 
-				  <mat-step [stepControl]="firstFormGroup">
-					<form [formGroup]="firstFormGroup">
-					  <ng-template matStepLabel>INVULLING</ng-template>
-					  <h1>Under Construction</h1>
-					  <!-- <mat-form-field>
-						<mat-label>Name</mat-label>
-						<input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-					  </mat-form-field>
-					  <div>
-						<button mat-button matStepperNext>Next</button>
-					  </div> -->
+				  <mat-step [stepControl]="firstFormGroup" [completed]='true'>
+					  <form >
+						<ng-template matStepLabel>INVULLING</ng-template>
+						<app-fourth-step></app-fourth-step>
 					</form>
+					<div class="button-container" fxLayout="row" >
+						<div fxFlex='70' fxLayoutAlign="center">
+						  <div class="button-prev">
+							  <button mat-raised-button aria-label="Go to next step" matStepperNext>
+								  <mat-icon>navigate_before</mat-icon> Back 
+								</button>
+							</div>
+						  <div class="button-next" >
+							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+								  Next <mat-icon>navigate_next</mat-icon>
+								</button>
+						  </div>
+						</div>
+					</div>
 				  </mat-step>
 				<mat-step [stepControl]="secondFormGroup" label="BINNENAFWERKING">
 			
@@ -83,7 +91,7 @@
 				  <ng-template matStepLabel>BUITENAFWERKING</ng-template>
 				  <p>You are now done.</p>
 				  <div>
-					<button mat-button matStepperPrevious>Back</button>
+					<button mat-button matStepperBack>Back</button>
 					<button mat-button (click)="stepper.reset()">Reset</button>
 				  </div>
 				</mat-step>
@@ -97,7 +105,7 @@
 			
 		</div>
 		<div fxFlex="30" class="sec2">
-			second-section
+			
 		</div>
 
 	</div>
