@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 import { CabinetTypeComponent } from './pages/cabinet-type/cabinet-type.component';
+import { FifthStepComponent } from './pages/steps/fifth-step/fifth-step.component';
 import { FirstStepComponent } from './pages/steps/first-step/first-step.component';
 import { FourthStepComponent } from './pages/steps/fourth-step/fourth-step.component';
 import { SecondStepComponent } from './pages/steps/second-step/second-step.component';
 import { SidePanelComponent } from './pages/steps/shared/side-panel/side-panel.component';
+import { SixthStepComponent } from './pages/steps/sixth-step/sixth-step.component';
 import { ThirdStepComponent } from './pages/steps/third-step/third-step.component';
 
 
@@ -16,6 +18,8 @@ const routes: Routes = [
   {path : 'second-step', component :SecondStepComponent},
   {path : 'third-step', component :ThirdStepComponent},
   {path : 'fourth-step', component :FourthStepComponent},
+  {path : 'fifth-step', component :FifthStepComponent},
+  {path : 'sixth-step', component :SixthStepComponent},
   {path : '' , pathMatch : 'full' ,component:CabinetTypeComponent}
 ];
 

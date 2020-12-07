@@ -39,21 +39,7 @@ export class FourthStepComponent implements OnInit {
       this.closets = result;
     })
   }
-  // removeDesign =(closet)=>{
-  //   if(closet.cols == 2){
-  //     const index = this.closets.indexOf(closet)
-  //    this.availableWidth =  this.currentWidth  -=100;
-  //     this.closets.splice(index, 1);
-  //     console.log(index)
-  //   }
-  //   else
-  //   {
-  //   const index = this.closets.indexOf(closet)
-  //   this.availableWidth = this.currentWidth  -=50;
-  //   this.closets.splice(index, 1);
-  //   console.log(index)
-  //   }
-  // }
+
   updateImageIndex =(indexOfImage) =>{
     if(this.closets[indexOfImage].cols == 2){
       this.openDialog();

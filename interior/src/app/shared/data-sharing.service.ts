@@ -14,6 +14,9 @@ export class DataSharingService {
   private _closetLayoutDataSource = new Subject<string>();
   _closetLayout$ = this._closetLayoutDataSource.asObservable();
 
+  private _colorImageDataSource = new Subject<string>();
+  _colorImages$ = this._colorImageDataSource.asObservable();
+
 
   constructor() { }
 
@@ -27,5 +30,9 @@ export class DataSharingService {
 
   sendClosetLayout(layoutArray:any){
     this._closetLayoutDataSource.next(layoutArray);
+  }
+
+  sendColorImage(colorImageData:any){
+    this._colorImageDataSource.next(colorImageData);
   }
 }
