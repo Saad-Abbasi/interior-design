@@ -4,6 +4,7 @@ import {DataSharingService} from '../../../shared/data-sharing.service';
 import {ICloset}  from'../../../shared/i-closet'
 import { ColorDesignComponent } from '../dialogs/color-design/color-design.component';
 import {IColorDesign} from '../../../shared/i-color-design'
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-fifth-step',
@@ -22,7 +23,8 @@ innerColorName:string;
 outerColor:string;
 outerColorName:string;
 handle:string;
-
+boxForm:FormGroup;
+price;
 
 designImages =[
   "../../../../assets/color/mediaPrdFeat_8_Full-layout_U172-CST-Ivory.jpg",
@@ -51,15 +53,26 @@ constructor(private _DataSharing: DataSharingService,
       this.cabnetDepth = result.cabnetDepth;
       console.log(result.cabnetDepth)
     });
+
     this._DataSharing._closetLayout$.subscribe((result:any)=>{
       this.closets = result;
-    })
+    });
+
+    //form for validateion 
+    this.boxForm = new FormGroup({
+      boxFull: new FormControl('', [Validators.required]),
+    });
+
+    //getting price 
+    this._DataSharing._price$.subscribe((result)=>{
+      this.price = result;
+    });
+    
   }
 
   //Update Color/image
 
   updateColor(i:number,nameOfColor:string){
-    
     this.innerColor = this.designImages[i];
     this.innerColorName = nameOfColor;
     this.outerColor = this.designImages[i];
@@ -71,8 +84,9 @@ constructor(private _DataSharing: DataSharingService,
     this.design.innerColorName = nameOfColor;
     this.design.outerColorImg = this.designImages[i];
     this.design.outerColorName = nameOfColor;
-    
     this._DataSharing.sendColorImage(this.design);
+
+    this.validateBoxForm();
   }
 
 //Dialoge to show image design color
@@ -85,5 +99,18 @@ openDialog(index:number) {
     },
     panelClass: 'color-image-modalbox'
   }); 
+}
+
+validateBoxForm(){
+  if(this.innerColor){
+    this.boxForm.setValue({
+      boxFull:'abc'
+    });
+  }
+  else{
+    this.boxForm.setValue({
+      boxFull:null
+    })
+  }
 }
 }

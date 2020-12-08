@@ -17,6 +17,8 @@ export class DataSharingService {
   private _colorImageDataSource = new Subject<string>();
   _colorImages$ = this._colorImageDataSource.asObservable();
 
+  private _priceDataSource = new Subject<string>();
+  _price$ = this._priceDataSource.asObservable();
 
   constructor() { }
 
@@ -34,5 +36,9 @@ export class DataSharingService {
 
   sendColorImage(colorImageData:any){
     this._colorImageDataSource.next(colorImageData);
+  }
+
+  updatePrice(price:any){
+    this._priceDataSource.next(price);
   }
 }

@@ -25,6 +25,7 @@ export class SixthStepComponent implements OnInit {
   singleDoorImage:string;
   bgImage:string;
   doorImage:string;
+  price;
 
   constructor(private _DataSharing: DataSharingService,
     private dialog: MatDialog) { }
@@ -42,7 +43,10 @@ export class SixthStepComponent implements OnInit {
       this.closets = result;
     });
     
-  
+   //getting price 
+   this._DataSharing._price$.subscribe((result)=>{
+    this.price = result;
+  });
     // this.closets = [{index:0, widthInCm:'200 cm',boxWidthTest:'200px',cols:2,closetDesignImage:"../../../../assets/color/mediaPrdFeat_15_Full-layout_113-W06-Elegant-black.jpg"}]
     
     //Data colorImage

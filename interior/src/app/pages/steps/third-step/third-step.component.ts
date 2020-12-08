@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl, FormGroup,Validators } from '@angular/forms';
 import {DataSharingService} from '../../../shared/data-sharing.service'
 export interface Closets {
   index:number;
@@ -27,12 +28,14 @@ export class ThirdStepComponent implements OnInit {
   availableWidth;
   currentWidth = 0;
   boxWidth = 0;
+  price = 0.00;
   cupBoardSpace = '';
   fullClosetValue:number;
   shortClosetValue:number;
   shortIsDisable:boolean;
   closets: Closets[] = [];
   numberOfBigBoxes:number;
+  boxForm:FormGroup;
 
   constructor(private _sharedData:DataSharingService) { }
 
@@ -48,21 +51,40 @@ export class ThirdStepComponent implements OnInit {
       this.maxWidth = getInNum;
       console.log(result.cabnetDepth)
       this.calculateWidth(this.maxWidth);
-    })
+    });
+    //form for validateion 
+    this.boxForm = new FormGroup({
+      boxFull: new FormControl('', [Validators.required]),
+    });
+
   }
   removeTile =(closet)=>{
+    
     if(closet.cols == 2){
-      const index = this.closets.indexOf(closet)
+      const index = this.closets.indexOf(closet);
+
+      let boxCmSize = this.fullClosetValue;
+      this.price -= 2.45 * boxCmSize;
+      this.price = parseFloat(this.price.toFixed(2));
+
       this.availableWidth =  this.currentWidth  -= this.fullClosetValue;
       this.closets.splice(index, 1);
-      console.log(index)
+      
+      this.validateBoxForm();
     }
     else
     {
     const index = this.closets.indexOf(closet)
+
+    let boxCmSize = this.shortClosetValue;
+    this.price -= 2.45 * boxCmSize;
+    this.price = parseFloat(this.price.toFixed(2));
+
     this.availableWidth = this.currentWidth  -= this.shortClosetValue;
     this.closets.splice(index, 1);
-    console.log(index)
+
+    this.validateBoxForm();
+
     }
   }
 
@@ -71,14 +93,25 @@ export class ThirdStepComponent implements OnInit {
     if(this.currentWidth <= this.maxWidth){
       this.availableWidth = this.maxWidth - this.currentWidth;
       if(boxSize == 2 && this.availableWidth >= this.fullClosetValue){
+        
+        let boxCmSize = this.fullClosetValue;
+        this.price += 2.45 * boxCmSize;
+        this.price = parseFloat(this.price.toFixed(2));
+
         this.boxWidth = boxSize;
         this.currentWidth += this.fullClosetValue;
         this.availableWidth = this.maxWidth - this.currentWidth;
         const itemNew =  {index: 1 , cols: boxSize,boxWidthTest:`${100/this.numberOfBigBoxes}`+'%',widthInCm:this.fullClosetValue.toFixed(1)+'cm'}
         this.closets.push(itemNew)
         boxSize = 0;
+        this.validateBoxForm();
       }
       else if(boxSize == 1 && this.availableWidth >= this.shortClosetValue){
+
+        let boxCmSize = this.shortClosetValue;
+        this.price += 2.45 * boxCmSize;
+        this.price = parseFloat(this.price.toFixed(2));
+
         let numberOfSmallBoxes = this.numberOfBigBoxes*2;
         this.boxWidth = boxSize;
         this.currentWidth += this.shortClosetValue;
@@ -86,6 +119,8 @@ export class ThirdStepComponent implements OnInit {
         const itemNew =  {index: 1 ,  cols: boxSize,boxWidthTest:`${100/numberOfSmallBoxes}`+'%',widthInCm:this.shortClosetValue.toFixed(1)+'cm'}
         this.closets.push(itemNew)
         boxSize = 0;
+
+        this.validateBoxForm();
       }
       else{
         alert('Width size exceeds')
@@ -94,6 +129,22 @@ export class ThirdStepComponent implements OnInit {
     this._sharedData.sendClosetLayout(this.closets);
     
   }
+
+  validateBoxForm(){
+    if(this.availableWidth < 30){
+      this.boxForm.setValue({
+        boxFull:'abc'
+      });
+      this._sharedData.updatePrice(this.price);
+    }
+    else{
+      this.boxForm.setValue({
+        boxFull:null
+      })
+    }
+  }
+
+
    //Calculating width
  
    calculateWidth(w){

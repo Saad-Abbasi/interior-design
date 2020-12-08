@@ -4,6 +4,7 @@ import {MatDialog} from '@angular/material/dialog';
 import { ChooseClosetComponent } from '../dialogs/choose-closet/choose-closet.component';
 import {ICloset} from '../../../shared/i-closet'
 import { ChooseClosetSmallComponent } from '../dialogs/choose-closet-small/choose-closet-small.component';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-fourth-step',
@@ -20,6 +21,8 @@ export class FourthStepComponent implements OnInit {
   currentWidth = 0;
   boxWidth = 0;
   imageIndex : number;
+  price:any;
+  boxForm:FormGroup;
  
   closets: ICloset[];
   constructor(private _sharedData:DataSharingService,
@@ -37,7 +40,17 @@ export class FourthStepComponent implements OnInit {
 
     this._sharedData._closetLayout$.subscribe((result:any)=>{
       this.closets = result;
-    })
+    });
+     
+    //getting price 
+    this._sharedData._price$.subscribe((result)=>{
+      this.price = result;
+    });
+    // form for validateion/
+    this.boxForm = new FormGroup({
+      boxFull: new FormControl('', [Validators.required]),
+    });
+    
   }
 
   updateImageIndex =(indexOfImage) =>{
@@ -55,23 +68,15 @@ export class FourthStepComponent implements OnInit {
   addDesignImage = (boxSize,selectedDesign)=>{
     console.log(this.closets[this.imageIndex].cols)
     if(this.currentWidth <= this.maxWidth){
-      // this.availableWidth = this.maxWidth - this.currentWidth;
+      
       if(boxSize == 2 ){
-        // this.boxWidth = boxSize;
-        // this.currentWidth += 100;
-        // this.availableWidth = this.maxWidth - this.currentWidth;
-        // console.log("\""+ selectedDesign +"\"")
+        
         this.closets[this.imageIndex].closetDesignImage ="\""+ selectedDesign +"\"";
-        // const itemNew =  { cols: boxSize,boxWidthTest:'100px',widthInCm:'100cm',closetDesignImage:"\""+ selectedDesign +"\""}
-        // this.closets.push(itemNew)
+        
         boxSize = 0;
       }
       else if(boxSize == 1){
-        // this.boxWidth = boxSize;
-        // this.currentWidth += 50;
-        // this.availableWidth = this.maxWidth - this.currentWidth;
-        // const itemNew =  {cols: boxSize,boxWidthTest:'50px',widthInCm:'50cm',closetDesignImage:"\""+ selectedDesign +"\""}
-        // this.closets.push(itemNew)
+       
         this.closets[this.imageIndex].closetDesignImage ="\""+ selectedDesign +"\"";
         boxSize = 0;
       }
@@ -79,7 +84,7 @@ export class FourthStepComponent implements OnInit {
         alert('Width size exceeds')
       }
     }
-    
+    this.validateBoxForm();
   }
   openDialog() {
     const dialogRef = this.dialog.open(ChooseClosetComponent,{
@@ -97,7 +102,7 @@ export class FourthStepComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       this.addDesignImage(2,result);
-      
+      this.validateBoxForm();
     });
   }
   //Small Box dialog
@@ -115,8 +120,31 @@ export class FourthStepComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
       this.addDesignImage(2,result);
+      this.validateBoxForm();
       
     });
+  }
+  validateBoxForm(){
+    let tempResult = 0;
+    let lenght = this.closets.length;
+    this.closets.forEach(element => {
+      if(element.closetDesignImage){
+        tempResult++;
+      }
+    });
+
+    
+
+    if(lenght == tempResult){
+      this.boxForm.setValue({
+        boxFull:'abc'
+      });
+    }
+    else{
+      this.boxForm.setValue({
+        boxFull:null
+      })
+    }
   }
 }
 

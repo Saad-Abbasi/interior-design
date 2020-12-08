@@ -23,7 +23,7 @@ export class SecondStepComponent implements OnInit {
       cabnetWidth: new FormControl('', [Validators.min(90),Validators.required]),
       cabnetHeight: new FormControl('', [Validators.min(200),Validators.max(260),Validators.required]),
       cabnetDepth : new FormControl('', [Validators.min(15),Validators.max(60),Validators.required]),
-    })
+    });
     //sending values 
     this.cabnetValuesForm.valueChanges.subscribe(()=>{
     this._shareData.sendData(this.cabnetValuesForm.value);

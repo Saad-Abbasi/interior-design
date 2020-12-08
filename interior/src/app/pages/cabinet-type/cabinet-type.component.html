@@ -42,11 +42,11 @@
 						</div>
 				</mat-step>
 				  
-				<mat-step [completed]='true'>
-					<form >
+				<mat-step [stepControl]='isAllFieldsAdded' >
+					
 						<ng-template matStepLabel>TYPE MAATKAST</ng-template>
 						<app-third-step></app-third-step>
-					</form>
+					
 					<div class="button-container" fxLayout="row" >
 						<div fxFlex='70' fxLayoutAlign="center">
 						  <div class="button-prev">
@@ -63,7 +63,7 @@
 					</div>
 				</mat-step>
 
-				  <mat-step [stepControl]="firstFormGroup" [completed]='true'>
+				  <mat-step [stepControl]='isAllDesignSelected'>
 					  <form >
 						<ng-template matStepLabel>INVULLING</ng-template>
 						<app-fourth-step></app-fourth-step>
@@ -83,7 +83,7 @@
 						</div>
 					</div>
 				  </mat-step>
-				<mat-step [stepControl]="secondFormGroup" [completed]='true'>
+				<mat-step [stepControl]='isColorSelected'>
 					<ng-template matStepLabel>BINNENAFWERKING</ng-template>
 					<app-fifth-step ></app-fifth-step>
 					<div class="button-container" fxLayout="row" >
@@ -101,7 +101,7 @@
 						</div>
 					</div>
 				</mat-step>
-				<mat-step [completed]='true'>
+				<mat-step [completed]='false'>
 				  <ng-template matStepLabel>BUITENAFWERKING</ng-template>
 				  <app-sixth-step ></app-sixth-step>
 				  <div class="button-container" fxLayout="row" >
