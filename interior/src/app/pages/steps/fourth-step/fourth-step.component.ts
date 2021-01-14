@@ -54,6 +54,7 @@ export class FourthStepComponent implements OnInit {
   }
 
   updateImageIndex =(indexOfImage) =>{
+    this.validateBoxForm();
     if(this.closets[indexOfImage].cols == 2){
       this.openDialog();
     }
@@ -62,8 +63,7 @@ export class FourthStepComponent implements OnInit {
     }
     
     this.imageIndex = indexOfImage;
-    console.log(indexOfImage);
-    console.log(this.closets[indexOfImage].closetDesignImage="../../../../assets/mediaPrdFeat_6_test webshop_02 kast links.jpg")
+   
   }
   addDesignImage = (boxSize,selectedDesign)=>{
     console.log(this.closets[this.imageIndex].cols)

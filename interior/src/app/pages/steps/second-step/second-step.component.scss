@@ -11,9 +11,13 @@
            vertical-align: middle; 
         }
       }
-      img{
+    //   img{
+    //       height: 600px;
+    //       margin-bottom: 5px;
+    //   }
+      .selectedDesignImage{
           height: 600px;
-          margin-bottom: 5px;
+          margin-bottom: 5px
       }
       mat-card-footer{
           @extend mat-card-subtitle;
@@ -88,4 +92,7 @@ mat-error{
     font-size: larger;
     background-color: #fbf7f2;
     padding: 1rem;
+}
+.space-between-forms{
+    margin-top: 5px !important;
 }

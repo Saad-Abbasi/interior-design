@@ -23,10 +23,11 @@ export class FirstStepComponent implements OnInit {
     this._dataSharingService.sendImage(imageUrl);
     this._dataSharingService._imageUrl$.subscribe((result)=>{
       if(result){
-        
+       
       }
     })
   }
+
   openSnackBar() {
     this._snackBar.openFromComponent(PizzaPartyComponent, {
       duration: this.durationInSeconds * 500,

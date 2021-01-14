@@ -27,15 +27,15 @@ boxForm:FormGroup;
 price;
 
 designImages =[
-  "../../../../assets/color/mediaPrdFeat_8_Full-layout_U172-CST-Ivory.jpg",
-  "../../../../assets/color/mediaPrdFeat_12_Full-layout_U127-CST-Dune-beige.jpg",
-  "../../../../assets/color/mediaPrdFeat_13_Full-layout_U284-CST-Mokka.jpg",
-  "../../../../assets/color/mediaPrdFeat_14_Full-layout_U287-CST-Mojave.jpg",
-  "../../../../assets/color/mediaPrdFeat_40_mediaPrdFeat_12_U127.jpg",
-  "../../../../assets/color/mediaPrdFeat_9_Full-layout_H335-BST-Torino-Oak.jpg",
-  "../../../../assets/color/mediaPrdFeat_10_Full-layout_H689-W03-Amazonia.jpg",
-  "../../../../assets/color/mediaPrdFeat_11_Full-layout_H842-BST-Eiger-Walnut.jpg",
-  "../../../../assets/color/mediaPrdFeat_15_Full-layout_113-W06-Elegant-black.jpg"
+  "assets/color/mediaPrdFeat_8_Full-layout_U172-CST-Ivory.jpg",
+  "assets/color/mediaPrdFeat_12_Full-layout_U127-CST-Dune-beige.jpg",
+  "assets/color/mediaPrdFeat_13_Full-layout_U284-CST-Mokka.jpg",
+  "assets/color/mediaPrdFeat_14_Full-layout_U287-CST-Mojave.jpg",
+  "assets/color/mediaPrdFeat_40_mediaPrdFeat_12_U127.jpg",
+  "assets/color/mediaPrdFeat_9_Full-layout_H335-BST-Torino-Oak.jpg",
+  "assets/color/mediaPrdFeat_10_Full-layout_H689-W03-Amazonia.jpg",
+  "assets/color/mediaPrdFeat_11_Full-layout_H842-BST-Eiger-Walnut.jpg",
+  "assets/color/mediaPrdFeat_15_Full-layout_113-W06-Elegant-black.jpg"
 ];
 
 

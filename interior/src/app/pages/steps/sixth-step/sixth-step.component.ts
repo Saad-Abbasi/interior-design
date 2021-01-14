@@ -24,9 +24,8 @@ export class SixthStepComponent implements OnInit {
   handleName:string;
   singleDoorImage:string;
   bgImage:string;
-  doorImage:string;
+  doorImag;
   price;
-
   constructor(private _DataSharing: DataSharingService,
     private dialog: MatDialog) { }
 
@@ -64,18 +63,18 @@ export class SixthStepComponent implements OnInit {
   }
   //Handle images Data
   handleImages=[
-    '../../../../assets/handle/34.jpg',
-    '../../../../assets/handle/35.jpg',
-    '../../../../assets/handle/36.jpg',
-    '../../../../assets/handle/37.jpg',
-    '../../../../assets/handle/38.jpg',
-    '../../../../assets/handle/39.jpg',
-    '../../../../assets/handle/40.jpg',
-    '../../../../assets/handle/41.jpg'
+    'assets/handle/34.jpg',
+    'assets/handle/35.jpg',
+    'assets/handle/36.jpg',
+    'assets/handle/37.jpg',
+    'assets/handle/38.jpg',
+    'assets/handle/39.jpg',
+    'assets/handle/40.jpg',
+    'assets/handle/41.jpg'
   ]
   doorImages =[
-    '../../../../assets/doors/single.png',
-    '../../../../assets/doors/doorFull.png'
+    'assets/doors/single.png',
+    'assets/doors/doorFull.png'
   ]
   addHandle(i:number,nameOfHandle:string){
     this.handle = this.handleImages[i];

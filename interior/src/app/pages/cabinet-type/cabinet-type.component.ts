@@ -32,6 +32,9 @@ export class CabinetTypeComponent implements OnInit {
   ngOnInit() {
     this._dataService._imageUrl$.subscribe((result)=>{
       this.isDesignSelected = true ;
+      setTimeout(() => {
+        this.goForward(this.myStepper)
+      }, 10);
       
     },(err)=>{
       console.log(err)
@@ -48,6 +51,10 @@ export class CabinetTypeComponent implements OnInit {
     
     
 }
+goForward(stepper: MatStepper){
+  stepper.next();
+}
+
 get frmStepTwo() {
   return this.stepTwoComponent ? this.stepTwoComponent.cabnetValuesForm: null;
 }

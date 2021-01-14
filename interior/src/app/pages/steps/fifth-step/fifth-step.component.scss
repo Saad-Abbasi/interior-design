@@ -90,9 +90,11 @@ html{
         color: black;
     }
     .img-under-box{
-        position: absolute;
-        bottom: 0.5px;
-        
+        // position: absolute;
+        // bottom: 0.5px;
+        position: relative;
+        height: 95%;
+        width: 100%
     }
     .img-under-box img{
         width: 50px;

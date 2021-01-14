@@ -14,20 +14,24 @@ export class SecondStepComponent implements OnInit {
   public value = 'Clear me';
   parentData:any;
   cabnetValuesForm;
+  slope:boolean;
   constructor(private _shareData:DataSharingService) {
      
   }
   
   ngOnInit(): void {
+    this.slope=true;
     this.cabnetValuesForm = new FormGroup({
-      cabnetWidth: new FormControl('', [Validators.min(90),Validators.required]),
+      cabnetWidth: new FormControl('', [Validators.min(250),Validators.required]),
       cabnetHeight: new FormControl('', [Validators.min(200),Validators.max(260),Validators.required]),
       cabnetDepth : new FormControl('', [Validators.min(15),Validators.max(60),Validators.required]),
+      cabnetWidth2: new FormControl('', Validators.required),
+      cabnetHeight2: new FormControl('', [Validators.min(110),Validators.max(260),Validators.required]),
     });
-    //sending values 
-    this.cabnetValuesForm.valueChanges.subscribe(()=>{
-    this._shareData.sendData(this.cabnetValuesForm.value);
-    });
+    //sending values  replaced 
+    // this.cabnetValuesForm.valueChanges.subscribe(()=>{
+    // this._shareData.sendData(this.cabnetValuesForm.value);
+    // });
 
     // recieving values 
     this._shareData._imageUrl$.subscribe((_imageUrl)=>{
@@ -35,8 +39,8 @@ export class SecondStepComponent implements OnInit {
     })
   }
   
-  // sendData(){
-  //   console.log(this.cabnetValuesForm.value)
-  //   this._shareData.sendData(this.cabnetValuesForm.value);
-  // }
+  sendData(){
+  
+  this._shareData.sendData(this.cabnetValuesForm.value);
+  }
 }
