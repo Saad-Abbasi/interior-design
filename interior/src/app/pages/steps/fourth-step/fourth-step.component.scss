@@ -2,7 +2,7 @@ html{
     height: 100%;
 }
 .image-card {
-    border: 2px solid gold;
+    // border: 2px solid gold;
     
     // padding: 0px;
   }
@@ -90,12 +90,12 @@ html{
 }
 .full-box{
     // box-shadow:3px 3px 5px 6px rgba(20, 20, 20, 0.774);
-    outline: rgb(77, 87, 97);
+    // outline: rgb(77, 87, 97);
     outline-style: groove;
     width: 100%;
     padding: 0px;
     height: 400px;
-    background-color: lightcyan;
+    background-color: #fffdd0;
     background-repeat: no-repeat;
     background-position:center center;
     background-size: 100% 100%;

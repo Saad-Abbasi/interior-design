@@ -1,23 +1,26 @@
-<div class="">
+<div class="" *ngIf='cabnetValuesForm'>
     <div class="content" fxLayout="row" fxLayoutGap="5px">
 
         <div fxFlex >
             <mat-card class="image-card">
-                <mat-card-subtitle>
+                <!-- <mat-card-subtitle>
                     <mat-icon>announcement</mat-icon>
                     bovenaan, Links en/of rechts wordt er altijd een uitvulstuk van 5cm voorzien. Onderaan is er steeds een plint van 10 cm.
-                </mat-card-subtitle>
+                </mat-card-subtitle> -->
                 <!-- <img [src]="imageUrl" alt="" width="100%" height="100%">
                  -->
-                 <div class="selectedDesignImage" [style.backgroundImage]="'url('+ imageUrl +')'" >
+                 <div *ngIf="imageUrl" class="selectedDesignImage" [style.backgroundImage]="'url('+ imageUrl +')'" >
                     
                  </div>
                 <mat-card-content>
                   <div class="size-form">
-                    <form class="form-container" [formGroup]="cabnetValuesForm"  > 
+                    <form class="form-container"  [formGroup]="cabnetValuesForm"  >
+                    
+
+                   
                     <mat-form-field appearance="fill" >
                         <mat-label>Breedte kast (X1)</mat-label>
-                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="250" autocomplete="off" (focusout)="sendData()">
+                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="250" max="600" autocomplete="off" (focusout)="sendData()">
                         <span matSuffix>cm</span>
                          <mat-error *ngIf="(cabnetValuesForm.get('cabnetWidth').touched 
                                         || cabnetValuesForm.get('cabnetWidth').dirty) && 
@@ -26,7 +29,7 @@
                     </mat-form-field>
                       <mat-form-field appearance="fill">
                         <mat-label>Hoogte kast (Y1)</mat-label>
-                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight" min="200" max="260" autocomplete="off" (focusout)="sendData()">
+                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight" min="200" max="270" autocomplete="off" (focusout)="sendData()">
                         <span matSuffix>cm</span>
                         <mat-error *ngIf="(cabnetValuesForm.get('cabnetHeight').touched 
                                         || cabnetValuesForm.get('cabnetHeight').dirty) && 
@@ -44,37 +47,39 @@
                       </mat-form-field>
 
                       <!-- For slope cupboards -->
-                      <div class="space-between-forms" *ngIf="slope">
-                      <mat-form-field appearance="fill" >
-                        <mat-label>Breedte kast (X2)</mat-label>
-                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth2" min="250" autocomplete="off" (focusout)="sendData()">
-                        <span matSuffix>cm</span>
-                         <mat-error *ngIf="(cabnetValuesForm.get('cabnetWidth').touched 
-                                        || cabnetValuesForm.get('cabnetWidth').dirty) && 
-                                        cabnetValuesForm.get('cabnetWidth').errors">
-                            vul hier een waarde hoger of gelijk aan 90cm in</mat-error> 
-                    </mat-form-field>
-
-                    <mat-form-field appearance="fill">
-                        <mat-label>Hoogte kast (Y2)</mat-label>
-                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight2" min="110" max="260" autocomplete="off" (focusout)="sendData()">
-                        <span matSuffix>cm</span>
-                        <mat-error *ngIf="(cabnetValuesForm.get('cabnetHeight').touched 
-                                        || cabnetValuesForm.get('cabnetHeight').dirty) && 
-                                        cabnetValuesForm.get('cabnetHeight').errors">
-                            vul hier een waarde in tussen 110 en 260 cm</mat-error> 
+                    <ng-container *ngIf="a">
+                        <div class="space-between-forms"> </div>
+                        <mat-form-field appearance="fill"  >
+                          <mat-label>Breedte kast (X2)</mat-label>
+                          <input #widthCase2 matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth2"  autocomplete="off" (focusout)="sendData()"
+                          (change)='width2tChange(widthCase2.value)'>
+                          <span matSuffix>cm</span>
+                           
                       </mat-form-field>
-                    </div>
+  
+                      <mat-form-field appearance="fill" >
+                          <mat-label>Hoogte kast (Y2)</mat-label>
+                          <input #heightCase2 matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight2" min="110" max="260" autocomplete="off" (focusout)="sendData()" 
+                          (change)='heigh2tChange(heightCase2.value)'>
+                          <span matSuffix>cm</span>
+                          <mat-error *ngIf="(cabnetValuesForm.get('cabnetHeight2').touched 
+                                          || cabnetValuesForm.get('cabnetHeight2').dirty) && 
+                                          cabnetValuesForm.get('cabnetHeight2').errors">
+                              vul hier een waarde in tussen 110 en 260 cm</mat-error> 
+                        </mat-form-field>
+                    </ng-container>
+                  
+                   
                     </form>
                   </div>
                 </mat-card-content>
-                <mat-card-footer>
+                <!-- <mat-card-footer>
                     <div class="footer-form">
                         
                             <mat-icon>announcement</mat-icon>
                             neem contact op via <a href="#"> ourwebsite.be</a> als de kast toch lager dan 200cm moet zijn.
                     </div>
-                </mat-card-footer>
+                </mat-card-footer> -->
             </mat-card>
         </div>
                                             <!-- Side panel -->
@@ -98,10 +103,19 @@
                                         <mat-list-item  role="listitem">
                                             <span fxFlex="50">Hoogte kast (Y1)</span> <span fxFlex="50">{{heightCase.value}} cm</span>
                                         </mat-list-item>
+                                        <div class="slope-box" *ngIf="a">
+                                            <mat-list-item  role="listitem"  >
+                                                <span fxFlex="50">Breedte kast (X2)</span> <span fxFlex="50">{{widthCase2}} cm</span>
+                                            </mat-list-item>
+                                            <mat-list-item  role="listitem"  >
+                                                <span fxFlex="50">Hoogte kast (Y2)</span>
+                                                 <span fxFlex="50">{{heightCase2}} cm</span>
+                                            </mat-list-item>
+                                        </div>
                                         <mat-list-item  role="listitem">
                                             <span fxFlex="50">Diepte kast</span> <span fxFlex="50">{{depthCase.value}} cm</span>
                                         </mat-list-item>
-                                        <mat-list-item  role="listitem">
+                                        <!-- <mat-list-item  role="listitem">
                                             <span fxFlex="50">Kleur binnenkast</span> <span fxFlex="50"></span>
                                         </mat-list-item>
                                         <mat-list-item  role="listitem">
@@ -109,19 +123,19 @@
                                         </mat-list-item>
                                         <mat-list-item  role="listitem">
                                             <span fxFlex="50">Handgrepen</span> <span fxFlex="50"></span>
-                                        </mat-list-item>
-                                        <!-- <mat-list-item  role="listitem">
+                                        </mat-list-item> 
+                                         <mat-list-item  role="listitem">
                                             <span fxFlex="50">Kleur binnenkast</span> <span fxFlex="50">{{0}} cm</span>
                                         </mat-list-item> -->
                                       </mat-list>
                 
                                                                         <!-- Price Setup -->
-                                      <div class="section-below" fxFlex="100">
+                                      <!-- <div class="section-below" fxFlex="100">
                                         <mat-divider [inset]="true"></mat-divider>
-                                      <h2>Totaaprijs:</h2>
+                                      <h2>Totale prijs:</h2>
                                       <span id="total_price">€<span id="total_price_number">0,00</span></span><span class="btw">(incl. BTW)</span>
                                       <p>Geschatte levertijd: 5 werkdagen</p>
-                                      </div>
+                                      </div> -->
                                       
                                 </mat-card-content>
                             </mat-card>

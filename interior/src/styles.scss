@@ -14,3 +14,38 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
  border: 5px solid white;
  background-color: white;
 }
+.mat-tooltip{
+    font-size: larger;
+    color: black;
+}
+
+.cdk-global-overlay-wrapper {
+    display: flex;
+    position: absolute;
+    z-index: 1000;
+    overflow: auto;
+    pointer-events: auto;  
+  }
+//   Hide the table values e.g 50-cm
+  .table-value{
+      display: none !important;
+  }
+  .mat-button-toggle-label-content {
+    line-height: 32px !important;  
+}
+
+// Step header style
+
+.mat-step-header .mat-step-icon {
+    background-color: #e78932;
+    color: #fff;
+}
+//over rides button colors 
+.button-container button 
+{
+  background-color: #e78932 !important; 
+ 
+} 
+.closet-wraper.mat-card{
+  padding: 0px !important;
+ }

@@ -13,8 +13,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FifthStepComponent implements OnInit {
 cabnetWidth:number;
+cabnetWidth2:number;
 cabnetHeight:number;
+cabnetHeight2:number;
 cabnetDepth:number;
+slope:boolean;       //Added to determine design
 closets:ICloset[];
 public design:IColorDesign ={};//image handle interior
 widthAreaBox ='800px';
@@ -25,18 +28,51 @@ outerColorName:string;
 handle:string;
 boxForm:FormGroup;
 price;
-
+isInnerColor = 'true';
 designImages =[
-  "assets/color/mediaPrdFeat_8_Full-layout_U172-CST-Ivory.jpg",
-  "assets/color/mediaPrdFeat_12_Full-layout_U127-CST-Dune-beige.jpg",
-  "assets/color/mediaPrdFeat_13_Full-layout_U284-CST-Mokka.jpg",
-  "assets/color/mediaPrdFeat_14_Full-layout_U287-CST-Mojave.jpg",
-  "assets/color/mediaPrdFeat_40_mediaPrdFeat_12_U127.jpg",
-  "assets/color/mediaPrdFeat_9_Full-layout_H335-BST-Torino-Oak.jpg",
-  "assets/color/mediaPrdFeat_10_Full-layout_H689-W03-Amazonia.jpg",
-  "assets/color/mediaPrdFeat_11_Full-layout_H842-BST-Eiger-Walnut.jpg",
-  "assets/color/mediaPrdFeat_15_Full-layout_113-W06-Elegant-black.jpg"
+  "assets/color/1.jpg",
+  "assets/color/2.jpg",
+  "assets/color/3.jpg",
+  "assets/color/4.jpg",
+  "assets/color/5.jpg",
+  "assets/color/6.jpg",
+  "assets/color/7.jpg",
+  "assets/color/8.jpg",
+  "assets/color/9.jpg",
+  "assets/color/10.jpg",
+  "assets/color/11.jpg",
+  "assets/color/12.jpg",
+  "assets/color/13.jpg",
+  "assets/color/14.jpg",
+  "assets/color/15.jpg",
+  "assets/color/16.jpg",
+  "assets/color/17.jpg",
+  // Universal colors
+  "assets/color/universal_colors/1.jpg",
+  "assets/color/universal_colors/2.jpg",
+  "assets/color/universal_colors/3.jpg",
+  "assets/color/universal_colors/4.jpg",
+  "assets/color/universal_colors/5.jpg",
+  "assets/color/universal_colors/6.jpg",
+  "assets/color/universal_colors/7.jpg",
+  "assets/color/universal_colors/8.jpg",
+  "assets/color/universal_colors/9.jpg",
+  "assets/color/universal_colors/10.jpg",
+  "assets/color/universal_colors/11.jpg"
 ];
+// designImagesUniversal =[
+//   "assets/color/universal_colors/1.jpg",
+//   "assets/color/universal_colors/2.jpg",
+//   "assets/color/universal_colors/3.jpg",
+//   "assets/color/universal_colors/4.jpg",
+//   "assets/color/universal_colors/5.jpg",
+//   "assets/color/universal_colors/6.jpg",
+//   "assets/color/universal_colors/7.jpg",
+//   "assets/color/universal_colors/8.jpg",
+//   "assets/color/universal_colors/9.jpg",
+//   "assets/color/universal_colors/10.jpg",
+//   "assets/color/universal_colors/11.jpg"
+// ];
 
 
 constructor(private _DataSharing: DataSharingService,
@@ -44,12 +80,21 @@ constructor(private _DataSharing: DataSharingService,
 
   ngOnInit(): void {
 
-    
+    this._DataSharing._slope$.subscribe(result=>{
+      if(result == 'true'){
+        this.slope = true
+      }
+      else{
+        this.slope = false
+      }
+    });
 
     this._DataSharing.cabinetData$
     .subscribe((result:any)=>{
       this.cabnetWidth = result.cabnetWidth;
       this.cabnetHeight = result.cabnetHeight
+      this.cabnetWidth2 = result.cabnetWidth2;
+      this.cabnetHeight2 = result.cabnetHeight2
       this.cabnetDepth = result.cabnetDepth;
       console.log(result.cabnetDepth)
     });
@@ -73,17 +118,22 @@ constructor(private _DataSharing: DataSharingService,
   //Update Color/image
 
   updateColor(i:number,nameOfColor:string){
-    this.innerColor = this.designImages[i];
-    this.innerColorName = nameOfColor;
-    this.outerColor = this.designImages[i];
-    this.outerColorName  = nameOfColor;
-    
-    //Asign and Sharing values to subscribers
+    if (this.isInnerColor == 'true') {
+      this.innerColor = this.designImages[i];
+      this.innerColorName = nameOfColor;
+      //Asign and Sharing values to subscribers
   
     this.design.innerColorImg = this.designImages[i];
     this.design.innerColorName = nameOfColor;
+    }
+ else{
+  this.outerColor = this.designImages[i];
+    this.outerColorName  = nameOfColor;
+    // Asign and share values to subsicrbers
     this.design.outerColorImg = this.designImages[i];
     this.design.outerColorName = nameOfColor;
+ }
+
     this._DataSharing.sendColorImage(this.design);
 
     this.validateBoxForm();
@@ -99,8 +149,12 @@ openDialog(index:number) {
     },
     panelClass: 'color-image-modalbox'
   }); 
+  
 }
-
+// color inner or outer 
+onValChange(value) {
+  this.isInnerColor = value;
+}
 validateBoxForm(){
   if(this.innerColor){
     this.boxForm.setValue({

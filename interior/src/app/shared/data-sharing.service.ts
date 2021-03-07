@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +19,9 @@ export class DataSharingService {
 
   private _priceDataSource = new Subject<string>();
   _price$ = this._priceDataSource.asObservable();
+
+  private _slopeStatus = new Subject<string>();
+  _slope$ = this._slopeStatus.asObservable();
 
   constructor() { }
 
@@ -40,5 +43,8 @@ export class DataSharingService {
 
   updatePrice(price:any){
     this._priceDataSource.next(price);
+  }
+  updateSlopeStatus(isSlope:any){
+    this._slopeStatus.next(isSlope);
   }
 }

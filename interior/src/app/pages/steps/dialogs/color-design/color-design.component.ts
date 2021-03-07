@@ -16,5 +16,8 @@ export class ColorDesignComponent implements OnInit {
     console.log('data recived',this.data);
     
   }
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
 
 }

@@ -3,23 +3,23 @@
 
 		<div fxFlex="100" class="sec1" fxFlex.xs="55">
 			  <mat-horizontal-stepper linear #stepper >
-				<mat-step  [completed]='isDesignSelected'  [editable]="true" >
+				<mat-step  [completed]='isDesignSelected'   >
 					<ng-template matStepLabel>TYPE MAATKAST</ng-template>
 					<app-first-step></app-first-step>
-				  <div class="button-container" fxLayout="row" >
+				  <!-- <div class="button-container" fxLayout="row" >
 					  <div fxFlex='70' fxLayoutAlign="center">
 						<div class="button-prev">
-							<button mat-raised-button aria-label="Go to next step" matStepperNext>
-								<mat-icon>navigate_before</mat-icon> Back 
+							<button mat-raised-button aria-label="Go to next step" matStepperBack>
+								<mat-icon>navigate_before</mat-icon> Vorige 
 							  </button>
 						  </div>
 						<div class="button-next" >
 							<button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
-								Next <mat-icon>navigate_next</mat-icon>
+								Volgende <mat-icon>navigate_next</mat-icon>
 							  </button>
 						</div>
 					  </div>
-				  </div>
+				  </div> -->
 				  
 				</mat-step>
 
@@ -29,13 +29,13 @@
 						<div class="button-container" fxLayout="row" >
 							<div fxFlex='70' fxLayoutAlign="center">
 							  <div class="button-prev">
-								  <button mat-raised-button aria-label="Go to next step" matStepperNext>
-									  <mat-icon>navigate_before</mat-icon> Back 
+								  <button mat-raised-button aria-label="Go to next step" matStepperBack>
+									  <mat-icon>navigate_before</mat-icon> Vorige 
 									</button>
 								</div>
 							  <div class="button-next" >
 								  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
-									  Next <mat-icon>navigate_next</mat-icon>
+									  Volgende <mat-icon>navigate_next</mat-icon>
 									</button>
 							  </div>
 							</div>
@@ -50,13 +50,13 @@
 					<div class="button-container" fxLayout="row" >
 						<div fxFlex='70' fxLayoutAlign="center">
 						  <div class="button-prev">
-							  <button mat-raised-button aria-label="Go to next step" matStepperNext>
-								  <mat-icon>navigate_before</mat-icon> Back 
+							  <button mat-raised-button aria-label="Go to next step" matStepperBack>
+								  <mat-icon>navigate_before</mat-icon> Vorige 
 								</button>
 							</div>
 						  <div class="button-next" >
 							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
-								  Next <mat-icon>navigate_next</mat-icon>
+								  Volgende <mat-icon>navigate_next</mat-icon>
 								</button>
 						  </div>
 						</div>
@@ -71,13 +71,13 @@
 					<div class="button-container" fxLayout="row" >
 						<div fxFlex='70' fxLayoutAlign="center">
 						  <div class="button-prev">
-							  <button mat-raised-button aria-label="Go to next step" matStepperNext>
-								  <mat-icon>navigate_before</mat-icon> Back 
+							  <button mat-raised-button aria-label="Go to next step" matStepperBack>
+								  <mat-icon>navigate_before</mat-icon> Vorige 
 								</button>
 							</div>
 						  <div class="button-next" >
 							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
-								  Next <mat-icon>navigate_next</mat-icon>
+								  Volgende <mat-icon>navigate_next</mat-icon>
 								</button>
 						  </div>
 						</div>
@@ -89,36 +89,54 @@
 					<div class="button-container" fxLayout="row" >
 						<div fxFlex='70' fxLayoutAlign="center">
 						  <div class="button-prev">
-							  <button mat-raised-button aria-label="Go to next step" matStepperNext>
-								  <mat-icon>navigate_before</mat-icon> Back 
+							  <button mat-raised-button aria-label="Go to next step" matStepperBack>
+								  <mat-icon>navigate_before</mat-icon> Vorige 
 								</button>
 							</div>
 						  <div class="button-next" >
 							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
-								  Next <mat-icon>navigate_next</mat-icon>
+								  Volgende <mat-icon>navigate_next</mat-icon>
 								</button>
 						  </div>
 						</div>
 					</div>
 				</mat-step>
-				<mat-step [completed]='false'>
+				<mat-step [stepControl]='isHandleSelected'>
 				  <ng-template matStepLabel>BUITENAFWERKING</ng-template>
 				  <app-sixth-step ></app-sixth-step>
 				  <div class="button-container" fxLayout="row" >
 					  <div fxFlex='70' fxLayoutAlign="center">
 						<div class="button-prev">
-							<button mat-raised-button aria-label="Go to next step" matStepperNext>
-								<mat-icon>navigate_before</mat-icon> Back 
+							<button mat-raised-button aria-label="Go to next step" matStepperBack>
+								<mat-icon>navigate_before</mat-icon> Vorige 
 							  </button>
 						  </div>
 						<div class="button-next" >
 							<button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
-								Next <mat-icon>navigate_next</mat-icon>
+								Volgende <mat-icon>navigate_next</mat-icon>
 							  </button>
 						</div>
 					  </div>
 				  </div>
 				</mat-step>
+				<mat-step [completed]='false'>
+					<ng-template matStepLabel>BEVESTIGEN</ng-template>
+					<app-seventh-step ></app-seventh-step>
+					<div class="button-container" fxLayout="row" >
+						<div fxFlex='70' fxLayoutAlign="center">
+						  <div class="button-prev">
+							  <button mat-raised-button aria-label="Go to next step" matStepperBack>
+								  <mat-icon>navigate_before</mat-icon> Vorige 
+								</button>
+							</div>
+						  <div class="button-next" >
+							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+								  Volgende <mat-icon>navigate_next</mat-icon>
+								</button>
+						  </div>
+						</div>
+					</div>
+				  </mat-step>
 			  </mat-horizontal-stepper>
 		</div>
 	</div> 

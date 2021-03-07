@@ -1,6 +1,5 @@
 .image-card {
-    border: 2px solid gold;
-    // padding: 0px;
+    
   }
   mat-card{
       background-color: white;
@@ -17,7 +16,10 @@
     //   }
       .selectedDesignImage{
           height: 600px;
-          margin-bottom: 5px
+          max-height: 500px;
+          margin-bottom: 5px;
+          background-size: cover
+          
       }
       mat-card-footer{
           @extend mat-card-subtitle;
@@ -95,4 +97,5 @@ mat-error{
 }
 .space-between-forms{
     margin-top: 5px !important;
+    
 }

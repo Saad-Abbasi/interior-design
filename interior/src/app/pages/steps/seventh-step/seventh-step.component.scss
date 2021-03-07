@@ -1,0 +1,85 @@
+.image-card {
+    // border: 2px solid gold;
+    // padding: 0px;
+  }
+  mat-card{
+      background-color: white;
+      mat-card-subtitle{
+        color: black;
+        display: inline-block;
+       mat-icon {
+           vertical-align: middle; 
+        }
+      }
+    //   img{
+    //       height: 600px;
+    //       margin-bottom: 5px;
+    //   }
+      .selectedDesignImage{
+          height: 600px;
+          max-height: 500px;
+          margin-bottom: 5px;
+          background-size: cover
+      }
+      mat-card-footer{
+          @extend mat-card-subtitle;
+          margin:5px;
+          display: flex;
+          justify-content: center;
+      }
+  }
+  .nested-card{
+      max-width: 250px;
+  }
+
+
+
+// Side panel styling 
+.mat-card-right-panel{
+    background-color: inherit;
+    padding: 0px;
+    .title{
+        background-color: black;
+        height: 50px;
+       position: relative;
+    }
+    mat-card-title{
+       padding-top: 15px;
+       padding-left: 15px;;
+      
+    }
+    
+    mat-card-content {
+        background-color: #fbf7f2;
+            color: black;
+            mat-list-item{
+            color: black;
+            }
+            .section-below{
+                padding-left: 16px;
+                mat-divider{
+                    background-color: black;
+                    padding-right: -16px;
+                }
+            }
+    }
+   
+}
+
+
+
+#total_price_number {
+    font-size: 24px;
+    font-weight: 600;
+    padding: 5px 0;
+    color: #c89f74;
+    display: inline-block
+}
+#total_price{
+    @extend #total_price_number
+}
+.btw{
+    margin-left: 5px;
+    color: #c89f74;
+    font-size: 12px;
+}

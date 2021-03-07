@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
+import { DomSanitizer } from '@angular/platform-browser';
 import {DataSharingService} from '../../../shared/data-sharing.service'
 export interface Closets {
   index:number;
@@ -25,6 +26,7 @@ export class ThirdStepComponent implements OnInit {
   cabnetHeight:number;
   cabnetHeight2:number;
   cabnetDepth:number;
+  slope:boolean;       //Added to determine design
   maxWidth:number;
   widthAreaBox ='800px';
   availableWidth;
@@ -38,12 +40,31 @@ export class ThirdStepComponent implements OnInit {
   closets: Closets[] = [];
   numberOfBigBoxes:number;
   boxForm:FormGroup;
-  slope:boolean;
+  
 
-  constructor(private _sharedData:DataSharingService) { }
+  constructor(private _sharedData:DataSharingService,
+              private sanitizer: DomSanitizer) { }
+
+
+
+
 
   ngOnInit(): void {
-    this.slope = false;
+    
+    this._sharedData._slope$.subscribe(result=>{
+      if(result == 'true'){
+        this.slope = true
+      }
+      else{
+        this.slope = false
+      }
+    });
+
+
+
+
+
+
     this._sharedData.cabinetData$
     .subscribe((result:any)=>{
       this.cabnetWidth = result.cabnetWidth;
@@ -94,6 +115,13 @@ export class ThirdStepComponent implements OnInit {
     }
   }
 
+private _polygon = 'polygon(31% 0, 100% 0, 100% 99%, 0 100%, 0% 38%);';
+// PolyGon/ slope function
+public get polygon() {
+  return this.sanitizer.bypassSecurityTrustStyle(this._polygon);
+}
+
+//Adding boxes/tiles
   addTile = (boxSize)=>{
     
     if(this.currentWidth <= this.maxWidth){
@@ -154,14 +182,13 @@ export class ThirdStepComponent implements OnInit {
    //Calculating width
    calculateWidth(w){
     if(w >= 250){
-     
      //for extraction of first digit
      var number = w;
      // convert number to a string, then extract the first digit
      var dig1 = String(number).charAt(0);
      // convert the first digit back to an integer
      var firstDigit = Number(dig1); 
-      if(w/firstDigit < 117){
+      if(w/firstDigit < 11){
         this.numberOfBigBoxes = firstDigit;
         // this.shortIsDisable = true;
         this.fullClosetValue = w/firstDigit - 0.01;   //to "-0.01 to match the size "
@@ -179,7 +206,7 @@ export class ThirdStepComponent implements OnInit {
     }
     
     else{
-      alert('Wrong input');
+      console.log('wrong input')
 
     }
   }

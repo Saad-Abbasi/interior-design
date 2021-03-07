@@ -1,13 +1,27 @@
+$base-color: #e78932;
+
 html{
     height: 100%;
 }
+
 .image-card {
-    border: 2px solid gold;
-    
-    // padding: 0px;
+    border: 2px solid ;
   }
+
+  .door-button-container{
+    margin: 0 auto;
+    margin-bottom: 10px;
+    margin-top: -4px;
+
+    .active-button{
+        background-color:$base-color ;
+    }
+    .deactive-button{
+        background-color: black ;
+    }
+}
 .mat-color-card-super{
-    height: 600px;
+    min-height: 1780px;
 }
 
 .selection_box{
@@ -25,7 +39,7 @@ html{
         border: 2px solid black;
         }
       .color-card-head h5{
-        color: #c89f74;
+        color: $base-color;
         font-weight: 700;
         font-size: 18px;
         margin-left: 15px;
@@ -47,6 +61,7 @@ html{
             //   margin-top: -5px;
             //   margin-right: -5px;
               opacity: 0.8;
+              z-index: 999;
           }
           :hover > mat-icon{
               opacity: 1;
@@ -56,7 +71,10 @@ html{
           .footer{
             position: absolute;
             bottom: 1px;
-            width: 80%;
+            width: 80%; 
+
+            //  Hiding  
+            display: none;
           }
       }
       
@@ -65,12 +83,12 @@ html{
           margin-bottom: 5px;
       }
       .color-card:hover{
-          border: 2px solid gold;
+          border: 2px solid $base-color;
       }
     }
 }
 .tile-hover{
-    border: 2px solid gold;
+    border: 2px solid $base-color;
 }
 .closet-wraper{
     margin: auto;
@@ -110,7 +128,7 @@ html{
     width: 100%;
     padding: 0px;
     height: 400px;
-    background-color: lightcyan;
+    background-color: #fffdd0;
     background-repeat: no-repeat;
     background-position:center center;
     background-size: 100% 100%;
@@ -169,21 +187,28 @@ mat-card{
     }
 #color-inner{
         background-size: cover;
-        height: 30px;
-        width: 20px;
+        height: 40px;
+        width: 30px;
         z-index: 15;
-        border: white 2px solid;
+        // border: white 2px solid;
         box-shadow: gray;
-        margin-right: 5px;
+        // margin-right: 5px;
+        padding-bottom: 5px;
         margin-left: auto;
     }
-   
+   :hover > #color-inner{
+        transform: scale(4.5);
+        cursor: pointer;
+        position: absolute;
+        border:white 2px solid ;
+        box-shadow: gray;
+   }
 }
 #total_price_number {
     font-size: 24px;
     font-weight: 600;
     padding: 5px 0;
-    color: #c89f74;
+    color: $base-color;
     margin-left: 5px;
     display: inline-block
 }
@@ -192,7 +217,7 @@ mat-card{
 }
 .btw{
     margin-left: 5px;
-    color: #c89f74;
+    color: $base-color;
     font-size: 12px;
 }
 

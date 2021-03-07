@@ -13,8 +13,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class FourthStepComponent implements OnInit {
   cabnetWidth:number;
+  cabnetWidth2:number;
   cabnetHeight:number;
+  cabnetHeight2:number;
   cabnetDepth:number;
+  slope:boolean;       //Added to determine dessign
   maxWidth=800;
   widthAreaBox ='800px';
   availableWidth;
@@ -30,11 +33,22 @@ export class FourthStepComponent implements OnInit {
                { }
 
   ngOnInit(): void {
+    this._sharedData._slope$.subscribe(result=>{
+      if(result == 'true'){
+        this.slope = true
+      }
+      else{
+        this.slope = false
+      }
+    });
+    
     this._sharedData.cabinetData$
     .subscribe((result:any)=>{
       this.cabnetWidth = result.cabnetWidth;
       this.cabnetHeight = result.cabnetHeight
       this.cabnetDepth = result.cabnetDepth;
+      this.cabnetWidth2 = result.cabnetWidth2;
+      this.cabnetHeight2 = result.cabnetHeight2
       console.log(result.cabnetDepth)
     });
 
@@ -71,13 +85,13 @@ export class FourthStepComponent implements OnInit {
       
       if(boxSize == 2 ){
         
-        this.closets[this.imageIndex].closetDesignImage ="\""+ selectedDesign +"\"";
+        this.closets[this.imageIndex].closetDesignImage = selectedDesign ;
         
         boxSize = 0;
       }
       else if(boxSize == 1){
        
-        this.closets[this.imageIndex].closetDesignImage ="\""+ selectedDesign +"\"";
+        this.closets[this.imageIndex].closetDesignImage = selectedDesign ;
         boxSize = 0;
       }
       else{

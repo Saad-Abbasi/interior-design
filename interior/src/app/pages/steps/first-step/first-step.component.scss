@@ -1,5 +1,4 @@
 .images-card {
-    border: 2px solid gold;
     mat-grid-tile-footer{
         display: flex;
         justify-content: center;
@@ -8,17 +7,17 @@
   mat-card{
       background-color: white;
   }
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+  
   .nested-card{
       max-width: 250px;
   }
  img:hover{
     cursor: pointer;
-    zoom: 3;
-    margin: 5px;
-    border: 5px solid gold;
+    zoom: 0.5;
+    // margin: 5px;
+    // border: 5px solid gold;
     
+ }
+ mat-grid-tile-footer{
+     background-color:#e78932 !important;
  }

@@ -1,8 +1,9 @@
+$base-color: #e78932;;
 html{
     height: 100%;
 }
 .image-card {
-    border: 2px solid gold;
+    
     // padding: 0px;
   }
 .selection_box{
@@ -61,13 +62,17 @@ html{
         }
     }
 }
+
+   
 .closet-wraper{
     margin: auto;
-    
-    outline-color: rosybrown;
-    outline-style: groove;
-    background-color:lightgray;
+    // outline-color: rosybrown;
+    // outline-style: groove;
+    border: 2px solid black;
+    background-color: #f5f5f5;
+    position: relative;
     height: 400px;
+    
     span{
        
         min-width: 30px;
@@ -78,11 +83,21 @@ html{
         display: block;
         text-align: center;
         color: black;
+        // For new requirments this is now hidden size in header
+        display: none;
         
         
     }
     
 }
+
+.button-add-closet{
+    background-color: $base-color;
+  }
+
+
+
+
 .full-box{
     // box-shadow:3px 3px 5px 6px rgba(20, 20, 20, 0.774);
     outline: rgb(77, 87, 97);
@@ -90,7 +105,7 @@ html{
     width: 100%;
     padding: 0px;
     height: 400px;
-    background-color: lightcyan;
+    background-color:#fffdd0;
 }
 .half-box{
     @extend .full-box;

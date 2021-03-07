@@ -44,25 +44,34 @@
                                             <span fxFlex="50">Hoogte kast (Y1)</span> <span
                                                 fxFlex="50">{{cabnetHeight || 0}} cm</span>
                                         </mat-list-item>
+                                        <div class="slope-box" *ngIf="slope">
+                                            <mat-list-item  role="listitem">
+                                                <span fxFlex="50">Breedte kast (X2)</span> <span fxFlex="50">{{cabnetWidth2 || 0}} cm</span>
+                                            </mat-list-item>
+                                            <mat-list-item  role="listitem">
+                                                <span fxFlex="50">Hoogte kast (Y2)</span> <span fxFlex="50">{{cabnetHeight2 || 0}} cm</span>
+                                            </mat-list-item>
+                                        </div>
+                                        
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Diepte kast</span> <span fxFlex="50">{{cabnetDepth || 0}}
                                                 cm</span>
                                         </mat-list-item>
-                                        <mat-list-item role="listitem">
-                                            <span fxFlex="50">Kleur binnenkast</span> <span fxFlex="50">{{0}} cm</span>
+                                        <!-- <mat-list-item  role="listitem">
+                                            <span fxFlex="50">Kleur binnenkast</span> <span fxFlex="50"></span>
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Kleur buitenkast</span> <span fxFlex="50">{{0}} cm</span>
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Handgrepen</span> <span fxFlex="50">{{0}} cm</span>
-                                        </mat-list-item>
+                                        </mat-list-item> -->
                                     </mat-list>
 
                                     <!-- Price Setup -->
                                     <div class="section-below" fxFlex="100">
                                         <mat-divider [inset]="true"></mat-divider>
-                                        <h2>Totaaprijs:</h2>
+                                        <h2>Totale prijs:</h2>
                                         <span id="total_price">€<span id="total_price_number">{{price}}</span></span><span
                                             class="btw">(incl. BTW)</span>
                                         <p>Geschatte levertijd: 5 werkdagen</p>

@@ -14,10 +14,18 @@ export class FirstStepComponent implements OnInit {
               private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    
   }
 
   
   selectedDesign(imageUrl){
+    if(imageUrl =='1.jpg'||imageUrl =='2.jpg'||imageUrl =='3.jpg'||imageUrl =='4.jpg')
+    {
+      this._dataSharingService.updateSlopeStatus('true')
+    }
+    else{
+      this._dataSharingService.updateSlopeStatus('false')
+    }
     this.openSnackBar();
     console.log(imageUrl);
     this._dataSharingService.sendImage(imageUrl);
