@@ -19,7 +19,7 @@ export class FirstStepComponent implements OnInit {
 
   
   selectedDesign(imageUrl){
-    if(imageUrl =='1.jpg'||imageUrl =='2.jpg'||imageUrl =='3.jpg'||imageUrl =='4.jpg')
+    if(imageUrl =='1.jpg'||imageUrl =='3.jpg'||imageUrl =='8.jpg'||imageUrl =='9.jpg')
     {
       this._dataSharingService.updateSlopeStatus('true')
     }

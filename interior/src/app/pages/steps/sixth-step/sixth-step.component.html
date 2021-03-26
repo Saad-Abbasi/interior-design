@@ -2,6 +2,13 @@
     <div class="content" fxLayout="row" fxLayoutGap="5px">
         <div fxFlex>
             <mat-card class="image-card">
+                
+                <div class="door-button-container outer-color">
+                    <button class="outer-color-button" mat-icon-button (click)="openDialog()">
+                        <mat-icon>palette</mat-icon>
+                        Kies Buitenste kleur
+                      </button>
+                </div>
                 <div class="door-button-container">
                     <mat-button-toggle-group (change)="onValChange($event.value)">
                         <mat-button-toggle value="true"  aria-label="Met deuren"
@@ -13,8 +20,9 @@
                             Zonder deuren
                         </mat-button-toggle>
                       </mat-button-toggle-group>
+                 
                 </div>
-                
+               
 
                 <mat-card class="closet-wraper" [style.max-width]="widthAreaBox">
                     <!-- matTooltip="Klik om een ​​deur toe te voegen" -->
@@ -23,7 +31,7 @@
                             [ngClass]="(closet.cols =='2')?'full-box':'half-box'"
                             [style.max-width]="closet.boxWidthTest"
                             [style.backgroundImage]="'url(' + closet.closetDesignImage + ') ,
-                             url('+ bgImage +')'"
+                             url('+ bgImage[i] +')'"
                             (click)="addDoor(i,closet.cols)">
                             <span class="table-value">{{closet.widthInCm}}</span>
                             <!-- <div *ngIf="isDoor=='true'">
@@ -35,6 +43,8 @@
                         </mat-card>
                     </div>
                 </mat-card>
+
+                
             </mat-card>
 
             <!-- Design Color Choose -->
@@ -161,7 +171,7 @@
                                             </span>
                                         </mat-list-item>
                                     </mat-list>
-
+                                    <app-shared-form></app-shared-form>
                                     <!-- Price Setup -->
                                     <div class="section-below" fxFlex="100">
                                         <mat-divider [inset]="true"></mat-divider>

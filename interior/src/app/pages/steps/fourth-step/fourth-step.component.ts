@@ -107,7 +107,8 @@ export class FourthStepComponent implements OnInit {
       position: {
         
         top: '20%',
-        left: '80px'
+        left: '5%'
+    
       },
       panelClass: 'custom-modalbox'
 
@@ -126,7 +127,8 @@ export class FourthStepComponent implements OnInit {
       // data: { name: this.name, animal: this.animal },
       position: {
         top: '20%',
-        left: '80px'
+        left: '5%'
+        
       },
       panelClass: 'custom-modalbox'
     });

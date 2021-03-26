@@ -1,3 +1,4 @@
+import { ResourceLoader } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -60,10 +61,8 @@ export class ThirdStepComponent implements OnInit {
       }
     });
 
-
-
-
-
+  //right four form fields
+ 
 
     this._sharedData.cabinetData$
     .subscribe((result:any)=>{

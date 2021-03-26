@@ -1,0 +1,48 @@
+
+<div class="form-container">
+    <form class="form-container"  [formGroup]="barForm">      
+        <mat-form-field appearance="fill" >
+            <mat-label>Paslat links</mat-label>
+            <input  matInput  type="number" placeholder="Paslat links" formControlName="leftBar" min="5"  autocomplete="off"
+            (input)="onValueChange()">
+            <span matSuffix>cm</span>
+             <mat-error *ngIf="(barForm.get('leftBar').touched 
+                            || barForm.get('leftBar').dirty) && 
+                            barForm.get('leftBar').errors">
+                min-waarde moet 5 zijn</mat-error> 
+        </mat-form-field>
+        
+          <mat-form-field appearance="fill">
+            <mat-label>Paslat rechts</mat-label>
+            <input  matInput type="number" placeholder="Paslat rechts" formControlName="rightBar" min="5" autocomplete="off"
+            (input)="onValueChange()">
+            <span matSuffix>cm</span>
+            <mat-error *ngIf="(barForm.get('rightBar').touched 
+                            || barForm.get('rightBar').dirty) && 
+                            barForm.get('rightBar').errors">
+                min-waarde moet 5 zijn</mat-error> 
+        
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Paslat boven</mat-label>
+            <input  matInput type="number" placeholder="Paslat boven" formControlName="topBar"autocomplete="off" 
+            (input)="onValueChange()">
+            <span matSuffix>cm</span>
+           <mat-error *ngIf="(barForm.get('topBar').touched 
+                            || barForm.get('topBar').dirty) && 
+                            barForm.get('topBar').errors">
+                min-waarde moet 5 zijn</mat-error> 
+          </mat-form-field>
+            
+            <mat-form-field appearance="fill"  >
+              <mat-label>Plint</mat-label>
+              <input  matInput  type="number" placeholder="Plint" formControlName="bottomBar" min="10" autocomplete="off"
+              (input)="onValueChange()">
+              <span matSuffix>cm</span>
+              <mat-error *ngIf="(barForm.get('bottomBar').touched 
+                            || barForm.get('bottomBar').dirty) && 
+                            barForm.get('bottomBar').errors">
+                min-waarde moet 5 zijn</mat-error> 
+          </mat-form-field>
+        </form>
+</div>

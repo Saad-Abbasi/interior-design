@@ -19,6 +19,8 @@ import { ColorDesignComponent } from './pages/steps/dialogs/color-design/color-d
 import { SixthStepComponent } from './pages/steps/sixth-step/sixth-step.component';
 import { SeventhStepComponent } from './pages/steps/seventh-step/seventh-step.component';
 import { StartStepComponent } from './pages/steps/start-step/start-step.component';
+import { SharedFormComponent } from './pages/shared-form/shared-form.component';
+import { ChooseOuterColorComponent } from './pages/steps/dialogs/choose-outer-color/choose-outer-color.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import { StartStepComponent } from './pages/steps/start-step/start-step.componen
     ColorDesignComponent,
     SixthStepComponent,
     SeventhStepComponent,
-    StartStepComponent
+    StartStepComponent,
+    SharedFormComponent,
+    ChooseOuterColorComponent
   ],
   imports: [
     ReactiveFormsModule,

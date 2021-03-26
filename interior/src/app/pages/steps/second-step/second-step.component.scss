@@ -1,3 +1,8 @@
+
+.outer-container{
+    height: 100%;
+}
+
 .image-card {
     
   }
@@ -15,10 +20,11 @@
     //       margin-bottom: 5px;
     //   }
       .selectedDesignImage{
-          height: 600px;
-          max-height: 500px;
-          margin-bottom: 5px;
-          background-size: cover
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        height: 60vh;
+        margin-bottom: 5px;
+        
           
       }
       mat-card-footer{
@@ -37,6 +43,9 @@
     .mat-form-field{
         background-color: #181515;
         margin-left: 20px;
+    }
+    .big-field{
+        min-width: 45%;
     }
 }
 

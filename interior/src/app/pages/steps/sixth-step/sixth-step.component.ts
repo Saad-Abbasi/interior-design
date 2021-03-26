@@ -4,6 +4,8 @@ import { MatDialog } from '@angular/material/dialog';
 import { DataSharingService } from 'src/app/shared/data-sharing.service';
 import { ICloset } from 'src/app/shared/i-closet';
 import { IColorDesign } from 'src/app/shared/i-color-design';
+import { ChooseOuterColorComponent } from '../dialogs/choose-outer-color/choose-outer-color.component';
+import { ColorDesignComponent } from '../dialogs/color-design/color-design.component';
 
 @Component({
   selector: 'app-sixth-step',
@@ -27,16 +29,51 @@ export class SixthStepComponent implements OnInit {
   handle:string;
   handleName:string;
   singleDoorImage:string;
-  bgImage:string;
+  bgImage=[];
   doorImag;
   price;
   boxForm:FormGroup;
   backupCloset=[];
+  backupInnerImages=[];
   isDoor = 'false';
-  constructor(private _DataSharing: DataSharingService) { }
+  designImages =[
+    "assets/color/1.jpg",
+    "assets/color/2.jpg",
+    "assets/color/3.jpg",
+    "assets/color/4.jpg",
+    "assets/color/5.jpg",
+    "assets/color/6.jpg",
+    "assets/color/7.jpg",
+    "assets/color/8.jpg",
+    "assets/color/9.jpg",
+    "assets/color/10.jpg",
+    "assets/color/11.jpg",
+    "assets/color/12.jpg",
+    "assets/color/13.jpg",
+    "assets/color/14.jpg",
+    "assets/color/15.jpg",
+    "assets/color/16.jpg",
+    "assets/color/17.jpg",
+    // Universal colors
+    "assets/color/universal_colors/1.jpg",
+    "assets/color/universal_colors/2.jpg",
+    "assets/color/universal_colors/3.jpg",
+    "assets/color/universal_colors/4.jpg",
+    "assets/color/universal_colors/5.jpg",
+    "assets/color/universal_colors/6.jpg",
+    "assets/color/universal_colors/7.jpg",
+    "assets/color/universal_colors/8.jpg",
+    "assets/color/universal_colors/9.jpg",
+    "assets/color/universal_colors/10.jpg",
+    "assets/color/universal_colors/11.jpg"
+  ];
+  constructor(private _DataSharing: DataSharingService,
+              private dialog:MatDialog) { }
 
   ngOnInit(): void {
+    
     this._DataSharing._slope$.subscribe(result=>{
+
       if(result == 'true'){
         this.slope = true
       }
@@ -44,6 +81,8 @@ export class SixthStepComponent implements OnInit {
         this.slope = false
       }
     });
+
+
     this._DataSharing.cabinetData$
     .subscribe((result:any)=>{
       this.cabnetWidth = result.cabnetWidth;
@@ -57,7 +96,10 @@ export class SixthStepComponent implements OnInit {
     this._DataSharing._closetLayout$.subscribe((result:any)=>{
       this.closets = result;
       console.log(this.closets)
+      this.bgImage.length = Object.keys(this.closets).length;
     });
+
+    
     
     if(!this.closets){
 this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/big_box/2.jpg"},
@@ -66,7 +108,10 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
               {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/4.jpg"}
               
             ]
+            
+            
     }
+
    //getting price 
    this._DataSharing._price$.subscribe((result)=>{
     this.price = result;
@@ -77,12 +122,16 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
       this.design = data;
       this.innerColor = data.innerColorImg;
       this.innerColorName = data.innerColorName;
-      this.outerColor = data.outerColorImg;
+      this.outerColor = data.innerColorImg;
       this.outerColorName = data.outerColorName;
       this.handle = data.handleImg;
       this.handleName = data.handleImgName;
       // Setting the inner box color 
-      this.bgImage = this.innerColor;
+      // this.bgImage = this.innerColor;
+      for (let i = 0; i < this.bgImage.length; i++) {
+        this.bgImage[i] = this.innerColor;
+   
+  }
     });
     
 
@@ -129,6 +178,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
   //WHether dooor shod added or not 
   onValChange(value) {
     this.isDoor =value;
+    
 }
 
 
@@ -136,6 +186,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     if(this.isDoor == 'true'){
       let imageAddress;
     this.backupCloset.length =  Object.keys(this.closets).length;
+     
 
     //Hold image addres for later use
     if(typeof this.backupCloset[i] === 'undefined'){
@@ -143,7 +194,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     }
     
     //Color 
-    this.bgImage = this.innerColor;
+    // this.bgImage = this.innerColor;
     // add/remove
    
     console.log('image of this box is', imageAddress);
@@ -153,12 +204,12 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     if (boxSize == 1) {
       if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
         this.backupCloset.splice(i, 0,imageAddress);
-        this.bgImage = this.innerColor;
+        this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[0];
         console.log(' image backup',i, this.backupCloset[i])
       }
       else if(this.closets[i].closetDesignImage === null){
-        this.bgImage = this.innerColor;
+        this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[0];
       }
       else if(!this.closets[i].closetDesignImage.includes('CpBox')){
@@ -166,9 +217,10 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
         console.log('Else case called', this.backupCloset[i])
         
         this.closets[i].closetDesignImage = this.backupCloset[i];
+        this.bgImage[i] = this.innerColor;
       }
       else{
-        this.bgImage = this.innerColor;
+        this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[0];
       }
       
@@ -177,20 +229,21 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
       
       if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
         this.backupCloset.splice(i, 0,imageAddress);
-        this.bgImage = this.innerColor;
+        this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[1];
         console.log(' image backup',i, this.backupCloset[i])
       }
       else if(this.closets[i].closetDesignImage === null){
-        this.bgImage = this.innerColor;
+        this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[1];
       }
       else if(!this.closets[i].closetDesignImage.includes('CpBox')){
         
         this.closets[i].closetDesignImage = this.backupCloset[i];
+        this.bgImage[i] = this.innerColor
       }
       else{
-        this.bgImage = this.innerColor;
+        this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[1];
       }
     }
@@ -216,4 +269,39 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
       
     }
   }
+
+  // Outer Color
+  updateColor(i:number,nameOfColor:string){
+ 
+  this.outerColor = this.designImages[i];
+    this.outerColorName  = nameOfColor;
+    // Asign and share values to subsicrbers
+    this.design.outerColorImg = this.designImages[i];
+    this.design.outerColorName = nameOfColor;
+ 
+
+    this._DataSharing.sendColorImage(this.design);
+
+    this.validateBoxForm();
+  }
+
+  openDialog() {
+    const dialogRef = this.dialog.open(ChooseOuterColorComponent,{
+      width: '100%',
+      // data: { name: this.name, animal: this.animal },
+      position: {
+        
+        top: '50vh',
+        left: '1%'
+      },
+      panelClass: 'choose-outer-color'
+
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog result: ${result}`);
+      this.outerColor = this.designImages[result]
+      
+    });
+  }
+  
 }

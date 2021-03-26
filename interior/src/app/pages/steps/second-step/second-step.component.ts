@@ -34,14 +34,14 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
   this.formWithoutSlope = new FormGroup({
       cabnetWidth: new FormControl('', [Validators.min(250),Validators.required]),
       cabnetHeight: new FormControl('', [Validators.min(200),Validators.max(260),Validators.required]),
-      cabnetDepth : new FormControl('', [Validators.min(15),Validators.max(60),Validators.required]),
+      cabnetDepth : new FormControl('', [Validators.min(30),Validators.max(65),Validators.required]),
     });
       this.formWitSlope = new FormGroup({
         cabnetWidth: new FormControl('', [Validators.min(250),Validators.required]),
         cabnetHeight: new FormControl('', [Validators.min(200),Validators.max(260),Validators.required]),
-        cabnetDepth : new FormControl('', [Validators.min(15),Validators.max(60),Validators.required]),
+        cabnetDepth : new FormControl('', [Validators.min(30),Validators.max(65),Validators.required]),
         cabnetWidth2: new FormControl('5', Validators.required),
-        cabnetHeight2: new FormControl('120', [Validators.min(110),Validators.max(260),Validators.required]),
+        cabnetHeight2: new FormControl('', [Validators.min(110),Validators.max(260),Validators.required]),
      
     });
    
@@ -99,6 +99,6 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
     this.heightCase2 = val
   }
   width2tChange(val:any){
-    this.heightCase2 = val
+    this.widthCase2 = val
   }
 }

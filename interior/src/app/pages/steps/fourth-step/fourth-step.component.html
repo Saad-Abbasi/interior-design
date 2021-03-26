@@ -37,19 +37,19 @@
                                 <mat-card-content fxLayout="column">
                                     <mat-list role="list" fxFlex="100">
                                         <mat-list-item role="listitem">
-                                            <span fxFlex="50">Breedte kast (X1)</span> <span
+                                            <span fxFlex="50">Breedte kast (Br1)</span> <span
                                                 fxFlex="50">{{cabnetWidth || 0}} cm</span>
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
-                                            <span fxFlex="50">Hoogte kast (Y1)</span> <span
+                                            <span fxFlex="50">Hoogte kast (H1)</span> <span
                                                 fxFlex="50">{{cabnetHeight || 0}} cm</span>
                                         </mat-list-item>
                                         <div class="slope-box" *ngIf="slope">
                                             <mat-list-item  role="listitem">
-                                                <span fxFlex="50">Breedte kast (X2)</span> <span fxFlex="50">{{cabnetWidth2 || 0}} cm</span>
+                                                <span fxFlex="50">Breedte kast (Br2)</span> <span fxFlex="50">{{cabnetWidth2 || 0}} cm</span>
                                             </mat-list-item>
                                             <mat-list-item  role="listitem">
-                                                <span fxFlex="50">Hoogte kast (Y2)</span> <span fxFlex="50">{{cabnetHeight2 || 0}} cm</span>
+                                                <span fxFlex="50">Hoogte kast (H2)</span> <span fxFlex="50">{{cabnetHeight2 || 0}} cm</span>
                                             </mat-list-item>
                                         </div>
                                         
@@ -67,7 +67,7 @@
                                             <span fxFlex="50">Handgrepen</span> <span fxFlex="50">{{0}} cm</span>
                                         </mat-list-item> -->
                                     </mat-list>
-
+                                    <app-shared-form></app-shared-form>
                                     <!-- Price Setup -->
                                     <div class="section-below" fxFlex="100">
                                         <mat-divider [inset]="true"></mat-divider>

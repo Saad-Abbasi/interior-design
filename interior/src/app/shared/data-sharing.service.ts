@@ -23,6 +23,9 @@ export class DataSharingService {
   private _slopeStatus = new Subject<string>();
   _slope$ = this._slopeStatus.asObservable();
 
+  private _sharedForm = new Subject<string>();
+  _sharedForm$ = this._sharedForm.asObservable();
+
   constructor() { }
 
   sendData(data:any){
@@ -46,5 +49,8 @@ export class DataSharingService {
   }
   updateSlopeStatus(isSlope:any){
     this._slopeStatus.next(isSlope);
+  }
+  updateSharedForm(sharedFormData:any){
+    this._sharedForm.next(sharedFormData);
   }
 }

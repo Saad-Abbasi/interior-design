@@ -12,7 +12,13 @@ html{
             background-color: black ;
         }
     }
-    
+    .outer-color{
+        margin-top: 5px;
+        .outer-color-button{
+            color: #e78932;
+            width: 100%;
+        }
+    }
   }
 .mat-color-card-super{
     height: 600px;
@@ -130,7 +136,7 @@ html{
     padding: 0px;
     height: 400px;
     background-color: lightcyan;
-    background-repeat: no-repeat;
+    // background-repeat: no-repeat;
     background-position:center center;
     background-size: 100% 100%;
     
