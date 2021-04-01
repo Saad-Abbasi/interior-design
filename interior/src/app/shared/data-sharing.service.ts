@@ -26,6 +26,9 @@ export class DataSharingService {
   private _sharedForm = new Subject<string>();
   _sharedForm$ = this._sharedForm.asObservable();
 
+  private _shareOuterImage = new Subject<string>();
+  _shareOuterImage$ = this._shareOuterImage.asObservable();
+
   constructor() { }
 
   sendData(data:any){
@@ -53,4 +56,9 @@ export class DataSharingService {
   updateSharedForm(sharedFormData:any){
     this._sharedForm.next(sharedFormData);
   }
+
+  sendOuterImage(outerColorImg:any){
+    this._shareOuterImage.next(outerColorImg);
+  }
+
 }

@@ -1,10 +1,13 @@
 
-<div class="form-container">
-    <form class="form-container"  [formGroup]="barForm">      
+<div class="form-container" >
+    <form class="form-container"  [formGroup]="barForm">
+      <div class="form-fields">
+
+            
         <mat-form-field appearance="fill" >
-            <mat-label>Paslat links</mat-label>
-            <input  matInput  type="number" placeholder="Paslat links" formControlName="leftBar" min="5"  autocomplete="off"
-            (input)="onValueChange()">
+            <mat-label>{{leftLabel}}</mat-label>
+            <input  matInput  type="number" placeholder="Paslat links" formControlName="leftBar" min="2"  autocomplete="off"
+            (input)="onValueChange()" [readonly]="leftReadOnly">
             <span matSuffix>cm</span>
              <mat-error *ngIf="(barForm.get('leftBar').touched 
                             || barForm.get('leftBar').dirty) && 
@@ -13,9 +16,9 @@
         </mat-form-field>
         
           <mat-form-field appearance="fill">
-            <mat-label>Paslat rechts</mat-label>
-            <input  matInput type="number" placeholder="Paslat rechts" formControlName="rightBar" min="5" autocomplete="off"
-            (input)="onValueChange()">
+            <mat-label>{{rightLabel}}</mat-label>
+            <input  matInput type="number" placeholder="Paslat rechts" formControlName="rightBar" min="2" autocomplete="off"
+            (input)="onValueChange()" [readonly]="rightReadOnly">
             <span matSuffix>cm</span>
             <mat-error *ngIf="(barForm.get('rightBar').touched 
                             || barForm.get('rightBar').dirty) && 
@@ -23,6 +26,11 @@
                 min-waarde moet 5 zijn</mat-error> 
         
           </mat-form-field>
+        </div>
+
+        <div class="form-fields">
+
+        
           <mat-form-field appearance="fill">
             <mat-label>Paslat boven</mat-label>
             <input  matInput type="number" placeholder="Paslat boven" formControlName="topBar"autocomplete="off" 
@@ -44,5 +52,6 @@
                             barForm.get('bottomBar').errors">
                 min-waarde moet 5 zijn</mat-error> 
           </mat-form-field>
+        </div>
         </form>
 </div>

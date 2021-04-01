@@ -21,7 +21,7 @@ html{
     }
   }
 .mat-color-card-super{
-    height: 600px;
+    min-height: 1780px;
 }
 
 .selection_box{
@@ -71,6 +71,8 @@ html{
             position: absolute;
             bottom: 1px;
             width: 80%;
+            //  Hiding  
+            display: none;
           }
       }
       
@@ -78,9 +80,9 @@ html{
           margin-left: 5px;
           margin-bottom: 5px;
       }
-      #imge3 , #imge7{
-          margin-left: 5px;
-      }
+    //   #imge3 , #imge7{
+    //       margin-left: 5px;
+    //   }
       .color-card:hover{
           border: 2px solid #e78932;
       }

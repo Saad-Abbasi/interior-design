@@ -82,7 +82,11 @@ export class ThirdStepComponent implements OnInit {
     this.boxForm = new FormGroup({
       boxFull: new FormControl('', [Validators.required]),
     });
-
+    // Getting price
+    this._sharedData._price$.subscribe((result:any)=>{
+      console.log(result , 'test it' ,isNaN(result))
+      this.price =parseFloat(result); 
+    });
   }
   removeTile =(closet)=>{
     
@@ -90,8 +94,8 @@ export class ThirdStepComponent implements OnInit {
       const index = this.closets.indexOf(closet);
 
       let boxCmSize = this.fullClosetValue;
-      this.price -= 2.45 * boxCmSize;
-      this.price = parseFloat(this.price.toFixed(2));
+      // this.price -= 2.45 * boxCmSize;
+      // this.price = parseFloat(this.price.toFixed(2));
 
       this.availableWidth =  this.currentWidth  -= this.fullClosetValue;
       this.closets.splice(index, 1);
@@ -103,8 +107,8 @@ export class ThirdStepComponent implements OnInit {
     const index = this.closets.indexOf(closet)
 
     let boxCmSize = this.shortClosetValue;
-    this.price -= 2.45 * boxCmSize;
-    this.price = parseFloat(this.price.toFixed(2));
+    // this.price -= 2.45 * boxCmSize;
+    // this.price = parseFloat(this.price.toFixed(2));
 
     this.availableWidth = this.currentWidth  -= this.shortClosetValue;
     this.closets.splice(index, 1);
@@ -128,8 +132,8 @@ public get polygon() {
       if(boxSize == 2 && this.availableWidth >= this.fullClosetValue){
         
         let boxCmSize = this.fullClosetValue;
-        this.price += 2.45 * boxCmSize;
-        this.price = parseFloat(this.price.toFixed(2));
+        // this.price += 2.45 * boxCmSize;
+        // this.price = parseFloat(this.price.toFixed(2));
 
         this.boxWidth = boxSize;
         this.currentWidth += this.fullClosetValue;
@@ -142,8 +146,8 @@ public get polygon() {
       else if(boxSize == 1 && this.availableWidth >= this.shortClosetValue){
 
         let boxCmSize = this.shortClosetValue;
-        this.price += 2.45 * boxCmSize;
-        this.price = parseFloat(this.price.toFixed(2));
+        // this.price += 2.45 * boxCmSize;
+        // this.price = parseFloat(this.price.toFixed(2));
 
         let numberOfSmallBoxes = this.numberOfBigBoxes*2;
         this.boxWidth = boxSize;
@@ -168,6 +172,9 @@ public get polygon() {
       this.boxForm.setValue({
         boxFull:'abc'
       });
+      // Implementd in next step for now not dealing with price here
+      // this._sharedData.updatePrice(this.price);
+
       this._sharedData.updatePrice(this.price);
     }
     else{

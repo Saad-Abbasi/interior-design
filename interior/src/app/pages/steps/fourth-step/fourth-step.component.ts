@@ -26,6 +26,7 @@ export class FourthStepComponent implements OnInit {
   imageIndex : number;
   price:any;
   boxForm:FormGroup;
+  priceOfEachCloset = [];
  
   closets: ICloset[];
   constructor(private _sharedData:DataSharingService,
@@ -54,8 +55,10 @@ export class FourthStepComponent implements OnInit {
 
     this._sharedData._closetLayout$.subscribe((result:any)=>{
       this.closets = result;
+      
     });
-     
+   
+    
     //getting price 
     this._sharedData._price$.subscribe((result)=>{
       this.price = result;
@@ -80,26 +83,150 @@ export class FourthStepComponent implements OnInit {
    
   }
   addDesignImage = (boxSize,selectedDesign)=>{
+    for (let i = 0; i < this.priceOfEachCloset.length; i++) {
+      if (this.priceOfEachCloset[i]) {
+      
+      this.price = this.price - this.priceOfEachCloset[i];
+      }
+      
+    }
     console.log(this.closets[this.imageIndex].cols)
     if(this.currentWidth <= this.maxWidth){
       
       if(boxSize == 2 ){
         
-        this.closets[this.imageIndex].closetDesignImage = selectedDesign ;
+        this.closets[this.imageIndex].closetDesignImage = selectedDesign;
+        let img =  this.closets[this.imageIndex].closetDesignImage
         
+        let imgPrice = 0;
+        imgPrice = this.getPriceOfBigCloset(img);
+        this.priceOfEachCloset[this.imageIndex] = 0;
+        this.priceOfEachCloset[this.imageIndex] = imgPrice;
+
         boxSize = 0;
       }
       else if(boxSize == 1){
        
         this.closets[this.imageIndex].closetDesignImage = selectedDesign ;
+        let img =  this.closets[this.imageIndex].closetDesignImage;
+
+        let imgPrice = 0;
+        imgPrice = this.getPriceOfSmallCloset(img)
+        this.priceOfEachCloset[this.imageIndex] = 0;
+        this.priceOfEachCloset[this.imageIndex] = imgPrice;
+        console.log('got the price for small closet', typeof(imgPrice));
         boxSize = 0;
       }
       else{
         alert('Width size exceeds')
       }
     }
+    this.calculatePrice();
+
     this.validateBoxForm();
+    
   }
+  // Get Price of Big Closet Image
+  getPriceOfBigCloset(img){
+    if (img.includes('11.png')) {
+      return 212;
+    }
+    else if (img.includes('10.png')) {
+      return 205;
+    }
+    else if (img.includes('12.png')) {
+      return 205;
+    }
+    else if (img.includes('8.png')) {
+      return 375;
+    }
+    else if (img.includes('9.png')) {
+      return 377;
+    }
+    else if (img.includes('7.png')) {
+      return 189;
+    }
+    else if (img.includes('5.png')) {
+      return 329;
+    }
+    else if (img.includes('6.png')) {
+      return 322;
+    }
+    else if (img.includes('4.png')) {
+      return 189;
+    }
+    else if (img.includes('2.png')) {
+      return 274;
+    }
+    else if (img.includes('3.png')) {
+      return 267;
+    }
+    else if (img.includes('1.png')) {
+      return 295;
+    }
+    else{
+      return 0;
+    }
+  }
+
+   // Get Price of Small Closet Image
+   getPriceOfSmallCloset(img){
+    if (img.includes('11.png')) {
+      return 183;
+    }
+    else if (img.includes('10.png')) {
+      return 175;
+    }
+    else if (img.includes('12.png')) {
+      return 175;
+    }
+    else if (img.includes('8.png')) {
+      return 346;
+    }
+    else if (img.includes('9.png')) {
+      return 355;
+    }
+    else if (img.includes('3.png')) {
+      return 169;
+    }
+    else if (img.includes('6.png')) {
+      return 329;
+    }
+    else if (img.includes('7.png')) {
+      return 293;
+    }
+    else if (img.includes('2.png')) {
+      return 169;
+    }
+    else if (img.includes('4.png')) {
+      return 245;
+    }
+    else if (img.includes('5.png')) {
+      return 231;
+    }
+    else if (img.includes('1.png')) {
+      return 295;
+    }
+    else{
+      return 0;
+    }
+    
+  }
+  //Calculating price on the base of images ..
+  calculatePrice(){
+    
+    for (let i = 0; i < this.priceOfEachCloset.length; i++) {
+      if (this.priceOfEachCloset[i]) {
+      
+      this.price = this.price + this.priceOfEachCloset[i];
+      }
+      
+    }
+    console.log(this.price)
+    this._sharedData.updatePrice(this.price)
+  }
+
+
   openDialog() {
     const dialogRef = this.dialog.open(ChooseClosetComponent,{
       width: '800px',
@@ -135,7 +262,7 @@ export class FourthStepComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Dialog result: ${result}`);
-      this.addDesignImage(2,result);
+      this.addDesignImage(1,result);
       this.validateBoxForm();
       
     });

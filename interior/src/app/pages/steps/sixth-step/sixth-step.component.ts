@@ -36,6 +36,8 @@ export class SixthStepComponent implements OnInit {
   backupCloset=[];
   backupInnerImages=[];
   isDoor = 'false';
+  priceOfColorSide = 0;
+  designImage:string;
   designImages =[
     "assets/color/1.jpg",
     "assets/color/2.jpg",
@@ -82,6 +84,9 @@ export class SixthStepComponent implements OnInit {
       }
     });
 
+    this._DataSharing._imageUrl$.subscribe(result =>{
+      this.designImage = result;
+    });
 
     this._DataSharing.cabinetData$
     .subscribe((result:any)=>{
@@ -118,11 +123,13 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
   });
     
     //Data colorImage
+  
     this._DataSharing._colorImages$.subscribe((data:any)=>{
       this.design = data;
       this.innerColor = data.innerColorImg;
       this.innerColorName = data.innerColorName;
-      this.outerColor = data.innerColorImg;
+      this.outerColor = data.outerColorImg;
+      
       this.outerColorName = data.outerColorName;
       this.handle = data.handleImg;
       this.handleName = data.handleImgName;
@@ -131,9 +138,8 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
       for (let i = 0; i < this.bgImage.length; i++) {
         this.bgImage[i] = this.innerColor;
    
-  }
-    });
-    
+    }});
+  
 
     
 
@@ -141,11 +147,31 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     this.boxForm = new FormGroup({
       boxFull: new FormControl('', [Validators.required]),
     });
-    //copy selected design images
+    //calculate outer color image
     
+    this.getOuterColorImg();
   }
 
+  getOuterColorImg(){
+    
+    this._DataSharing._colorImages$.subscribe((data:any)=>{
+      this.outerColor = data.outerColorImg;
+      if(this.outerColor && this.outerColor.includes("universal_colors")){
+        this.priceOfColorSide = 39.00;
+        
+      }
+      else if (this.outerColor){
+        this.priceOfColorSide = 46.50;
+        
+      }
+      else {
+        this.priceOfColorSide = 0;
+        
+      }
+     
+    });
 
+  }
   //Handle images Data
   handleImages=[
     'assets/handle/1.jpg',
@@ -177,12 +203,23 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
 
   //WHether dooor shod added or not 
   onValChange(value) {
-    this.isDoor =value;
+    this.isDoor = value;
     
+    
+}
+
+//updating data on with door or without door
+doorsUpdateonTOggle(){
+  
 }
 
 
   addDoor(i:number, boxSize:number){
+    if(!this.outerColor){
+      alert('Kies eerst de buitenste kleur');
+      return;
+    }
+    console.log('THis run without Outer color')
     if(this.isDoor == 'true'){
       let imageAddress;
     this.backupCloset.length =  Object.keys(this.closets).length;
@@ -204,7 +241,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     if (boxSize == 1) {
       if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
         this.backupCloset.splice(i, 0,imageAddress);
-        this.bgImage[i] = this.outerColor;
+        this.bgImage[i] = this.innerColor;
         this.closets[i].closetDesignImage = this.doorImages[0];
         console.log(' image backup',i, this.backupCloset[i])
       }
@@ -231,7 +268,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
         this.backupCloset.splice(i, 0,imageAddress);
         this.bgImage[i] = this.outerColor;
         this.closets[i].closetDesignImage = this.doorImages[1];
-        console.log(' image backup',i, this.backupCloset[i])
+        console.log(' image backup',i, this.backupCloset[i] , 'and this is outer color', this.outerColor)
       }
       else if(this.closets[i].closetDesignImage === null){
         this.bgImage[i] = this.outerColor;
@@ -256,7 +293,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
   }
 
   validateBoxForm(){
-    if(this.handle){
+    if(this.outerColor){
       this.boxForm.setValue({
         boxFull:'abc'
       });
@@ -272,36 +309,68 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
 
   // Outer Color
   updateColor(i:number,nameOfColor:string){
- 
-  this.outerColor = this.designImages[i];
+    this.price = this.price - this.priceOfColorSide;
+    this.outerColor = this.designImages[i];
     this.outerColorName  = nameOfColor;
+    
     // Asign and share values to subsicrbers
     this.design.outerColorImg = this.designImages[i];
     this.design.outerColorName = nameOfColor;
  
 
     this._DataSharing.sendColorImage(this.design);
-
+    this._DataSharing.sendOuterImage(this.bgImage);
+    
+    this.calculateColorPrice();
     this.validateBoxForm();
   }
 
-  openDialog() {
-    const dialogRef = this.dialog.open(ChooseOuterColorComponent,{
-      width: '100%',
-      // data: { name: this.name, animal: this.animal },
-      position: {
-        
-        top: '50vh',
-        left: '1%'
-      },
-      panelClass: 'choose-outer-color'
 
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog result: ${result}`);
-      this.outerColor = this.designImages[result]
-      
-    });
+  openDialog(index:number) {
+    const dialogRef = this.dialog.open(ColorDesignComponent,{
+      height:'534px',
+      width: '400px',
+      data:{
+        image: `${this.designImages[index]}`
+      },
+      panelClass: 'color-image-modalbox'
+    }); 
+    
   }
+calculateColorPrice(){
+  
+  this.price = this.price - this.priceOfColorSide;
+  if(this.designImage == '4.jpg'){
+    this.price += this.priceOfColorSide*2;
+  }
+  if (this.designImage == '7.jpg'|| this.designImage =='3.jpg') {
+    this.price += this.priceOfColorSide;
+  }
+  if (this.designImage == '6.jpg'|| this.designImage =='1.jpg') {
+    this.price += this.priceOfColorSide;
+  }
+
+  this._DataSharing.updatePrice(this.price);
+  
+}
+ 
+  // openDialog() {
+  //   const dialogRef = this.dialog.open(ChooseOuterColorComponent,{
+  //     width: '100%',
+  //     // data: { name: this.name, animal: this.animal },
+  //     position: {
+        
+  //       top: '50vh',
+  //       left: '1%'
+  //     },
+  //     panelClass: 'choose-outer-color'
+
+  //   });
+  //   dialogRef.afterClosed().subscribe(result => {
+  //     console.log(`Dialog result: ${result}`);
+  //     this.outerColor = this.designImages[result]
+      
+  //   });
+  // }
   
 }

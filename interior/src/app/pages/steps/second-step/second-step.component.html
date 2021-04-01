@@ -22,12 +22,12 @@
                    
                     <mat-form-field appearance="fill" >
                         <mat-label>Breedte kast (Br1)</mat-label>
-                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="250" max="600" autocomplete="off" (focusout)="sendData()">
+                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="250" max="550" autocomplete="off" (focusout)="sendData()">
                         <span matSuffix>cm</span>
                          <mat-error *ngIf="(cabnetValuesForm.get('cabnetWidth').touched 
                                         || cabnetValuesForm.get('cabnetWidth').dirty) && 
                                         cabnetValuesForm.get('cabnetWidth').errors">
-                            vul hier een waarde hoger of gelijk aan 250cm in</mat-error> 
+                                        Vul hier een waarde in tussen 60 cm en 550 cm</mat-error> 
                     </mat-form-field>
                       <mat-form-field appearance="fill">
                         <mat-label>Hoogte kast (H1)</mat-label>
@@ -137,7 +137,7 @@
                                         
 
                                       </mat-list>
-                                      <app-shared-form></app-shared-form>
+                                      <!-- <app-shared-form></app-shared-form> -->
                                                                         <!-- Price Setup -->
                                       <!-- <div class="section-below" fxFlex="100">
                                         <mat-divider [inset]="true"></mat-divider>
