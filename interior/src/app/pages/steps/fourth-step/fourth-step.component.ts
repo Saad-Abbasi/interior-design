@@ -24,9 +24,10 @@ export class FourthStepComponent implements OnInit {
   currentWidth = 0;
   boxWidth = 0;
   imageIndex : number;
-  price:any;
+  price;
   boxForm:FormGroup;
   priceOfEachCloset = [];
+  boxDesignImageName = [];
  
   closets: ICloset[];
   constructor(private _sharedData:DataSharingService,
@@ -57,7 +58,11 @@ export class FourthStepComponent implements OnInit {
       this.closets = result;
       
     });
-   
+  //  Getting the lenght
+  if(this.closets){
+    this.boxDesignImageName.length =  this.closets.length;
+  }
+  
     
     //getting price 
     this._sharedData._price$.subscribe((result)=>{
@@ -83,14 +88,14 @@ export class FourthStepComponent implements OnInit {
    
   }
   addDesignImage = (boxSize,selectedDesign)=>{
+    
     for (let i = 0; i < this.priceOfEachCloset.length; i++) {
       if (this.priceOfEachCloset[i]) {
-      
       this.price = this.price - this.priceOfEachCloset[i];
       }
       
     }
-    console.log(this.closets[this.imageIndex].cols)
+    
     if(this.currentWidth <= this.maxWidth){
       
       if(boxSize == 2 ){
@@ -99,10 +104,12 @@ export class FourthStepComponent implements OnInit {
         let img =  this.closets[this.imageIndex].closetDesignImage
         
         let imgPrice = 0;
-        imgPrice = this.getPriceOfBigCloset(img);
+        
+        
+        imgPrice = this.getPriceOfBigCloset(img,this.imageIndex);
         this.priceOfEachCloset[this.imageIndex] = 0;
         this.priceOfEachCloset[this.imageIndex] = imgPrice;
-
+        
         boxSize = 0;
       }
       else if(boxSize == 1){
@@ -111,57 +118,70 @@ export class FourthStepComponent implements OnInit {
         let img =  this.closets[this.imageIndex].closetDesignImage;
 
         let imgPrice = 0;
-        imgPrice = this.getPriceOfSmallCloset(img)
+        imgPrice = this.getPriceOfSmallCloset(img,this.imageIndex)
         this.priceOfEachCloset[this.imageIndex] = 0;
         this.priceOfEachCloset[this.imageIndex] = imgPrice;
-        console.log('got the price for small closet', typeof(imgPrice));
+        
+        console.log('got the price for small closet', this.priceOfEachCloset[this.imageIndex]);
         boxSize = 0;
       }
       else{
         alert('Width size exceeds')
       }
     }
+    
     this.calculatePrice();
-
     this.validateBoxForm();
     
   }
   // Get Price of Big Closet Image
-  getPriceOfBigCloset(img){
+  getPriceOfBigCloset(img,i){
     if (img.includes('11.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 6 legplanken';
       return 212;
     }
     else if (img.includes('10.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 5 legplanken ';
       return 205;
     }
     else if (img.includes('12.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 4 legplanken en kledingstang';
       return 205;
     }
     else if (img.includes('8.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 4 legplanken en 3 laden';
       return 375;
     }
     else if (img.includes('9.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 3 laden 2 legplanken en kledingstang ';
       return 377;
     }
     else if (img.includes('7.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 3 legplanken en kledingstang ';
       return 189;
     }
     else if (img.includes('5.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 5 legplanken en 2 laden ';
       return 329;
     }
     else if (img.includes('6.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 2 laden 3 legplanken en kledingstang';
       return 322;
     }
     else if (img.includes('4.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 2 legplanken en 2 kledingstangen';
       return 189;
     }
     else if (img.includes('2.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met 6 legplanken  lade ';
       return 274;
     }
     else if (img.includes('3.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met  lade 3 legplanken en kledingstang';
       return 267;
     }
     else if (img.includes('1.png')) {
+      this.boxDesignImageName[i] = 'Brede kast met  legplank  kledingstang  kledinglift';
       return 295;
     }
     else{
@@ -170,42 +190,54 @@ export class FourthStepComponent implements OnInit {
   }
 
    // Get Price of Small Closet Image
-   getPriceOfSmallCloset(img){
+   getPriceOfSmallCloset(img,i){
     if (img.includes('11.png')) {
+      this.boxDesignImageName[i] = 'Kast met 6 legplanken ';
       return 183;
     }
     else if (img.includes('10.png')) {
+      this.boxDesignImageName[i] = 'Kast met 5 legplanken ';
       return 175;
     }
     else if (img.includes('12.png')) {
+      this.boxDesignImageName[i] = 'Kast met 4 legplanken en kledingstang ';
       return 175;
     }
     else if (img.includes('8.png')) {
+      this.boxDesignImageName[i] = 'Kast met 4 legplanken en 3 laden';
       return 346;
     }
     else if (img.includes('9.png')) {
+      this.boxDesignImageName[i] = 'Kast met 3 laden 2 legplanken en kledingstang';
       return 355;
     }
     else if (img.includes('3.png')) {
+      this.boxDesignImageName[i] = 'Kast met 3 legplanken en kledingstang ';
       return 169;
     }
     else if (img.includes('6.png')) {
-      return 329;
+      this.boxDesignImageName[i] = 'Kast met 5 legplanken en 2 laden';
+      return 288;
     }
     else if (img.includes('7.png')) {
+      this.boxDesignImageName[i] = 'Kast met 2 laden 3 legplanken en kledingstang';
       return 293;
     }
     else if (img.includes('2.png')) {
+      this.boxDesignImageName[i] = 'Kast met 2 legplanken en 2 kledingstangen ';
       return 169;
     }
     else if (img.includes('4.png')) {
+      this.boxDesignImageName[i] = 'Kast met 6 legplanken  lade';
       return 245;
     }
     else if (img.includes('5.png')) {
+      this.boxDesignImageName[i] = 'Kast met  lade 3 legplanken en kledingstang';
       return 231;
     }
     else if (img.includes('1.png')) {
-      return 295;
+      this.boxDesignImageName[i] = 'Kast met 1 legplank 1 kledingstang 1 kledinglift';
+      return 293;
     }
     else{
       return 0;
@@ -216,13 +248,14 @@ export class FourthStepComponent implements OnInit {
   calculatePrice(){
     
     for (let i = 0; i < this.priceOfEachCloset.length; i++) {
-      if (this.priceOfEachCloset[i]) {
-      
-      this.price = this.price + this.priceOfEachCloset[i];
-      }
-      
+      // adding and converting prices into num 
+      console.log(typeof(this.price, isNaN(this.price)))
+    if(this.priceOfEachCloset[i]){
+      this.price = parseFloat(this.price) + parseFloat(this.priceOfEachCloset[i]);
     }
-    console.log(this.price)
+    
+    }
+    this.price = this.price.toFixed(2)
     this._sharedData.updatePrice(this.price)
   }
 

@@ -12,6 +12,7 @@
                             [style.backgroundImage]="'url(' + closet.closetDesignImage + ')'" 
                             (click)="updateImageIndex(i)"
                             >
+                            <span *ngIf="boxDesignImageName " class="boxDesignText">{{boxDesignImageName [i]}}</span>
                             <span class="table-value">{{closet.widthInCm}}</span>
                             <span class="add_design_button" >
                                 +
@@ -74,7 +75,7 @@
                                         <h2>Totale prijs:</h2>
                                         <span id="total_price">€<span id="total_price_number">{{price}}</span></span><span
                                             class="btw">(excl. BTW)</span>
-                                        <p>Geschatte levertijd: 5 werkdagen</p>
+                                        <p>Geschatte levertijd: 15 werkdagen</p>
                                     </div>
 
                                 </mat-card-content>

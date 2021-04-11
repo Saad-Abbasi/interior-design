@@ -29,6 +29,10 @@ handle:string;
 boxForm:FormGroup;
 price;
 isInnerColor = 'true';
+totalPirceOfColorInner = 0;
+uniColorPercent;
+woodenColorPercent;
+selectedPercnt;
 designImages =[
   "assets/color/1.jpg",
   "assets/color/2.jpg",
@@ -40,13 +44,13 @@ designImages =[
   "assets/color/8.jpg",
   "assets/color/9.jpg",
   "assets/color/10.jpg",
-  "assets/color/11.jpg",
-  "assets/color/12.jpg",
-  "assets/color/13.jpg",
-  "assets/color/14.jpg",
-  "assets/color/15.jpg",
-  "assets/color/16.jpg",
-  "assets/color/17.jpg",
+  // "assets/color/11.jpg",
+  // "assets/color/12.jpg",
+  // "assets/color/13.jpg",
+  // "assets/color/14.jpg",
+  // "assets/color/15.jpg",
+  // "assets/color/16.jpg",
+  // "assets/color/17.jpg",
   // Universal colors
   "assets/color/universal_colors/1.jpg",
   "assets/color/universal_colors/2.jpg",
@@ -58,7 +62,7 @@ designImages =[
   "assets/color/universal_colors/8.jpg",
   "assets/color/universal_colors/9.jpg",
   "assets/color/universal_colors/10.jpg",
-  "assets/color/universal_colors/11.jpg"
+  // "assets/color/universal_colors/11.jpg"
 ];
 // designImagesUniversal =[
 //   "assets/color/universal_colors/1.jpg",
@@ -107,17 +111,53 @@ constructor(private _DataSharing: DataSharingService,
     this.boxForm = new FormGroup({
       boxFull: new FormControl('', [Validators.required]),
     });
-
-    //getting price 
-    this._DataSharing._price$.subscribe((result)=>{
+     //getting price 
+     this._DataSharing._price$.subscribe((result)=>{
       this.price = result;
     });
     
+     
   }
-
+ 
+  addPercentage(){
+     // Calculation of percentatge uni & wooden
+     if(this.price){
+    this.uniColorPercent = (12/100) * this.price;
+     console.log(this.uniColorPercent, 'uni color percentage');
+     this.woodenColorPercent = (24/100)*this.price;
+     console.log('woodent color peretn', this.woodenColorPercent)
+     }
+     this.addPercentage = undefined;
+  }
+  
   //Update Color/image
-
+ 
   updateColor(i:number,nameOfColor:string){
+    if(this.addPercentage ){
+      this.addPercentage();
+    }
+    if (this.selectedPercnt) {
+      this.price = this.price - this.selectedPercnt;
+      
+    }
+    let colorType = this.designImages[i];
+
+    if( colorType.includes("universal_colors")){
+     this.selectedPercnt = this.uniColorPercent;
+      this.totalPirceOfColorInner = parseFloat(this.price) + parseFloat(this.selectedPercnt);
+      this.price = this.totalPirceOfColorInner;
+      this.price = this.price.toFixed(2);
+      this._DataSharing.updatePrice(this.price);
+    }
+    else{
+      this.selectedPercnt = this.woodenColorPercent;
+      
+      this.totalPirceOfColorInner = parseFloat(this.price) + parseFloat(this.selectedPercnt);
+      this.price = this.totalPirceOfColorInner;
+      this.price = this.price.toFixed(2);
+      this._DataSharing.updatePrice(this.price);
+    }
+
     if (this.isInnerColor == 'true') {
       this.innerColor = this.designImages[i];
       this.innerColorName = nameOfColor;
@@ -135,7 +175,7 @@ constructor(private _DataSharing: DataSharingService,
  }
 
     this._DataSharing.sendColorImage(this.design);
-
+    
     this.validateBoxForm();
   }
 
@@ -160,6 +200,7 @@ validateBoxForm(){
     this.boxForm.setValue({
       boxFull:'abc'
     });
+    
   }
   else{
     this.boxForm.setValue({

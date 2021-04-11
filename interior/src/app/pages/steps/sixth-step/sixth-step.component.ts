@@ -20,6 +20,7 @@ export class SixthStepComponent implements OnInit {
   cabnetDepth:number;
   slope:boolean; //to determine design slope or not
   closets:ICloset[];
+  closetsBackup:ICloset[];
   design:IColorDesign;//image handle interior
   widthAreaBox ='800px';
   innerColor:string;
@@ -37,7 +38,9 @@ export class SixthStepComponent implements OnInit {
   backupInnerImages=[];
   isDoor = 'false';
   priceOfColorSide = 0;
+  doorPrice = 0 ;
   designImage:string;
+  scalVal = [];
   designImages =[
     "assets/color/1.jpg",
     "assets/color/2.jpg",
@@ -49,13 +52,13 @@ export class SixthStepComponent implements OnInit {
     "assets/color/8.jpg",
     "assets/color/9.jpg",
     "assets/color/10.jpg",
-    "assets/color/11.jpg",
-    "assets/color/12.jpg",
-    "assets/color/13.jpg",
-    "assets/color/14.jpg",
-    "assets/color/15.jpg",
-    "assets/color/16.jpg",
-    "assets/color/17.jpg",
+    // "assets/color/11.jpg",
+    // "assets/color/12.jpg",
+    // "assets/color/13.jpg",
+    // "assets/color/14.jpg",
+    // "assets/color/15.jpg",
+    // "assets/color/16.jpg",
+    // "assets/color/17.jpg",
     // Universal colors
     "assets/color/universal_colors/1.jpg",
     "assets/color/universal_colors/2.jpg",
@@ -67,7 +70,7 @@ export class SixthStepComponent implements OnInit {
     "assets/color/universal_colors/8.jpg",
     "assets/color/universal_colors/9.jpg",
     "assets/color/universal_colors/10.jpg",
-    "assets/color/universal_colors/11.jpg"
+    // "assets/color/universal_colors/11.jpg"
   ];
   constructor(private _DataSharing: DataSharingService,
               private dialog:MatDialog) { }
@@ -102,26 +105,35 @@ export class SixthStepComponent implements OnInit {
       this.closets = result;
       console.log(this.closets)
       this.bgImage.length = Object.keys(this.closets).length;
+      this.backupCloset.length = Object.keys(this.closets).length;
+     for (let i = 0; i < result.length; i++) {
+        this.scalVal[i] = 'scaleX(1)';
+     }
     });
-
+   
+    
     
     
     if(!this.closets){
-this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/big_box/2.jpg"},
-              {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/4.jpg"},
-              {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/3.jpg"},
-              {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/4.jpg"}
+this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/big_box/2.png"},
+              {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/4.png"},
+              {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/3.png"},
+              {index: 1, cols: 1, boxWidthTest: "20%", widthInCm: "50.0cm", closetDesignImage: "http://localhost:4200/assets/CpBox/small/4.png"}
               
             ]
-            
+              
             
     }
-
+      
    //getting price 
    this._DataSharing._price$.subscribe((result)=>{
-    this.price = result;
+    this.price = result
   });
-    
+
+  if(!this.price){
+    this.price = 500
+    this.price = parseFloat(this.price)
+  }
     //Data colorImage
   
     this._DataSharing._colorImages$.subscribe((data:any)=>{
@@ -152,6 +164,14 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     this.getOuterColorImg();
   }
 
+  // Hold copy of initial closets 
+  makeCopyOfCloset(closets){
+    this.closetsBackup = JSON.parse(JSON.stringify(this.closets));
+    
+  
+    console.log(this.closets, 'Copy ', this.closetsBackup)
+    this.makeCopyOfCloset = undefined; //Killing fun
+  }
   getOuterColorImg(){
     
     this._DataSharing._colorImages$.subscribe((data:any)=>{
@@ -203,7 +223,59 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
 
   //WHether dooor shod added or not 
   onValChange(value) {
+   
+    if(this.doorPrice > 0){
+      this.price = this.price - this.doorPrice;
+      this.doorPrice = 0;
+    }
+    
+    if(!this.outerColor){
+      alert('Kies eerst de buitenste kleur');
+      return;
+    }
+
+    if(this.makeCopyOfCloset ){
+      this.makeCopyOfCloset(this.closets);
+    }
     this.isDoor = value;
+    if(this.isDoor == 'true'){
+      for (let i = 0; i < this.closets.length; i++) {
+        this.bgImage[i] = this.outerColor;
+        if (this.closets[i].cols == 2) {
+          this.closets[i].closetDesignImage = this.doorImages[1]
+          if(this.outerColor && this.outerColor.includes("universal_colors")){
+            this.doorPrice += 45*2;
+          }
+          else {
+            this.doorPrice += 50*2;
+          }
+        }
+        else{
+          this.closets[i].closetDesignImage = this.doorImages[0]
+          if(this.outerColor && this.outerColor.includes("universal_colors")){
+            this.doorPrice += 45;
+          }
+          else {
+            this.doorPrice += 50
+          }
+        }
+        
+      }
+      // this.doorPrice = parseFloat(this.doorPrice)
+      
+      this.price = parseFloat(this.price)
+      this.price += this.doorPrice;
+      console.log(this.doorPrice,this.price,'<= Door Price');
+      this._DataSharing.updatePrice(this.price);
+    }
+    else{
+      for (let i = 0; i < this.closets.length; i++) {
+       
+        this.closets[i].closetDesignImage = this.closetsBackup[i].closetDesignImage
+        this.bgImage[i] = this.innerColor;
+      }
+      
+    }
     
     
 }
@@ -214,84 +286,95 @@ doorsUpdateonTOggle(){
 }
 
 
-  addDoor(i:number, boxSize:number){
-    if(!this.outerColor){
-      alert('Kies eerst de buitenste kleur');
-      return;
-    }
-    console.log('THis run without Outer color')
-    if(this.isDoor == 'true'){
-      let imageAddress;
-    this.backupCloset.length =  Object.keys(this.closets).length;
+
+  // addDoor(i:number, boxSize:number){
+  //   if(!this.outerColor){
+  //     alert('Kies eerst de buitenste kleur');
+  //     return;
+  //   }
+  //   console.log('THis run without Outer color')
+  //   if(this.isDoor == 'true'){
+  //     let imageAddress;
+  //   this.backupCloset.length =  Object.keys(this.closets).length;
      
 
-    //Hold image addres for later use
-    if(typeof this.backupCloset[i] === 'undefined'){
-     imageAddress  = this.closets[i].closetDesignImage;
-    }
+  //   //Hold image addres for later use
+  //   if(typeof this.backupCloset[i] === 'undefined'){
+  //    imageAddress  = this.closets[i].closetDesignImage;
+  //   }
     
-    //Color 
-    // this.bgImage = this.innerColor;
-    // add/remove
+  //   //Color 
+  //   // this.bgImage = this.innerColor;
+  //   // add/remove
    
-    console.log('image of this box is', imageAddress);
+  //   console.log('image of this box is', imageAddress);
 
-    console.log('image addres', this.closets[i].closetDesignImage)
+  //   console.log('image addres', this.closets[i].closetDesignImage)
 
-    if (boxSize == 1) {
-      if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
-        this.backupCloset.splice(i, 0,imageAddress);
-        this.bgImage[i] = this.innerColor;
-        this.closets[i].closetDesignImage = this.doorImages[0];
-        console.log(' image backup',i, this.backupCloset[i])
-      }
-      else if(this.closets[i].closetDesignImage === null){
-        this.bgImage[i] = this.outerColor;
-        this.closets[i].closetDesignImage = this.doorImages[0];
-      }
-      else if(!this.closets[i].closetDesignImage.includes('CpBox')){
+  //   if (boxSize == 1) {
+  //     if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
+  //       this.backupCloset.splice(i, 0,imageAddress);
+  //       this.bgImage[i] = this.innerColor;
+  //       this.closets[i].closetDesignImage = this.doorImages[0];
+  //       console.log(' image backup',i, this.backupCloset[i])
+  //     }
+  //     else if(this.closets[i].closetDesignImage === null){
+  //       this.bgImage[i] = this.outerColor;
+  //       this.closets[i].closetDesignImage = this.doorImages[0];
+  //     }
+  //     else if(!this.closets[i].closetDesignImage.includes('CpBox')){
         
-        console.log('Else case called', this.backupCloset[i])
+  //       console.log('Else case called', this.backupCloset[i])
         
-        this.closets[i].closetDesignImage = this.backupCloset[i];
-        this.bgImage[i] = this.innerColor;
-      }
-      else{
-        this.bgImage[i] = this.outerColor;
-        this.closets[i].closetDesignImage = this.doorImages[0];
-      }
+  //       this.closets[i].closetDesignImage = this.backupCloset[i];
+  //       this.bgImage[i] = this.innerColor;
+  //     }
+  //     else{
+  //       this.bgImage[i] = this.outerColor;
+  //       this.closets[i].closetDesignImage = this.doorImages[0];
+  //     }
+      
+  //   }
+  //   else{
+      
+  //     if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
+  //       this.backupCloset.splice(i, 0,imageAddress);
+  //       this.bgImage[i] = this.outerColor;
+  //       this.closets[i].closetDesignImage = this.doorImages[1];
+  //       console.log(' image backup',i, this.backupCloset[i] , 'and this is outer color', this.outerColor)
+  //     }
+  //     else if(this.closets[i].closetDesignImage === null){
+  //       this.bgImage[i] = this.outerColor;
+  //       this.closets[i].closetDesignImage = this.doorImages[1];
+  //     }
+  //     else if(!this.closets[i].closetDesignImage.includes('CpBox')){
+        
+  //       this.closets[i].closetDesignImage = this.backupCloset[i];
+  //       this.bgImage[i] = this.innerColor
+  //     }
+  //     else{
+  //       this.bgImage[i] = this.outerColor;
+  //       this.closets[i].closetDesignImage = this.doorImages[1];
+  //     }
+  //   }
+  //   }
+
+  //   else{
+  //     return;
+  //   }
+
+  // }
+
+  flipDoor(i){
+    if(this.scalVal[i] == 'scaleX(1)'){
+      this.scalVal[i] = 'scaleX(-1)'
       
     }
     else{
-      
-      if(typeof this.backupCloset[i] === 'undefined' && imageAddress.includes('CpBox')){
-        this.backupCloset.splice(i, 0,imageAddress);
-        this.bgImage[i] = this.outerColor;
-        this.closets[i].closetDesignImage = this.doorImages[1];
-        console.log(' image backup',i, this.backupCloset[i] , 'and this is outer color', this.outerColor)
-      }
-      else if(this.closets[i].closetDesignImage === null){
-        this.bgImage[i] = this.outerColor;
-        this.closets[i].closetDesignImage = this.doorImages[1];
-      }
-      else if(!this.closets[i].closetDesignImage.includes('CpBox')){
-        
-        this.closets[i].closetDesignImage = this.backupCloset[i];
-        this.bgImage[i] = this.innerColor
-      }
-      else{
-        this.bgImage[i] = this.outerColor;
-        this.closets[i].closetDesignImage = this.doorImages[1];
-      }
+      this.scalVal[i] = 'scaleX(1)'
     }
-    }
-
-    else{
-      return;
-    }
-
+    this._DataSharing.updatDoorFlip(this.scalVal)
   }
-
   validateBoxForm(){
     if(this.outerColor){
       this.boxForm.setValue({
@@ -309,6 +392,9 @@ doorsUpdateonTOggle(){
 
   // Outer Color
   updateColor(i:number,nameOfColor:string){
+    if(this.isDoor == 'true'){
+      this.onValChange('false')
+    }
     this.price = this.price - this.priceOfColorSide;
     this.outerColor = this.designImages[i];
     this.outerColorName  = nameOfColor;
@@ -316,7 +402,8 @@ doorsUpdateonTOggle(){
     // Asign and share values to subsicrbers
     this.design.outerColorImg = this.designImages[i];
     this.design.outerColorName = nameOfColor;
- 
+    // this.design = {innerColorImg:this.innerColor, innerColorName: this.innerColorName,
+    //   outerColorImg:this.outerColor,outerColorName:this.outerColorName, handleImg:this.handle, handleImgName:this.handleName}
 
     this._DataSharing.sendColorImage(this.design);
     this._DataSharing.sendOuterImage(this.bgImage);
@@ -339,7 +426,7 @@ doorsUpdateonTOggle(){
   }
 calculateColorPrice(){
   
-  this.price = this.price - this.priceOfColorSide;
+  
   if(this.designImage == '4.jpg'){
     this.price += this.priceOfColorSide*2;
   }
@@ -349,7 +436,7 @@ calculateColorPrice(){
   if (this.designImage == '6.jpg'|| this.designImage =='1.jpg') {
     this.price += this.priceOfColorSide;
   }
-
+  this.price = this.price.toFixed(2);
   this._DataSharing.updatePrice(this.price);
   
 }

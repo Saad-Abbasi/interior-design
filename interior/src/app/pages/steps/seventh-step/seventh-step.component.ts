@@ -26,9 +26,10 @@ export class SeventhStepComponent implements OnInit {
   handleName:string;
   singleDoorImage:string;
   bgImage=[];
+  scalVal =[];
   doorImag;
   price;
-  
+  priceOfHandle;
 
   constructor(private _DataSharing: DataSharingService) { }
 
@@ -53,6 +54,8 @@ export class SeventhStepComponent implements OnInit {
 
     this._DataSharing._closetLayout$.subscribe((result:any)=>{
       this.closets = result;
+      this.bgImage.length = Object.keys(this.closets).length;
+      console.log(result, '<= Layout')
     });
 
       //Data colorImage
@@ -65,7 +68,8 @@ export class SeventhStepComponent implements OnInit {
         this.handle = data.handleImg;
         this.handleName = data.handleImgName;
       });
-
+      // setting Outer Color
+     
     //getting design image 
 
     // this._DataSharing._imageUrl$.subscribe((_imageUrl)=>{
@@ -80,8 +84,13 @@ export class SeventhStepComponent implements OnInit {
   // getting bg image array for doors 
   this._DataSharing._shareOuterImage$.subscribe((result:any)=>{
     this.bgImage = result
+    console.log('Bg Array',this.bgImage)
+  });
+  //getting doorFlip value
+  this._DataSharing._doorFlip$.subscribe((result:any)=>{
+    this.scalVal = result;
   })
-  
+
   }
 
   handleImages=[
@@ -99,12 +108,34 @@ export class SeventhStepComponent implements OnInit {
     'assets/handle/12.jpg',
     'assets/handle/13.jpg',
   ]
+  
 addHandle(i:number,nameOfHandle:string){
+  if(this.priceOfHandle ){
+    this.price  = this.price - this.priceOfHandle;
+  }
+  
+  if(i == 5 || i == 6){
+    this.priceOfHandle = 4.5;
+  }
+  else{
+    this.priceOfHandle = 9.5
+  }
     this.handle = this.handleImages[i];
     this.handleName = nameOfHandle;
-    this.design.handleImg = this.handle;
-    this.design.handleImgName = this.handleName;
-    this._DataSharing.sendColorImage(this.design)
+ 
+     this.design = {innerColorImg:this.innerColor,
+                innerColorName: this.innerColorName,
+                outerColorImg:this.outerColor,
+                outerColorName:this.outerColorName, 
+                handleImg:this.handle, 
+                handleImgName:this.handleName
+    }
+ 
+    this.price = parseFloat(this.priceOfHandle) + parseFloat(this.price);
+    this.price = this.price.toFixed(2);
+    console.log('type of price ', typeof(this.price),isNaN(this.price),this.price,this.priceOfHandle);
+    // this._DataSharing.sendColorImage(this.design)
+    this._DataSharing.updatePrice(this.price);
     // this.validateBoxForm();
   }
 }

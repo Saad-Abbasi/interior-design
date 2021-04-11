@@ -14,7 +14,8 @@
                             [style.max-width]="closet.boxWidthTest"
                             [style.backgroundImage]="'url(' + closet.closetDesignImage + ') ,
                              url('+ bgImage[i] +')'"
-                            (click)="addDoor(i,closet.cols)">
+                             [style.transform]="scalVal[i]"
+                            >
                             <span class="table-value">{{closet.widthInCm}}</span>
                             <!-- <div *ngIf="isDoor=='true'">
                                 <button  mat-icon-button class="add-remove-door" aria-label="add remove door">
@@ -129,8 +130,8 @@
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Kleur binnenkast</span>
-                                            <!-- <span *ngIf="innerColorName" fxFlex="30">{{innerColorName}}</span> -->
-                                            <span *ngIf='innerColor' >
+                                            <span *ngIf="innerColorName"class="label-of-fields"  fxFlex="30">{{innerColorName}}</span>
+                                            <span *ngIf='innerColor' fxFlex>
                                                 <div id="color-inner" [style.background-image]="'url('+innerColor+')'">
                                                 </div>
                                             </span>
@@ -138,16 +139,16 @@
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Kleur buitenkast</span>
-                                            <!-- <span *ngIf="outerColorName" fxFlex="30">{{outerColorName}}</span> -->
-                                            <span *ngIf='outerColor' >
+                                            <span *ngIf="outerColorName" class="label-of-fields" fxFlex="30">{{outerColorName}}</span>
+                                            <span *ngIf='outerColor' fxFlex >
                                                 <div id="color-inner" [style.background-image]="'url('+outerColor+')'">
                                                 </div>
                                             </span>
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Handgrepen</span>
-                                            <!-- <span *ngIf="handleName" fxFlex="30">{{handleName}}</span> -->
-                                            <span *ngIf="handle" >
+                                            <!-- <span *ngIf="handleName" class="label-of-fields" fxFlex="30">{{handleName}}</span> -->
+                                            <span *ngIf="handle" fxFlex>
                                                 <div class="handle-image" id="color-inner" [style.background-image]="'url('+handle+')'">
                                                 </div>
                                             </span>
@@ -160,7 +161,7 @@
                                         <h2>Totale prijs:</h2>
                                         <span id="total_price">€<span id="total_price_number">{{price}}</span></span><span
                                             class="btw">(excl. BTW)</span>
-                                        <p>Geschatte levertijd: 5 werkdagen</p>
+                                        <p>Geschatte levertijd: 15 werkdagen</p>
                                     </div>
 
                                 </mat-card-content>

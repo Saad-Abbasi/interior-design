@@ -17,7 +17,7 @@ export class DataSharingService {
   private _colorImageDataSource = new Subject<string>();
   _colorImages$ = this._colorImageDataSource.asObservable();
 
-  private _priceDataSource = new Subject<string>();
+  private _priceDataSource = new Subject<number>();
   _price$ = this._priceDataSource.asObservable();
 
   private _slopeStatus = new Subject<string>();
@@ -28,6 +28,12 @@ export class DataSharingService {
 
   private _shareOuterImage = new Subject<string>();
   _shareOuterImage$ = this._shareOuterImage.asObservable();
+
+  private _sharedFormLabels = new Subject<string>();
+  _sharedFormLabels$ = this._sharedFormLabels.asObservable();
+
+  private _doorFlip = new Subject<string>();
+  _doorFlip$ = this._doorFlip.asObservable();
 
   constructor() { }
 
@@ -59,6 +65,14 @@ export class DataSharingService {
 
   sendOuterImage(outerColorImg:any){
     this._shareOuterImage.next(outerColorImg);
+  }
+
+  updateSharedFormLabels(labels:any){
+    this._sharedFormLabels.next(labels);
+  }
+
+  updatDoorFlip(scaleX:any){
+    this._doorFlip.next(scaleX);
   }
 
 }

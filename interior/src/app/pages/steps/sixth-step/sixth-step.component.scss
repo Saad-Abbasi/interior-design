@@ -21,7 +21,8 @@ html{
     }
   }
 .mat-color-card-super{
-    min-height: 1780px;
+    // min-height: 1780px;
+    min-height: 1000px;
 }
 
 .selection_box{
@@ -37,6 +38,7 @@ html{
         mat-grid-tile{
         align-items: center;
         border: 2px solid black;
+        
         }
       .color-card-head h5{
         color:  #e78932;
@@ -141,6 +143,11 @@ html{
     // background-repeat: no-repeat;
     background-position:center center;
     background-size: 100% 100%;
+    .flip-door-button{
+        position: absolute;
+        bottom: -3px;
+        width: 100%;
+    }
     
 }
 .half-box{
@@ -194,6 +201,9 @@ mat-card{
                 }
             }
     }
+    #color-name{
+        font-size: 80%;
+    }
     #color-inner{
         background-size: cover;
         height: 40px;
@@ -203,6 +213,7 @@ mat-card{
         box-shadow: gray;
         // margin-right: 5px;
         padding-bottom: 5px;
+        
         margin-left: auto;
     }
    :hover > #color-inner{

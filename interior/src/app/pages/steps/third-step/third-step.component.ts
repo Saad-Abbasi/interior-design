@@ -33,7 +33,7 @@ export class ThirdStepComponent implements OnInit {
   availableWidth;
   currentWidth = 0;
   boxWidth = 0;
-  price = 0.00;
+  price: number;
   cupBoardSpace = '';
   fullClosetValue:number;
   shortClosetValue:number;
@@ -85,7 +85,7 @@ export class ThirdStepComponent implements OnInit {
     // Getting price
     this._sharedData._price$.subscribe((result:any)=>{
       console.log(result , 'test it' ,isNaN(result))
-      this.price =parseFloat(result); 
+      this.price = parseFloat(result); 
     });
   }
   removeTile =(closet)=>{
@@ -174,8 +174,8 @@ public get polygon() {
       });
       // Implementd in next step for now not dealing with price here
       // this._sharedData.updatePrice(this.price);
-
-      this._sharedData.updatePrice(this.price);
+     
+      this._sharedData.updatePrice(this.price.toFixed(2));
     }
     else{
       this.boxForm.setValue({

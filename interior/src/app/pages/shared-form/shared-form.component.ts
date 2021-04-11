@@ -1,7 +1,8 @@
 import { ResourceLoader } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import {DataSharingService} from './../../shared/data-sharing.service'
+import {DataSharingService} from './../../shared/data-sharing.service';
+import {ISharedFormLabel} from '../../shared/i-shared-form-label'
 
 @Component({
   selector: 'app-shared-form',
@@ -10,55 +11,71 @@ import {DataSharingService} from './../../shared/data-sharing.service'
 })
 export class SharedFormComponent implements OnInit {
 barForm; // For bars left,right,top,bottom
-price = 0;
+price=0;
 priceArray = [0,0,0,0];
 rightLabel ="Paslat rechts";
 leftLabel ="Paslat links";
 rightReadOnly = false;
 leftReadOnly = false;
-designImage :string;
+ designImage :string;
 cabnetWidth:number;
 cabnetWidth2:number;
 priceOfColorSide = 0;
 outerColor:string;
+sharedFormLabels:ISharedFormLabel;
+
   constructor(private _sharedData: DataSharingService) { 
-    
+  
     this.barForm = new FormGroup({
-      leftBar: new FormControl('5', [Validators.min(2),Validators.required]),
-      rightBar: new FormControl('5', [Validators.min(2),Validators.required]),
-      topBar : new FormControl('5', [Validators.min(5),Validators.required]),
+      leftBar: new FormControl('2', [Validators.min(2),Validators.required]),
+      rightBar: new FormControl('2', [Validators.min(2),Validators.required]),
+      topBar : new FormControl('2', [Validators.min(2),Validators.required]),
       bottomBar: new FormControl('10', [Validators.min(10),Validators.required]),
   });
-  
+ 
     
   }
-  ngAfterViewInit() {
-    
-  }
+ 
 
   ngOnInit(): void {
-    // this.getOuterColorImg();
-
-    this.getCabnetData();
     
-    this.imageBasedRender();
+    this.sharedFormLabels = {
+      leftLabel:this.leftLabel,
+      rightLabel:this.rightLabel,
+      leftReadOnly:this.leftReadOnly,
+      rightReadOnly:this.rightReadOnly
+      }
 
-    this.getFormValues();
-    // this._sharedData._price$.subscribe((result:any)=>{
-    //   this.price = result
-    // })
-    
-    
+    this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
 
+      this.getCabnetData();
+    
+      this.imageBasedRender()
+    
+      
+     
+ 
   }
   imageBasedRender(){
+   
     this._sharedData._imageUrl$.subscribe(result =>{
-      this.designImage = result;
+
+      if(this.sendImage){
+        this.sendImage(result);
+        this.designImage = result;
+        
+      }
+      if(this.designImage == undefined) 
+      return;
+      console.log(this.designImage, 'result in images base render');
       if (result == '7.jpg'|| result=='3.jpg') {
+        
         this.leftLabel = 'Opzet links';
+        console.log('left label set',this.leftLabel)
         this.barForm.patchValue({leftBar:2});
         this._sharedData.updateSharedForm(this.barForm.value);
         this.leftReadOnly = true;
+        this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
         this.onValueChange();
       }
   
@@ -83,10 +100,17 @@ outerColor:string;
       else{
         this.onValueChange();
       }
-      
+      console.log('desing img in img base rende',this.designImage)
     });
+    
+    
   }
 
+  sendImage(desinImage){
+    this.designImage = desinImage;
+    console.log('in send images', this.designImage)
+    this.sendImage = undefined;
+  }
   getOuterColorImg(){
     this.price - this.priceOfColorSide;
     this._sharedData._colorImages$.subscribe((data:any)=>{
@@ -113,8 +137,11 @@ outerColor:string;
   .subscribe((result:any)=>{
     this.cabnetWidth = result.cabnetWidth;
     this.cabnetWidth2 = result.cabnetWidth2;
-    this.onValueChange()
+    // this.imageBasedRender();
+    
+    this.onValueChange();
   });
+  
  }
 
   getFormValues(){
@@ -128,56 +155,82 @@ outerColor:string;
       })
       
     });
+    
   }
+ 
 
   onValueChange(){
-    
+    this.getFormValues();
+    this._sharedData._sharedFormLabels$.subscribe((result:any)=>{
+      this.leftLabel = result.leftLabel
+      this.rightLabel = result.rightLabel
+      this.leftReadOnly = result.leftReadOnly;
+      this.rightReadOnly = result.rightReadOnly
+    })
     for (let i = 0; i < this.priceArray.length; i++) {
       this.price -= this.priceArray[i];
     }
-
+    
     this.calculatePriceLeft(this.barForm.get('leftBar').value);
     this.calculatePriceRight(this.barForm.get('rightBar').value);
     this.calculatePriceTop(this.cabnetWidth);
     this.calculatePriceBottom(this.cabnetWidth);
 
     // updating values 
-
+   console.log(this.designImage)
     //eliminating the value of top bottom
     if(this.designImage == '4.jpg'){
       this.priceArray[0] = 0;
       this.priceArray[1] = 0;
     }
     if (this.designImage == '7.jpg'|| this.designImage =='3.jpg') {
+      this.leftLabel = 'Opzet links';
+      this.leftReadOnly = true;
       this.priceArray[0] = 0;
     }
     if (this.designImage == '6.jpg'|| this.designImage =='1.jpg') {
+      this.rightLabel = 'Opzet rechts';
+      this.rightReadOnly= true;
       this.priceArray[1] = 0;
     }
+    if(this.designImage){
+      for (let i = 0; i < this.priceArray.length; i++) {
+        // console.log('price of each side is ',i ,this.priceArray[i])
+        
+        this.price += this.priceArray[i];
+      }
+      this.sharedFormLabels.leftLabel = this.leftLabel;
+      this.sharedFormLabels.rightLabel = this.rightLabel;
+      this.sharedFormLabels.leftReadOnly = this.leftReadOnly;
+      this.sharedFormLabels.rightReadOnly = this.rightReadOnly;
 
-    for (let i = 0; i < this.priceArray.length; i++) {
-      this.price += this.priceArray[i];
+      this._sharedData.updateSharedFormLabels(this.sharedFormLabels)
+      
+      this._sharedData.updatePrice(this.price);
+      this._sharedData.updateSharedForm(this.barForm.value);
     }
-    this._sharedData.updatePrice(this.price);
-    this._sharedData.updateSharedForm(this.barForm.value);
-  }
-  
-
+    }
+    
+ 
+ 
+// Removing double calculations ... / will be remain same will not do double
   calculatePriceLeft(val){
-    if (val< 12) {
-      this.priceArray[0] = 16.50;
-    }
-    else {
-      this.priceArray[0] =   33;
-    }
+    this.priceArray[0] = 16.50;
+    // if (val< 12) {
+    //   this.priceArray[0] = 16.50;
+    // }
+    // else {
+    //   this.priceArray[0] =   33;
+    // }
   }
   calculatePriceRight(val){
-    if (val< 12) {
-      this.priceArray[1] =  16.50;
-    }
-    else {
-      this.priceArray[1] =  33;
-    }
+    this.priceArray[1] =  16.50;
+    // if (val< 12) {
+    //   this.priceArray[1] =  16.50;
+    // }
+    // else {
+    //   this.priceArray[1] =  33;
+    // }
   }
   calculatePriceTop(val){
     this.getCabnetData();

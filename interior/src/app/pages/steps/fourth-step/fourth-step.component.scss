@@ -86,7 +86,16 @@ html{
         background-color: transparent;
         outline: none !important;
     }
-    
+    .boxDesignText{
+        visibility: hidden;
+    }
+
+    .full-box:hover .boxDesignText {
+        visibility:visible;
+        }
+    .half-box-box:hover .boxDesignText {
+        visibility:visible;
+        }
 }
 .full-box{
     // box-shadow:3px 3px 5px 6px rgba(20, 20, 20, 0.774);

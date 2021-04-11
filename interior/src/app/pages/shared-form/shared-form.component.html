@@ -12,18 +12,18 @@
              <mat-error *ngIf="(barForm.get('leftBar').touched 
                             || barForm.get('leftBar').dirty) && 
                             barForm.get('leftBar').errors">
-                min-waarde moet 5 zijn</mat-error> 
+                min-waarde moet 2 zijn</mat-error> 
         </mat-form-field>
         
           <mat-form-field appearance="fill">
             <mat-label>{{rightLabel}}</mat-label>
             <input  matInput type="number" placeholder="Paslat rechts" formControlName="rightBar" min="2" autocomplete="off"
-            (input)="onValueChange()" [readonly]="rightReadOnly">
+            (input)="onValueChange()" [readonly]="rightReadOnly ">
             <span matSuffix>cm</span>
             <mat-error *ngIf="(barForm.get('rightBar').touched 
                             || barForm.get('rightBar').dirty) && 
                             barForm.get('rightBar').errors">
-                min-waarde moet 5 zijn</mat-error> 
+                min-waarde moet 2 zijn</mat-error> 
         
           </mat-form-field>
         </div>
@@ -33,13 +33,13 @@
         
           <mat-form-field appearance="fill">
             <mat-label>Paslat boven</mat-label>
-            <input  matInput type="number" placeholder="Paslat boven" formControlName="topBar"autocomplete="off" 
+            <input  matInput type="number" placeholder="Paslat boven" min="2" formControlName="topBar"autocomplete="off" 
             (input)="onValueChange()">
             <span matSuffix>cm</span>
            <mat-error *ngIf="(barForm.get('topBar').touched 
                             || barForm.get('topBar').dirty) && 
                             barForm.get('topBar').errors">
-                min-waarde moet 5 zijn</mat-error> 
+                min-waarde moet 2 zijn</mat-error> 
           </mat-form-field>
             
             <mat-form-field appearance="fill"  >
