@@ -3,7 +3,7 @@ html{
 }
 .image-card {
     // border: 2px solid gold;
-    
+    border-radius: 0px !important;
     // padding: 0px;
   }
 .selection_box{
@@ -80,8 +80,9 @@ html{
         color: black;
     }
     .add_design_button{
-        position: relative;
-        top:50% !important;
+        position: absolute;
+        bottom: 45%;
+        width: 100%;
         font-size: larger;
         background-color: transparent;
         outline: none !important;

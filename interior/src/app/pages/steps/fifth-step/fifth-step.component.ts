@@ -33,6 +33,8 @@ totalPirceOfColorInner = 0;
 uniColorPercent;
 woodenColorPercent;
 selectedPercnt;
+borderSlope;
+slopeDirection;
 designImages =[
   "assets/color/1.jpg",
   "assets/color/2.jpg",
@@ -86,7 +88,16 @@ constructor(private _DataSharing: DataSharingService,
 
     this._DataSharing._slope$.subscribe(result=>{
       if(result == 'true'){
-        this.slope = true
+        this.slope = true;
+        // getting slope direction
+        this._DataSharing._slopeDirection$.subscribe(result=>{
+          this.slopeDirection = result;
+          // Getting border for slope
+          this._DataSharing._borderSLope$.subscribe(result=>{
+            this.borderSlope = result;
+          })
+        })
+        
       }
       else{
         this.slope = false
@@ -138,23 +149,28 @@ constructor(private _DataSharing: DataSharingService,
     }
     if (this.selectedPercnt) {
       this.price = this.price - this.selectedPercnt;
+      this.price = this.price.toFixed(2);
       
     }
     let colorType = this.designImages[i];
 
-    if( colorType.includes("universal_colors")){
+    if( colorType && colorType.includes("universal_colors") &&  !colorType.includes('2.jpg')){
      this.selectedPercnt = this.uniColorPercent;
       this.totalPirceOfColorInner = parseFloat(this.price) + parseFloat(this.selectedPercnt);
       this.price = this.totalPirceOfColorInner;
       this.price = this.price.toFixed(2);
       this._DataSharing.updatePrice(this.price);
     }
-    else{
+    else if (colorType && !colorType.includes("universal_colors") &&  !colorType.includes('1.jpg')){
       this.selectedPercnt = this.woodenColorPercent;
       
       this.totalPirceOfColorInner = parseFloat(this.price) + parseFloat(this.selectedPercnt);
       this.price = this.totalPirceOfColorInner;
       this.price = this.price.toFixed(2);
+      this._DataSharing.updatePrice(this.price);
+    }
+    else{
+      this.selectedPercnt = 0;
       this._DataSharing.updatePrice(this.price);
     }
 

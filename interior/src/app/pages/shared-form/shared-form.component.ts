@@ -17,20 +17,24 @@ rightLabel ="Paslat rechts";
 leftLabel ="Paslat links";
 rightReadOnly = false;
 leftReadOnly = false;
- designImage :string;
+designImage :string;
 cabnetWidth:number;
 cabnetWidth2:number;
 priceOfColorSide = 0;
 outerColor:string;
 sharedFormLabels:ISharedFormLabel;
+topBar;
+rightBar;
+bottomBar;
+leftBar;
 
   constructor(private _sharedData: DataSharingService) { 
   
     this.barForm = new FormGroup({
-      leftBar: new FormControl('2', [Validators.min(2),Validators.required]),
-      rightBar: new FormControl('2', [Validators.min(2),Validators.required]),
-      topBar : new FormControl('2', [Validators.min(2),Validators.required]),
-      bottomBar: new FormControl('10', [Validators.min(10),Validators.required]),
+      leftBar: new FormControl(5, [Validators.min(2),Validators.required]),
+      rightBar: new FormControl(5, [Validators.min(2),Validators.required]),
+      topBar : new FormControl(5, [Validators.min(2),Validators.required]),
+      bottomBar: new FormControl(10, [Validators.min(10),Validators.required]),
   });
  
     
@@ -166,7 +170,21 @@ sharedFormLabels:ISharedFormLabel;
       this.rightLabel = result.rightLabel
       this.leftReadOnly = result.leftReadOnly;
       this.rightReadOnly = result.rightReadOnly
-    })
+    });
+    // this._sharedData._sharedForm$.subscribe((result:any) =>{
+    //   this.topBar = result.topBar;
+    //   this.rightBar = result.rightBar;
+    //   this.bottomBar = result.bottomBar;
+    //   this.leftBar = result.leftBar;
+    //   console.log('data of right form in third step',result)
+    // });
+    // this.barForm ={
+    //     topBar: this.topBar,
+    //     rightBar: this.rightBar,
+    //     bottomBar: this.bottomBar,
+    //     leftBar: this.leftBar,
+    // }
+
     for (let i = 0; i < this.priceArray.length; i++) {
       this.price -= this.priceArray[i];
     }
@@ -204,11 +222,14 @@ sharedFormLabels:ISharedFormLabel;
       this.sharedFormLabels.leftReadOnly = this.leftReadOnly;
       this.sharedFormLabels.rightReadOnly = this.rightReadOnly;
 
-      this._sharedData.updateSharedFormLabels(this.sharedFormLabels)
       
+      this._sharedData.updateSharedFormLabels(this.sharedFormLabels)
       this._sharedData.updatePrice(this.price);
-      this._sharedData.updateSharedForm(this.barForm.value);
+      console.log(this.barForm.value)
+      
     }
+    
+    this._sharedData.updateSharedForm(this.barForm.value);
     }
     
  

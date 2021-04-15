@@ -32,16 +32,16 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
    
   
   this.formWithoutSlope = new FormGroup({
-      cabnetWidth: new FormControl('', [Validators.min(250),Validators.required]),
+      cabnetWidth: new FormControl('', [Validators.min(60),Validators.required]),
       cabnetHeight: new FormControl('', [Validators.min(200),Validators.max(260),Validators.required]),
       cabnetDepth : new FormControl('', [Validators.min(30),Validators.max(65),Validators.required]),
     });
       this.formWitSlope = new FormGroup({
-        cabnetWidth: new FormControl('', [Validators.min(250),Validators.required]),
+        cabnetWidth: new FormControl('', [Validators.min(60),Validators.required]),
         cabnetHeight: new FormControl('', [Validators.min(200),Validators.max(260),Validators.required]),
         cabnetDepth : new FormControl('', [Validators.min(30),Validators.max(65),Validators.required]),
         cabnetWidth2: new FormControl('5', Validators.required),
-        cabnetHeight2: new FormControl('', [Validators.min(110),Validators.max(260),Validators.required]),
+        cabnetHeight2: new FormControl('', [Validators.min(40),Validators.max(260),Validators.required]),
      
     });
    
@@ -53,16 +53,29 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
     // this._shareData.sendData(this.cabnetValuesForm.value);
     // });
 
-    // recieving values 
-    this._shareData._imageUrl$.subscribe((_imageUrl)=>{
-      this.imageUrl = 'assets/with_dimension/'+_imageUrl;
-    })
+    // recieving values  and updating slope direction right / left
+    
 
     this._shareData._slope$.subscribe(slopeStatus =>{
       this.slope = slopeStatus
       console.log(this.slope)
       if(slopeStatus){
         this.setForm()
+      }
+    });
+    this._shareData._imageUrl$.subscribe((_imageUrl)=>{
+      this.imageUrl = 'assets/with_dimension/'+_imageUrl;
+      if(_imageUrl == '1.jpg' || _imageUrl == '8.jpg'){
+        this._shareData.updateSlopeDirection('left');
+        
+        
+      }
+      else if (_imageUrl == '3.jpg' || _imageUrl == '9.jpg') {
+        this._shareData.updateSlopeDirection('right')
+        
+      }
+      else{
+        
       }
     })
 

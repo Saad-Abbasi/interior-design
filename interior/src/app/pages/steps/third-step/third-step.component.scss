@@ -3,65 +3,102 @@ html{
     height: 100%;
 }
 .image-card {
+    border-radius: 0px !important;
+
+//     .schuine_kant .blackbox_left {
+//      margin-left: 0;
+//      left: 0;
+//      z-index: 8;
+//      margin-top: 0;
+//      border-color: black transparent transparent transparent;
+//         }
+//     .schuine_kant .afschuining_left {
+//     margin-left: -3px;
+//     left: 0;
+//     border-color: white transparent transparent transparent;
+//     }
+//     .schuine_kant .afschuining_right {
+//         margin-right: -3px;
+//         right: 0;
+//         border-color: transparent white transparent transparent;
+//     }
+//     .schuine_kant .blackbox_right {
+//         margin-right: 0;
+//         right: 0;
+//         z-index: 8;
+//         margin-top: 0;
+//         border-color: transparent black transparent transparent;
+//     }
+// .schuine_kant .afschuining_border {
+//     width: 0;
+//     height: 0;
+//     border-style: solid;
+//     position: absolute;
+//     z-index: 9;
+//     margin-top: -3px;
     
-    // padding: 0px;
+// }
   }
-.selection_box{
-    height: 250px;
-    .full-closet{
-        display: flex;
-        justify-content: center;
-        
-        background-color: white;
-        // max-width: 480px;
-        margin: auto;
-        mat-grid-tile {
-        align-items: center;
-        border: 2px solid black;
-        
-        }
-       
-        .big-box{
-            height: 200px;
-            max-width: 100px;
-            background-color:white ;
-            box-shadow:3px 3px 5px 6px #ccc;
-            color: black;
-            font-size: larger;
-            font-weight: bold;
-            p{  position: relative;
-                top: 50px;
-                text-align: center;
+.selection-box-card{
+    border-radius: 0px !important;
+    .selection_box{
+        height: 250px;
+        .full-closet{
+            display: flex;
+            justify-content: center;
+            
+            background-color: white;
+            // max-width: 480px;
+            margin: auto;
+            mat-grid-tile {
+            align-items: center;
+            border: 2px solid black;
+            
+            }
+           
+            .big-box{
+                height: 200px;
+                max-width: 100px;
+                background-color:white ;
+                box-shadow:3px 3px 5px 6px #ccc;
+                color: black;
+                font-size: larger;
+                font-weight: bold;
+                p{  position: relative;
+                    top: 50px;
+                    text-align: center;
+                    
+                    .text-bottom{
+                        position: relative;
+                        top: 5px;
+                    }
+                }
                 
-                .text-bottom{
-                    position: relative;
-                    top: 5px;
-                }
             }
-            
-        }
-        .small-box{
-            @extend .big-box;
-            max-width: 50px;
-            box-shadow:3px 3px 5px 6px #ccc;
-            color: black;
-            font-size: smaller;
-            font-weight: bold;
-            margin-left: 30px;
-            p{
-                text-align: center;
-                .text-bottom{
-                    position: relative;
-                    top: 5px;
-                    font-size: xx-small;
+            .small-box{
+                @extend .big-box;
+                max-width: 50px;
+                box-shadow:3px 3px 5px 6px #ccc;
+                color: black;
+                font-size: smaller;
+                font-weight: bold;
+                margin-left: 30px;
+                p{
+                    text-align: center;
+                    .text-bottom{
+                        position: relative;
+                        top: 5px;
+                        font-size: xx-small;
+                    }
+                   
                 }
-               
+                
+                
             }
-            
-            
         }
     }
 }
+
 
    
 .closet-wraper{

@@ -2,12 +2,11 @@
     <div class="content" fxLayout="row" fxLayoutGap="5px">
         <div fxFlex>
             <mat-card class="image-card">
-                
-                
-               
-
-                <mat-card class="closet-wraper" [style.max-width]="widthAreaBox">
-                    <!-- matTooltip="Klik om een ​​deur toe te voegen" -->
+                <mat-card class="closet-wraper" [style.min-width]="widthAreaBox">
+                    <div class="schuine_kant" >
+                        <div [ngClass]="(slopeDirection =='right')?'afschuining_border blackbox_right':'afschuining_border blackbox_left'" [style.border-width]="borderSlope"></div>
+                        <div [ngClass]="(slopeDirection =='right')?'afschuining_border afschuining_right':'afschuining_border afschuining_left'" [style.border-width]="borderSlope"></div>
+                    </div>
                     <div fxLayout="row" fxLayoutAlign="start " >
                         <mat-card  *ngFor="let closet of closets;let i = index"
                             [ngClass]="(closet.cols =='2')?'full-box':'half-box'"

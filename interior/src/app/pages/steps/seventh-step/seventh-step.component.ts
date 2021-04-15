@@ -30,13 +30,23 @@ export class SeventhStepComponent implements OnInit {
   doorImag;
   price;
   priceOfHandle;
-
+  borderSlope;
+  slopeDirection;
   constructor(private _DataSharing: DataSharingService) { }
 
   ngOnInit(): void {
     this._DataSharing._slope$.subscribe(result=>{
       if(result == 'true'){
-        this.slope = true
+        this.slope = true;
+        // getting slope direction
+        this._DataSharing._slopeDirection$.subscribe(result=>{
+          this.slopeDirection = result;
+          // Getting border for slope
+          this._DataSharing._borderSLope$.subscribe(result=>{
+            this.borderSlope = result;
+          })
+        })
+        
       }
       else{
         this.slope = false

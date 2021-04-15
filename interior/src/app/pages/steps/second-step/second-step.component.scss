@@ -54,6 +54,8 @@
 .mat-card-right-panel{
     background-color: inherit;
     padding: 0px;
+    position: sticky;
+    top: 0;
     .title{
         background-color: black;
         height: 50px;

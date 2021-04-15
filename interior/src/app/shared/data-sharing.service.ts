@@ -23,6 +23,12 @@ export class DataSharingService {
   private _slopeStatus = new Subject<string>();
   _slope$ = this._slopeStatus.asObservable();
 
+  private _slopeDirection = new Subject<string>();
+  _slopeDirection$ = this._slopeDirection.asObservable();
+
+  private _borderSlope = new Subject<string>();
+  _borderSLope$ = this._borderSlope.asObservable();
+
   private _sharedForm = new Subject<string>();
   _sharedForm$ = this._sharedForm.asObservable();
 
@@ -59,6 +65,15 @@ export class DataSharingService {
   updateSlopeStatus(isSlope:any){
     this._slopeStatus.next(isSlope);
   }
+
+  updateSlopeDirection(slopeDirection:any){
+    this._slopeDirection.next(slopeDirection);
+  }
+  
+  updateBorderSlope(borderSlope:any){
+    this._borderSlope.next(borderSlope);
+  }
+
   updateSharedForm(sharedFormData:any){
     this._sharedForm.next(sharedFormData);
   }

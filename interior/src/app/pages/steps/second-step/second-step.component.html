@@ -22,7 +22,7 @@
                    
                     <mat-form-field appearance="fill" >
                         <mat-label>Breedte kast (Br1)</mat-label>
-                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="250" max="550" autocomplete="off" (focusout)="sendData()">
+                        <input #widthCase matInput  type="number" placeholder="Breedte kast" formControlName="cabnetWidth" min="60" max="550" autocomplete="off" >
                         <span matSuffix>cm</span>
                          <mat-error *ngIf="(cabnetValuesForm.get('cabnetWidth').touched 
                                         || cabnetValuesForm.get('cabnetWidth').dirty) && 
@@ -31,7 +31,7 @@
                     </mat-form-field>
                       <mat-form-field appearance="fill">
                         <mat-label>Hoogte kast (H1)</mat-label>
-                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight" min="200" max="270" autocomplete="off" (focusout)="sendData()">
+                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight" min="200" max="270" autocomplete="off" >
                         <span matSuffix>cm</span>
                         <mat-error *ngIf="(cabnetValuesForm.get('cabnetHeight').touched 
                                         || cabnetValuesForm.get('cabnetHeight').dirty) && 
@@ -53,7 +53,7 @@
                         <div class="space-between-forms"> </div>
                         <mat-form-field appearance="fill" class="big-field" >
                           <mat-label>Breedte plafond zonder schuine hoek (Br2)</mat-label>
-                          <input #widthCase2 matInput  type="number" placeholder="Breedte plafond zonder schuine hoek" formControlName="cabnetWidth2"  autocomplete="off" (focusout)="sendData()"
+                          <input #widthCase2 matInput  type="number" placeholder="Breedte plafond zonder schuine hoek" formControlName="cabnetWidth2"  autocomplete="off"
                           (change)='width2tChange(widthCase2.value)'>
                           <span matSuffix>cm</span>
                            
@@ -61,13 +61,13 @@
   
                       <mat-form-field appearance="fill" >
                           <mat-label>Hoogte schuine kant  (H2)</mat-label>
-                          <input #heightCase2 matInput type="number" placeholder="Hoogte schuine kant " formControlName="cabnetHeight2" min="110" max="260" autocomplete="off" (focusout)="sendData()" 
+                          <input #heightCase2 matInput type="number" placeholder="Hoogte schuine kant " formControlName="cabnetHeight2" min="40" max="260" autocomplete="off" (focusout)="sendData()" 
                           (change)='heigh2tChange(heightCase2.value)'>
                           <span matSuffix>cm</span>
                           <mat-error *ngIf="(cabnetValuesForm.get('cabnetHeight2').touched 
                                           || cabnetValuesForm.get('cabnetHeight2').dirty) && 
                                           cabnetValuesForm.get('cabnetHeight2').errors">
-                              vul hier een waarde in tussen 110 en 260 cm</mat-error> 
+                              vul hier een waarde in tussen 40 en 260 cm</mat-error> 
                         </mat-form-field>
                     </ng-container>
                   

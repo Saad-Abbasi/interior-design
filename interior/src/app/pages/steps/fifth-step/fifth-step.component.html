@@ -2,7 +2,11 @@
     <div class="content" fxLayout="row" fxLayoutGap="5px">
         <div fxFlex>
             <mat-card class="image-card">
-                <mat-card class="closet-wraper" [style.max-width]="widthAreaBox">
+                <mat-card class="closet-wraper" [style.min-width]="widthAreaBox">
+                    <div class="schuine_kant" >
+                        <div [ngClass]="(slopeDirection =='right')?'afschuining_border blackbox_right':'afschuining_border blackbox_left'" [style.border-width]="borderSlope"></div>
+                        <div [ngClass]="(slopeDirection =='right')?'afschuining_border afschuining_right':'afschuining_border afschuining_left'" [style.border-width]="borderSlope"></div>
+                    </div>
                     <div fxLayout="row" fxLayoutAlign="start">
                         <mat-card *ngFor="let closet of closets;let i = index"
                             [ngClass]="(closet.cols =='2')?'full-box':'half-box'"
@@ -82,11 +86,12 @@
                                 <span> <mat-icon (click)="openDialog(18)">open_in_full</mat-icon></span>
                                 <mat-card-footer class="footer" >Zwart</mat-card-footer>
                             </mat-card>
-                            <mat-card [style.background-image]="'url('+designImages[19]+')'" class="color-card"  id="imge6" (click)="updateColor(19,'MDF grondlaag')" >
+                            <!-- <mat-card [style.background-image]="'url('+designImages[19]+')'" class="color-card"  id="imge6" (click)="updateColor(19,'MDF grondlaag')" >
                                 <span> <mat-icon (click)="openDialog(19)">open_in_full</mat-icon></span>
                                 <mat-card-footer class="footer" >Vergrijsde eik</mat-card-footer>
                                 
-                            </mat-card>
+                            </mat-card> -->
+                            
                             <!-- <mat-card [style.background-image]="'url('+designImages[27]+')'" class="color-card" id="imge7"  (click)="updateColor(27,'Amazonia')">
                                 <span> <mat-icon (click)="openDialog(27)">open_in_full</mat-icon></span>
                                 <mat-card-footer class="footer" >Amazonia</mat-card-footer>

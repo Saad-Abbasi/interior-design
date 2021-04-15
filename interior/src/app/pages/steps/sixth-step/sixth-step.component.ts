@@ -41,6 +41,8 @@ export class SixthStepComponent implements OnInit {
   doorPrice = 0 ;
   designImage:string;
   scalVal = [];
+  borderSlope;
+  slopeDirection;
   designImages =[
     "assets/color/1.jpg",
     "assets/color/2.jpg",
@@ -78,9 +80,17 @@ export class SixthStepComponent implements OnInit {
   ngOnInit(): void {
     
     this._DataSharing._slope$.subscribe(result=>{
-
       if(result == 'true'){
-        this.slope = true
+        this.slope = true;
+        // getting slope direction
+        this._DataSharing._slopeDirection$.subscribe(result=>{
+          this.slopeDirection = result;
+          // Getting border for slope
+          this._DataSharing._borderSLope$.subscribe(result=>{
+            this.borderSlope = result;
+          })
+        })
+        
       }
       else{
         this.slope = false
@@ -148,7 +158,10 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
       // Setting the inner box color 
       // this.bgImage = this.innerColor;
       for (let i = 0; i < this.bgImage.length; i++) {
-        this.bgImage[i] = this.innerColor;
+        if (this.isDoor == 'false' || !this.isDoor) {
+          this.bgImage[i] = this.innerColor;
+        }
+        
    
     }});
   
@@ -176,11 +189,11 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     
     this._DataSharing._colorImages$.subscribe((data:any)=>{
       this.outerColor = data.outerColorImg;
-      if(this.outerColor && this.outerColor.includes("universal_colors")){
+      if(this.outerColor && this.outerColor.includes("universal_colors") && !this.outerColor.includes('2.jpg')){
         this.priceOfColorSide = 39.00;
         
       }
-      else if (this.outerColor){
+      else if (this.outerColor && !this.outerColor.includes('1.jpg') && !this.outerColor.includes("universal_colors")){
         this.priceOfColorSide = 46.50;
         
       }
@@ -244,19 +257,39 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
         if (this.closets[i].cols == 2) {
           this.closets[i].closetDesignImage = this.doorImages[1]
           if(this.outerColor && this.outerColor.includes("universal_colors")){
-            this.doorPrice += 45*2;
+            if(this.outerColor.includes('2.jpg')){
+              this.doorPrice += 39*2
+            }else{
+              this.doorPrice += 45*2;
+            }
+            
           }
           else {
-            this.doorPrice += 50*2;
+            if(this.outerColor.includes('1.jpg')){
+              this.doorPrice += 39*2
+            }else{
+              this.doorPrice += 50*2;
+            }
+            
           }
         }
         else{
           this.closets[i].closetDesignImage = this.doorImages[0]
           if(this.outerColor && this.outerColor.includes("universal_colors")){
-            this.doorPrice += 45;
+            if(this.outerColor.includes('2.jpg')){
+              this.doorPrice += 39
+            }else{
+              this.doorPrice += 45;
+            }
+            
           }
           else {
-            this.doorPrice += 50
+            if(this.outerColor.includes('1.jpg')){
+              this.doorPrice += 39
+            }else{
+              this.doorPrice += 50;
+            }
+            
           }
         }
         
@@ -270,9 +303,11 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     }
     else{
       for (let i = 0; i < this.closets.length; i++) {
-       
+        if(this.isDoor =='false'){
         this.closets[i].closetDesignImage = this.closetsBackup[i].closetDesignImage
         this.bgImage[i] = this.innerColor;
+        }
+        
       }
       
     }
@@ -392,11 +427,17 @@ doorsUpdateonTOggle(){
 
   // Outer Color
   updateColor(i:number,nameOfColor:string){
-    if(this.isDoor == 'true'){
-      this.onValChange('false')
-    }
+    // if(this.isDoor == 'true'){
+    //   this.onValChange('false')
+    // }
+    
+
     this.price = this.price - this.priceOfColorSide;
     this.outerColor = this.designImages[i];
+    for (let i = 0; i < this.closets.length; i++) {
+          this.bgImage[i] = this.outerColor;
+      
+    }
     this.outerColorName  = nameOfColor;
     
     // Asign and share values to subsicrbers

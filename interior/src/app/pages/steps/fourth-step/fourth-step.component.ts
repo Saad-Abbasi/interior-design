@@ -28,7 +28,8 @@ export class FourthStepComponent implements OnInit {
   boxForm:FormGroup;
   priceOfEachCloset = [];
   boxDesignImageName = [];
- 
+  slopeDirection;
+  borderSlope;
   closets: ICloset[];
   constructor(private _sharedData:DataSharingService,
               public dialog: MatDialog)
@@ -37,7 +38,16 @@ export class FourthStepComponent implements OnInit {
   ngOnInit(): void {
     this._sharedData._slope$.subscribe(result=>{
       if(result == 'true'){
-        this.slope = true
+        this.slope = true;
+        // getting slope direction
+        this._sharedData._slopeDirection$.subscribe(result=>{
+          this.slopeDirection = result;
+          // Getting border for slope
+          this._sharedData._borderSLope$.subscribe(result=>{
+            this.borderSlope = result;
+          })
+        })
+        
       }
       else{
         this.slope = false
