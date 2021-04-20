@@ -8,6 +8,7 @@ import {ThirdStepComponent} from '../steps/third-step/third-step.component';
 import {FourthStepComponent} from '../steps/fourth-step/fourth-step.component';
 import {FifthStepComponent} from '../steps/fifth-step/fifth-step.component';
 import { SixthStepComponent } from '../steps/sixth-step/sixth-step.component';
+
 @Component({
   selector: 'app-cabinet-type',
   templateUrl: './cabinet-type.component.html',
@@ -18,14 +19,20 @@ export class CabinetTypeComponent implements OnInit {
   isDesignSelected = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+  selectedIndex: number = 0;
+  designImage;
+  isVisitedStep2 = false;
+  isHandle = false;
 
   constructor(private _formBuilder: FormBuilder,
               private _dataService:DataSharingService,
-              private _cdRef:ChangeDetectorRef) {}
+              private _cdRef:ChangeDetectorRef) {
+    
+  }
 
               
 @ViewChild('stepper') private myStepper: MatStepper;
-@ViewChild('step1', {static: false}) step1: ElementRef; 
+@ViewChild('step1', {static: false}) step1: ElementRef;
 @ViewChild(SecondStepComponent) stepTwoComponent: SecondStepComponent;
 @ViewChild(ThirdStepComponent) thirdStepComponnet: ThirdStepComponent;
 @ViewChild(FourthStepComponent) fourthStepComponnet: FourthStepComponent;
@@ -33,18 +40,32 @@ export class CabinetTypeComponent implements OnInit {
 @ViewChild(SixthStepComponent) sixthStepComponent: SixthStepComponent;
    
   ngOnInit() {
+    
+    
     this._dataService._imageUrl$.subscribe((result)=>{
+      this.designImage = result;
+      
       this.isDesignSelected = true ;
+      
+     
+      
       setTimeout(() => {
-        
+        // if(this.goForward){
+        //   this.goForward(this.myStepper)
+        // }
         this.goForward(this.myStepper)
+        
       }, 10);
+     
       
     },(err)=>{
       console.log(err)
     });
     
-  
+    if(this.updateImage && this.designImage){
+      this.updateImage(this.designImage)
+    }
+
     this.firstFormGroup = this._formBuilder.group({
       firstCtrl: ['', Validators.required]
       
@@ -53,11 +74,59 @@ export class CabinetTypeComponent implements OnInit {
       secondCtrl: ['', Validators.required]
     });
     
+  this._dataService._handleStatus$.subscribe((result:boolean)=>{
+    if(result == true){
+      this.isHandle = true;
+    }
+    else{
+      this.isHandle = false
+    }
+  })
+    
     
 }
+updateImage( designImage){
+  this._dataService.sendImage(designImage);
+  this._dataService.sendImage(designImage);
+  this._dataService.sendImage(designImage);
+  this.updateImage = undefined;
+}
+
+
+setIndex(event) {
+  
+  this.selectedIndex = event.selectedIndex;
+  console.log(event)
+  if(this.selectedIndex == 0  && event.selectedStep.interacted == true  ){
+    
+    location.reload()
+  }
+  else if(this.selectedIndex == 1  && event.selectedStep.interacted == true  ){
+    
+    location.reload()
+ }
+ else if(this.selectedIndex == 2  && event.selectedStep.interacted == true  ){
+    
+  location.reload()
+}
+ else if(this.selectedIndex == 2){
+  this._dataService.disableSharedForm(true);
+ }
+ else{
+  
+ }
+ 
+
+}
+
+
+
 goForward(stepper: MatStepper){
+  
   stepper.next();
 } 
+
+
 
 ngAfterContentChecked() {
   this._cdRef.detectChanges();
@@ -82,5 +151,10 @@ get isColorSelected(){
 get isHandleSelected(){
   return this.sixthStepComponent? this.sixthStepComponent.boxForm:null;
 }
+
+get isHandleAdded(){
+  return this.isHandle;
+}
+
 
 }

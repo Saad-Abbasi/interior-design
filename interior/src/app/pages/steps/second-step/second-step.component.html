@@ -31,7 +31,7 @@
                     </mat-form-field>
                       <mat-form-field appearance="fill">
                         <mat-label>Hoogte kast (H1)</mat-label>
-                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight" min="200" max="270" autocomplete="off" >
+                        <input #heightCase matInput type="number" placeholder="Hoogte kast" formControlName="cabnetHeight" min="200" max="270" autocomplete="off" (focusout)="sendData()" >
                         <span matSuffix>cm</span>
                         <mat-error *ngIf="(cabnetValuesForm.get('cabnetHeight').touched 
                                         || cabnetValuesForm.get('cabnetHeight').dirty) && 
@@ -53,7 +53,7 @@
                         <div class="space-between-forms"> </div>
                         <mat-form-field appearance="fill" class="big-field" >
                           <mat-label>Breedte plafond zonder schuine hoek (Br2)</mat-label>
-                          <input #widthCase2 matInput  type="number" placeholder="Breedte plafond zonder schuine hoek" formControlName="cabnetWidth2"  autocomplete="off"
+                          <input #widthCase2 matInput  type="number" placeholder="Breedte plafond zonder schuine hoek" formControlName="cabnetWidth2"  autocomplete="off" 
                           (change)='width2tChange(widthCase2.value)'>
                           <span matSuffix>cm</span>
                            

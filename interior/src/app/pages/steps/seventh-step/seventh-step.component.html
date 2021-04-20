@@ -30,7 +30,7 @@
             </mat-card>
 
             <!-- Design Color Choose -->
-            <mat-card class="mat-color-card-super mat-elevation-z0">
+            <mat-card class="mat-color-card-super mat-elevation-z0" >
                 <div class="selection_box">
                     <mat-card class="full-closet mat-elevation-z0" [style.max-width]="widthAreaBox">
                         <div fxLayout="row" class="color-card-head">
@@ -39,37 +39,37 @@
                             </div>
                             
                         </div>
-                        <div fxLayout="row">
+                        <div fxLayout="row" >
                             <div fxFlex>
                                 <mat-card [style.background-image]="'url('+handleImages[0]+')'"  class="color-card"
-                                    id="imge1" (click)="addHandle(0,'l- greep zwart')">
+                                    id="imge1" (click)="addHandle(0,'Blokgreep zwart')">
                                     
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[1]+')'" class="color-card"
-                                    id="imge2" (click)="addHandle(1,'L-greep wit')">
+                                    id="imge2" (click)="addHandle(1,'Platte U-greep zwart')">
                                    
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[2]+')'" class="color-card"
-                                    id="imge3" (click)="addHandle(2,'Inox U-vorm')">
+                                    id="imge3" (click)="addHandle(2,'T-greep inox')">
                                   
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[3]+')'" class="color-card"
-                                    id="imge4" (click)="addHandle(3,'kraan-knop')">
+                                    id="imge4" (click)="addHandle(3,'L-greep wit')">
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[4]+')'" class="color-card"
-                                    id="imge5" (click)="addHandle(4,'Alu knop zwart')">
+                                    id="imge5" (click)="addHandle(4,'L-greep zwart')">
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[5]+')'" class="color-card"
-                                    id="imge6" (click)="addHandle(5,'Inox blokje')">
+                                    id="imge6" (click)="addHandle(5,'Kubusgreep zwart')">
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[6]+')'" class="color-card"
-                                    id="imge7" (click)="addHandle(6,'alu knop rond')">
+                                    id="imge7" (click)="addHandle(6,'Kubusgreep wit')">
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[7]+')'" class="color-card"
-                                    id="imge8" (click)="addHandle(7,'Inox knop rond')">
+                                    id="imge8" (click)="addHandle(7,'Hoekgreep Klein zwart')">
                                 </mat-card>
                                  <mat-card [style.background-image]="'url('+handleImages[8]+')'" class="color-card"
-                                    id="imge9" (click)="addHandle(8,'kraan-knop')">
+                                    id="imge9" (click)="addHandle(8,'Platte U-greep wit')">
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[9]+')'" class="color-card"
                                     id="imge10" (click)="addHandle(9,'Alu knop zwart')">
@@ -81,7 +81,7 @@
                                     id="imge12" (click)="addHandle(11,'alu knop rond')">
                                 </mat-card>
                                 <mat-card [style.background-image]="'url('+handleImages[12]+')'" class="color-card"
-                                    id="imge13" (click)="addHandle(12,'Inox knop rond')">
+                                    id="imge13" (click)="addHandle(12,'Tip-on')">
                                 </mat-card>
                                 
                             </div>
@@ -146,7 +146,7 @@
                                         </mat-list-item>
                                         <mat-list-item role="listitem">
                                             <span fxFlex="50">Handgrepen</span>
-                                            <!-- <span *ngIf="handleName" class="label-of-fields" fxFlex="30">{{handleName}}</span> -->
+                                            <span *ngIf="handleName" class="label-of-fields" fxFlex="30">{{handleName}}</span>
                                             <span *ngIf="handle" fxFlex>
                                                 <div class="handle-image" id="color-inner" [style.background-image]="'url('+handle+')'">
                                                 </div>

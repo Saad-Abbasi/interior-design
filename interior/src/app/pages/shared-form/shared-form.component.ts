@@ -17,6 +17,8 @@ rightLabel ="Paslat rechts";
 leftLabel ="Paslat links";
 rightReadOnly = false;
 leftReadOnly = false;
+topReadOnly = false;
+bottomReadOnly = false;
 designImage :string;
 cabnetWidth:number;
 cabnetWidth2:number;
@@ -47,16 +49,34 @@ leftBar;
       leftLabel:this.leftLabel,
       rightLabel:this.rightLabel,
       leftReadOnly:this.leftReadOnly,
-      rightReadOnly:this.rightReadOnly
+      rightReadOnly:this.rightReadOnly,
+      topReadOnly: this.topReadOnly,
+      bottomReadOnly: this.bottomReadOnly
       }
-
+      this._sharedData._sharedFormDisable$.subscribe((result:Boolean)=>{
+        if (result== true) {
+          this.barForm.disable();
+        }
+      })
+      
     this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
 
+    // this._sharedData._sharedFormLabels$.subscribe((result:any)=>{
+      
+    //   this.leftLabel = result.leftLabel,
+    //   this.rightLabel = result.rightLabel,
+    //   this.leftReadOnly = result.leftReadOnly,
+    //   this.rightReadOnly = result.rightReadOnly,
+    //   this.topReadOnly = result.topReadOnly,
+    //  this.bottomReadOnly = result.bottomReadOnly
+    // })
+
+    // this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
       this.getCabnetData();
     
       this.imageBasedRender()
-    
       
+     
      
  
   }
@@ -80,6 +100,7 @@ leftBar;
         this._sharedData.updateSharedForm(this.barForm.value);
         this.leftReadOnly = true;
         this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
+        this.onValueChange();
         this.onValueChange();
       }
   
@@ -144,6 +165,7 @@ leftBar;
     // this.imageBasedRender();
     
     this.onValueChange();
+    
   });
   
  }
@@ -176,7 +198,7 @@ leftBar;
     //   this.rightBar = result.rightBar;
     //   this.bottomBar = result.bottomBar;
     //   this.leftBar = result.leftBar;
-    //   console.log('data of right form in third step',result)
+    //   console.log('data of right form in shared form',result)
     // });
     // this.barForm ={
     //     topBar: this.topBar,
@@ -226,10 +248,10 @@ leftBar;
       this._sharedData.updateSharedFormLabels(this.sharedFormLabels)
       this._sharedData.updatePrice(this.price);
       console.log(this.barForm.value)
-      
+      this._sharedData.updateSharedForm(this.barForm.value);
     }
     
-    this._sharedData.updateSharedForm(this.barForm.value);
+    
     }
     
  
@@ -282,6 +304,8 @@ leftBar;
     }
   }
   
+  // disable shared form 
+ 
  
 
 }

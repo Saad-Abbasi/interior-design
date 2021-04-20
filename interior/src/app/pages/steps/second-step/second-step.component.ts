@@ -1,4 +1,4 @@
-import { AfterContentInit,  Component, OnInit } from '@angular/core';
+import { AfterContentChecked, AfterContentInit,  AfterViewChecked,  Component, OnChanges, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {DataSharingService} from '../../../shared/data-sharing.service'
 import { ThirdStepComponent } from '../third-step/third-step.component';
@@ -7,7 +7,7 @@ import { ThirdStepComponent } from '../third-step/third-step.component';
   templateUrl: './second-step.component.html',
   styleUrls: ['./second-step.component.scss']
 })
-export class SecondStepComponent implements OnInit,AfterContentInit {
+export class SecondStepComponent implements OnInit {
   imageUrl:string;
   widthCase;
   heightCase;
@@ -25,9 +25,7 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
   constructor(private _shareData:DataSharingService) {
     
   }
-  ngAfterContentInit() {
-   
-  }
+ 
   ngOnInit(): void {
    
   
@@ -78,11 +76,14 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
         
       }
     })
-
+    
   }
  
   sendData(){
-  this._shareData.sendData(this.cabnetValuesForm.value);
+    if(this.cabnetValuesForm.valid){
+      this._shareData.sendData(this.cabnetValuesForm.value);
+    }
+  
   }
   setForm(){
     if(this.slope == 'true'){
@@ -98,7 +99,11 @@ export class SecondStepComponent implements OnInit,AfterContentInit {
     else{
       alert('errror')
     }
+
+    
   }
+
+  
   getFormType(){
     if(this.a){
       return true

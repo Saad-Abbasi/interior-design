@@ -62,6 +62,7 @@ export class FourthStepComponent implements OnInit {
       this.cabnetWidth2 = result.cabnetWidth2;
       this.cabnetHeight2 = result.cabnetHeight2
       console.log(result.cabnetDepth)
+      this.ngOnInit();
     });
 
     this._sharedData._closetLayout$.subscribe((result:any)=>{
@@ -273,13 +274,17 @@ export class FourthStepComponent implements OnInit {
   openDialog() {
     const dialogRef = this.dialog.open(ChooseClosetComponent,{
       width: '800px',
-      // data: { name: this.name, animal: this.animal },
+      
       position: {
         
         top: '20%',
         left: '5%'
     
       },
+      data:{
+        height2: `${this.cabnetHeight2}`
+      },
+
       panelClass: 'custom-modalbox'
 
     });
@@ -298,7 +303,9 @@ export class FourthStepComponent implements OnInit {
       position: {
         top: '20%',
         left: '5%'
-        
+      },
+      data:{
+        height2: `${this.cabnetHeight2}`
       },
       panelClass: 'custom-modalbox'
     });

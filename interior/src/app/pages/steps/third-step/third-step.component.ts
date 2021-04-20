@@ -1,8 +1,8 @@
-import { ResourceLoader } from '@angular/compiler';
-import { AfterViewInit, Component, Input, OnInit } from '@angular/core';
+import {  Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup,Validators } from '@angular/forms';
 import { DomSanitizer } from '@angular/platform-browser';
-import {DataSharingService} from '../../../shared/data-sharing.service'
+import {DataSharingService} from '../../../shared/data-sharing.service';
+import {ISharedFormLabel} from '../../../shared/i-shared-form-label'
 export interface Closets {
   index:number;
   boxWidthTest:string;
@@ -51,6 +51,7 @@ export class ThirdStepComponent implements OnInit {
   bottomBorder = 0;
   leftBorder = 0;
   slopeDirection;
+  sharedFormLabels:ISharedFormLabel;
   
 
   constructor(private _sharedData:DataSharingService,
@@ -74,9 +75,11 @@ export class ThirdStepComponent implements OnInit {
     this._sharedData._slopeDirection$.subscribe(result=>{
       this.slopeDirection = result;
     })
+
+    
     
   //right four form fields
- 
+  
 
     this._sharedData.cabinetData$
     .subscribe((result:any)=>{
@@ -89,16 +92,24 @@ export class ThirdStepComponent implements OnInit {
       var getInNum = result.cabnetWidth;
       getInNum.toString().substring(0,2);
       this.maxWidth = getInNum;
-      console.log('Assigning border values')
+      console.log('Assigning border values');
+    
+
+      // form validation reset 
+      
+
       // this.calculateWidth(this.maxWidth);
 
       // Assignin values to slope borders
       // this.topBorder = this.cabnetWidth2;
       // this.rightBorder = this.cabnetHeight2;
       let percentAgeOfBorderWidth = (this.cabnetWidth2/this.cabnetWidth)*100;
+      percentAgeOfBorderWidth = 100 - percentAgeOfBorderWidth
       let percentAgeOfBorderHeight = (this.cabnetHeight2/this.cabnetHeight)*100;
+      percentAgeOfBorderHeight = 100 - percentAgeOfBorderHeight
       this.topBorder = (percentAgeOfBorderWidth/100)*800;
       this.rightBorder = (percentAgeOfBorderHeight/100)*400;
+
       if(this.slope == true){
         
           if (this.slopeDirection == 'left') {
@@ -238,6 +249,20 @@ export class ThirdStepComponent implements OnInit {
     }
   }
 
+  disableSideForm(){
+    alert('disable fun is called')
+      this.sharedFormLabels = {
+        leftLabel:'result.leftLabel',
+        rightLabel:"result.rightLabel",
+        leftReadOnly:true,
+        rightReadOnly:true,
+        topReadOnly:true,
+        bottomReadOnly:true,
+        }
+        this._sharedData.updateSharedFormLabels(this.sharedFormLabels)
+    
+    
+  }
 
    //Calculating width
   //  calculateWidth(w){

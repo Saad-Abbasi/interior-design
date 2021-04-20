@@ -1,14 +1,14 @@
-<div class="mat-container">
+<div class="mat-container" #sharedForm>
 	<div class="content" fxLayout="row" fxLayout.xs="column" fxFlexFill>
 
 		<div fxFlex="100" class="sec1" fxFlex.xs="55">
-			  <mat-horizontal-stepper linear #stepper >
+			  <mat-horizontal-stepper linear #stepper  (selectionChange)="setIndex($event)" >
 				<div class="announment_text">
 					<p> <mat-icon>announcement</mat-icon>
 					bovenaan, Links en/of rechts wordt er altijd een uitvulstuk van 5cm voorzien. Onderaan is er steeds een plint van 10 cm. </p>
 			</div>
 				<mat-step  [completed]='isDesignSelected'   >
-					<ng-template matStepLabel>TYPE MAATKAST</ng-template>
+					<ng-template matStepLabel>Kastopstelling</ng-template>
 					<app-first-step></app-first-step>
 				  <!-- <div class="button-container" fxLayout="row" >
 					  <div fxFlex='70' fxLayoutAlign="center">
@@ -28,7 +28,7 @@
 				</mat-step>
 
 				<mat-step [stepControl]="frmStepTwo">
-						<ng-template matStepLabel>TYPE MAATKAST</ng-template>
+						<ng-template matStepLabel >Voeg afmetingen toe</ng-template>
 						<app-second-step ></app-second-step>
 						<div class="button-container" fxLayout="row" >
 							<div fxFlex='70' fxLayoutAlign="center">
@@ -38,7 +38,7 @@
 									</button>
 								</div>
 							  <div class="button-next" >
-								  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+								  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext >
 									  Volgende <mat-icon>navigate_next</mat-icon>
 									</button>
 							  </div>
@@ -48,7 +48,7 @@
 				  
 				<mat-step [stepControl]='isAllFieldsAdded' >
 					
-						<ng-template matStepLabel>TYPE MAATKAST</ng-template>
+						<ng-template matStepLabel >Kastindeling</ng-template>
 						<app-third-step></app-third-step>
 					
 					<div class="button-container" fxLayout="row" >
@@ -59,7 +59,7 @@
 								</button>
 							</div>
 						  <div class="button-next" >
-							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext>
+							  <button id="step1" mat-raised-button aria-label="Go to next step" matStepperNext >
 								  Volgende <mat-icon>navigate_next</mat-icon>
 								</button>
 						  </div>
@@ -69,7 +69,7 @@
 
 				  <mat-step [stepControl]='isAllDesignSelected'>
 					  <form >
-						<ng-template matStepLabel>INVULLING</ng-template>
+						<ng-template matStepLabel>Binnenindeling</ng-template>
 						<app-fourth-step></app-fourth-step>
 					</form>
 					<div class="button-container" fxLayout="row" >
@@ -88,7 +88,7 @@
 					</div>
 				  </mat-step>
 				<mat-step [stepControl]='isColorSelected'>
-					<ng-template matStepLabel>BINNENAFWERKING</ng-template>
+					<ng-template matStepLabel> Kleuren binnenafwerking</ng-template>
 					<app-fifth-step ></app-fifth-step>
 					<div class="button-container" fxLayout="row" >
 						<div fxFlex='70' fxLayoutAlign="center">
@@ -106,7 +106,7 @@
 					</div>
 				</mat-step>
 				<mat-step [stepControl]='isHandleSelected'>
-				  <ng-template matStepLabel>BUITENAFWERKING</ng-template>
+				  <ng-template matStepLabel>Deuren en kleuren</ng-template>
 				  <app-sixth-step ></app-sixth-step>
 				  <div class="button-container" fxLayout="row" >
 					  <div fxFlex='70' fxLayoutAlign="center">
@@ -123,8 +123,8 @@
 					  </div>
 				  </div>
 				</mat-step>
-				<mat-step [completed]='false'>
-					<ng-template matStepLabel>Accessoires</ng-template>
+				<mat-step [completed]='false' >
+					<ng-template matStepLabel>Deurgrepen</ng-template>
 					<app-seventh-step ></app-seventh-step>
 					<div class="button-container" fxLayout="row" >
 						<div fxFlex='70' fxLayoutAlign="center">

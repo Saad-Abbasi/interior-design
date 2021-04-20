@@ -32,6 +32,9 @@ export class DataSharingService {
   private _sharedForm = new Subject<string>();
   _sharedForm$ = this._sharedForm.asObservable();
 
+  private _sharedFormDisable = new Subject<boolean>();
+  _sharedFormDisable$ = this._sharedFormDisable.asObservable();
+
   private _shareOuterImage = new Subject<string>();
   _shareOuterImage$ = this._shareOuterImage.asObservable();
 
@@ -40,6 +43,9 @@ export class DataSharingService {
 
   private _doorFlip = new Subject<string>();
   _doorFlip$ = this._doorFlip.asObservable();
+
+  private _handleStatus = new Subject<boolean>();
+  _handleStatus$ = this._handleStatus.asObservable();
 
   constructor() { }
 
@@ -77,6 +83,10 @@ export class DataSharingService {
   updateSharedForm(sharedFormData:any){
     this._sharedForm.next(sharedFormData);
   }
+ 
+  disableSharedForm(isDisable:boolean){
+    this._sharedFormDisable.next(isDisable)
+  }
 
   sendOuterImage(outerColorImg:any){
     this._shareOuterImage.next(outerColorImg);
@@ -88,6 +98,10 @@ export class DataSharingService {
 
   updatDoorFlip(scaleX:any){
     this._doorFlip.next(scaleX);
+  }
+
+  updateHandleStatus(handleAdd){
+    this._handleStatus.next(handleAdd);
   }
 
 }

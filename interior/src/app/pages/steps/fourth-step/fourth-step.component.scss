@@ -88,6 +88,11 @@ html{
         outline: none !important;
     }
     .boxDesignText{
+        position: absolute;
+        width: 100%;
+        bottom: 2px;
+    }
+    .boxDesignText{
         visibility: hidden;
     }
 

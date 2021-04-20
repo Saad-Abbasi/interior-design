@@ -9,12 +9,20 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class FirstStepComponent implements OnInit {
   durationInSeconds = 5;
+  designImage;
   constructor(private _dataSharingService: DataSharingService,
               private _router: Router,
               private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
+    // this.designImage = localStorage.getItem('_imageUrl');
     
+    // setTimeout(() => {
+    //   if(this.designImage){
+    //     this.selectedDesign(this.designImage)
+        
+    //   }
+    // }, 0);
   }
 
   
@@ -26,8 +34,11 @@ export class FirstStepComponent implements OnInit {
     else{
       this._dataSharingService.updateSlopeStatus('false')
     }
-    this.openSnackBar();
-    console.log(imageUrl);
+    if(!this.designImage){
+      this.openSnackBar();
+    }
+    
+    
     this._dataSharingService.sendImage(imageUrl);
     this._dataSharingService._imageUrl$.subscribe((result)=>{
       if(result){

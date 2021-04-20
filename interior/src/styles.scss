@@ -113,3 +113,10 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     margin-top: -3px;
     
 }
+
+// SIX step check box of hanle
+.with-handle{
+  .mat-checkbox-frame {
+    border-color: #e78932;
+}
+}

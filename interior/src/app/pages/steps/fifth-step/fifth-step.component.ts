@@ -154,7 +154,9 @@ constructor(private _DataSharing: DataSharingService,
     }
     let colorType = this.designImages[i];
 
-    if( colorType && colorType.includes("universal_colors") &&  !colorType.includes('2.jpg')){
+    
+
+    if( colorType && colorType.includes("universal_colors") &&  !colorType.includes('1.jpg')){
      this.selectedPercnt = this.uniColorPercent;
       this.totalPirceOfColorInner = parseFloat(this.price) + parseFloat(this.selectedPercnt);
       this.price = this.totalPirceOfColorInner;

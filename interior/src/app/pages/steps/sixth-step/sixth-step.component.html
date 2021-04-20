@@ -21,6 +21,9 @@
                         </mat-button-toggle>
                       </mat-button-toggle-group>
                 </div>
+                <div class="button-text" *ngIf="isDoor == 'true'">
+                    <span>Wijzig de draairichting van de kast door te klikken op de dubbele pijl.</span>
+                </div>
                
 
                 <mat-card class="closet-wraper" [style.max-width]="widthAreaBox">
@@ -42,13 +45,21 @@
                                     <mat-icon>add</mat-icon>
                                 </button>
                             </div> -->
+                        <div class="flip-door-button-container">
                             <button class="flip-door-button" *ngIf="closet.cols =='1' && isDoor =='true'" mat-button 
                             (click)="flipDoor(i)">
+                            
                                 <mat-icon>swap_horiz</mat-icon>
                             </button>
+                        </div>
+                            
                         </mat-card>
+                        
                     </div>
                 </mat-card>
+                <div class="with-handle" *ngIf="isDoor == 'true'">
+                    <mat-checkbox #handle  (click)="isHandle(!handle.checked)">Deurgrepen toevoegen</mat-checkbox>
+                </div>
 
                 
             </mat-card>
@@ -77,40 +88,40 @@
                         </div>
                          <div fxLayout="row" >
                             <div fxFlex="50">
-                                <mat-card [style.background-image]="'url('+designImages[10]+')'" #imge  class="color-card"  id="imge1" (click)="updateColor(10,'W1000_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[10]+')'" #imge  class="color-card"  id="imge1" (click)="updateColor(10,'W1000 ST9 Premium wit')">
                                     <span> <mat-icon (click)="openDialog(10)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Gebroken wit</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[11]+')'" class="color-card" id="imge2"  (click)="updateColor(11,'W911_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[11]+')'" class="color-card" id="imge2"  (click)="updateColor(11,'W911 ST15 Gebroken wit')">
                                     <span> <mat-icon (click)="openDialog(11)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Beige</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[12]+')'" class="color-card"  id="imge3"  (click)="updateColor(12,'U899')">
+                                <mat-card [style.background-image]="'url('+designImages[12]+')'" class="color-card"  id="imge3"  (click)="updateColor(12,'U899 ST9 Soft black')">
                                     <span> <mat-icon (click)="openDialog(12)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Mokka</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[13]+')'" class="color-card" id="imge4" (click)="updateColor(13,'U763_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[13]+')'" class="color-card" id="imge4" (click)="updateColor(13,'U763 ST9 Parelgrijs')">
                                     <span> <mat-icon  (click)="openDialog(13)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Taupe</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[14]+')'" class="color-card"  id="imge5"  (click)="updateColor(14,'U740_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[14]+')'" class="color-card"  id="imge5"  (click)="updateColor(14,'U740 ST9 Donkertaupe')">
                                     <span> <mat-icon (click)="openDialog(14)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Wit</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[15]+')'" class="color-card"  id="imge6" (click)="updateColor(15,'U732_A3_10DE_fur')" >
+                                <mat-card [style.background-image]="'url('+designImages[15]+')'" class="color-card"  id="imge6" (click)="updateColor(15,'U732 ST9 Stofgrijs')" >
                                     <span> <mat-icon (click)="openDialog(15)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Vergrijsde eik</mat-card-footer>
                                     
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[16]+')'" class="color-card" id="imge7"  (click)="updateColor(16,'U727_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[16]+')'" class="color-card" id="imge7"  (click)="updateColor(16,'U727 ST9 Steengrijs')">
                                     <span> <mat-icon (click)="openDialog(16)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Amazonia</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[17]+')'" class="color-card"  id="imge8" (click)="updateColor(17,'U707_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[17]+')'" class="color-card"  id="imge8" (click)="updateColor(17,'U707 ST9 Zijdegrijs')">
                                     <span> <mat-icon  (click)="openDialog(17)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Walnoot</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[18]+')'" class="color-card" id="imge9"  (click)="updateColor(18,'U156_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[18]+')'" class="color-card" id="imge9"  (click)="updateColor(18,'U156 ST9 Zandbeige')">
                                     <span> <mat-icon (click)="openDialog(18)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Zwart</mat-card-footer>
                                 </mat-card>
@@ -127,44 +138,44 @@
                             </div>
                                                                             <!--Houtstructuren-->
                             <div fxFlex>
-                                <mat-card [style.background-image]="'url('+designImages[0]+')'" #imge  class="color-card"  id="imge1" (click)="updateColor(0,'W1000 st19')">
+                                <mat-card [style.background-image]="'url('+designImages[0]+')'" #imge  class="color-card"  id="imge1" (click)="updateColor(0,'W1000 ST19 Premium wit')">
                                     <span> <mat-icon (click)="openDialog(0)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Gebroken wit</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[1]+')'" class="color-card" id="imge2"  (click)="updateColor(1,'H3710_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[1]+')'" class="color-card" id="imge2"  (click)="updateColor(1,'H3710 ST12 Carini notelaar natuur')">
                                     <span> <mat-icon (click)="openDialog(1)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Beige</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[2]+')'" class="color-card"  id="imge3"  (click)="updateColor(2,'H3335_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[2]+')'" class="color-card"  id="imge3"  (click)="updateColor(2,'H3335 ST28 Gladstone eik wit')">
                                     <span> <mat-icon (click)="openDialog(2)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Mokka</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[3]+')'" class="color-card" id="imge4" (click)="updateColor(3,'H3158_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[3]+')'" class="color-card" id="imge4" (click)="updateColor(3,'H3158 ST19 Vicenza eik grijs')">
                                     <span> <mat-icon  (click)="openDialog(3)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Taupe</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[4]+')'" class="color-card"  id="imge5"  (click)="updateColor(4,'H3157_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[4]+')'" class="color-card"  id="imge5"  (click)="updateColor(4,'H3157 ST12 Vicenza eik')">
                                     <span> <mat-icon (click)="openDialog(4)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Wit</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[5]+')'" class="color-card"  id="imge6" (click)="updateColor(5,'H3058_A3_10DE_fur')" >
+                                <mat-card [style.background-image]="'url('+designImages[5]+')'" class="color-card"  id="imge6" (click)="updateColor(5,'H3058 ST22 Mali wengé')" >
                                     <span> <mat-icon (click)="openDialog(5)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Vergrijsde eik</mat-card-footer>
                                     
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[6]+')'" class="color-card" id="imge7"  (click)="updateColor(6,'H3012_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[6]+')'" class="color-card" id="imge7"  (click)="updateColor(6,'H3012 ST22 Coco bolo natuur')">
                                     <span> <mat-icon (click)="openDialog(6)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Amazonia</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[7]+')'" class="color-card"  id="imge8" (click)="updateColor(7,'H1318_A3_10DE_fur')">
+                                <mat-card [style.background-image]="'url('+designImages[7]+')'" class="color-card"  id="imge8" (click)="updateColor(7,'H1318 ST10 Wilde eik natuur')">
                                     <span> <mat-icon  (click)="openDialog(7)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Walnoot</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[8]+')'" class="color-card" id="imge9"  (click)="updateColor(8,'H1313_A3')">
+                                <mat-card [style.background-image]="'url('+designImages[8]+')'" class="color-card" id="imge9"  (click)="updateColor(8,'H1313 ST10 Whiteriver eik grijsbruin')">
                                     <span> <mat-icon (click)="openDialog(8)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Zwart</mat-card-footer>
                                 </mat-card>
-                                <mat-card [style.background-image]="'url('+designImages[9]+')'" class="color-card"  id="imge10" (click)="updateColor(9,'H1312_A3_10DE_fur')" >
+                                <mat-card [style.background-image]="'url('+designImages[9]+')'" class="color-card"  id="imge10" (click)="updateColor(9,'H1312 ST10 Whiteriver eik zandbeige')" >
                                     <span> <mat-icon (click)="openDialog(5)">open_in_full</mat-icon></span>
                                     <mat-card-footer class="footer" >Vergrijsde eik</mat-card-footer>
                                     

@@ -32,6 +32,8 @@ export class SeventhStepComponent implements OnInit {
   priceOfHandle;
   borderSlope;
   slopeDirection;
+  numberOfDoors = 0;
+  isHandle;
   constructor(private _DataSharing: DataSharingService) { }
 
   ngOnInit(): void {
@@ -62,12 +64,29 @@ export class SeventhStepComponent implements OnInit {
       console.log(result.cabnetDepth)
     });
 
+     // Handle add or not
+     this._DataSharing._handleStatus$.subscribe((isHandle:boolean)=>{
+      this.isHandle = isHandle
+      if(this.isHandle == true){
+        for (let i = 0; i < this.closets.length; i++) {
+            
+          this.numberOfDoors = this.numberOfDoors+ this.closets[i].cols;
+          console.log('number of doors are' , this.numberOfDoors , this.closets[i].cols )
+      }
+       }
+    })
+
+    // 
     this._DataSharing._closetLayout$.subscribe((result:any)=>{
       this.closets = result;
       this.bgImage.length = Object.keys(this.closets).length;
-      console.log(result, '<= Layout')
+      console.log(result, '<= Layout');
+  
+       
+     
     });
-
+   
+   
       //Data colorImage
       this._DataSharing._colorImages$.subscribe((data:any)=>{
         console.log('recived Data in step 7', data)
@@ -77,7 +96,10 @@ export class SeventhStepComponent implements OnInit {
         this.outerColorName = data.outerColorName;
         this.handle = data.handleImg;
         this.handleName = data.handleImgName;
+
+       
       });
+    
       // setting Outer Color
      
     //getting design image 
@@ -119,16 +141,19 @@ export class SeventhStepComponent implements OnInit {
     'assets/handle/13.jpg',
   ]
   
+get ishandLeAdded(){
+  return this.isHandle;
+}
 addHandle(i:number,nameOfHandle:string){
   if(this.priceOfHandle ){
     this.price  = this.price - this.priceOfHandle;
   }
   
   if(i == 5 || i == 6){
-    this.priceOfHandle = 4.5;
+    this.priceOfHandle = 4.5 * this.numberOfDoors;
   }
   else{
-    this.priceOfHandle = 9.5
+    this.priceOfHandle = 9.5 * this.numberOfDoors;
   }
     this.handle = this.handleImages[i];
     this.handleName = nameOfHandle;
@@ -143,7 +168,7 @@ addHandle(i:number,nameOfHandle:string){
  
     this.price = parseFloat(this.priceOfHandle) + parseFloat(this.price);
     this.price = this.price.toFixed(2);
-    console.log('type of price ', typeof(this.price),isNaN(this.price),this.price,this.priceOfHandle);
+    console.log('type of price ', typeof(this.price),isNaN(this.price),this.price,this.priceOfHandle, this.numberOfDoors);
     // this._DataSharing.sendColorImage(this.design)
     this._DataSharing.updatePrice(this.price);
     // this.validateBoxForm();

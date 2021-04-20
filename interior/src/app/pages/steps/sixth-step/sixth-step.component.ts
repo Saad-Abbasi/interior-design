@@ -78,7 +78,10 @@ export class SixthStepComponent implements OnInit {
               private dialog:MatDialog) { }
 
   ngOnInit(): void {
-    
+    // if(!this.outerColor){
+    //   this.outerColor = this.designImages[0]
+    // }
+   
     this._DataSharing._slope$.subscribe(result=>{
       if(result == 'true'){
         this.slope = true;
@@ -134,12 +137,12 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
               
             
     }
-      
+   
    //getting price 
    this._DataSharing._price$.subscribe((result)=>{
     this.price = result
   });
-
+// testing 
   if(!this.price){
     this.price = 500
     this.price = parseFloat(this.price)
@@ -176,7 +179,10 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     
     this.getOuterColorImg();
   }
-
+// Wiil yo add hanle or not ?
+isHandle(event){
+  this._DataSharing.updateHandleStatus(event);
+}
   // Hold copy of initial closets 
   makeCopyOfCloset(closets){
     this.closetsBackup = JSON.parse(JSON.stringify(this.closets));
@@ -243,8 +249,7 @@ this.closets=[{index: 1, cols: 2, boxWidthTest: "40%", widthInCm: "100.0cm", clo
     }
     
     if(!this.outerColor){
-      alert('Kies eerst de buitenste kleur');
-      return;
+      this.outerColor = this.designImages[0];
     }
 
     if(this.makeCopyOfCloset ){
