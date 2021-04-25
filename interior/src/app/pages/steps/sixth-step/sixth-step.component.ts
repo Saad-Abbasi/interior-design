@@ -195,7 +195,7 @@ isHandle(event){
     
     this._DataSharing._colorImages$.subscribe((data:any)=>{
       this.outerColor = data.outerColorImg;
-      if(this.outerColor && this.outerColor.includes("universal_colors") && !this.outerColor.includes('2.jpg')){
+      if(this.outerColor && this.outerColor.includes("universal_colors") &&  !this.outerColor.includes('1.jpg') && !this.outerColor.includes('2.jpg')){
         this.priceOfColorSide = 39.00;
         
       }
@@ -303,6 +303,7 @@ isHandle(event){
       
       this.price = parseFloat(this.price)
       this.price += this.doorPrice;
+      this.price = this.price.toFixed(2)
       console.log(this.doorPrice,this.price,'<= Door Price');
       this._DataSharing.updatePrice(this.price);
     }

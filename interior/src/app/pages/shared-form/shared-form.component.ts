@@ -29,6 +29,7 @@ topBar;
 rightBar;
 bottomBar;
 leftBar;
+tempTest = 0;
 
   constructor(private _sharedData: DataSharingService) { 
   
@@ -61,20 +62,21 @@ leftBar;
       
     this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
 
-    // this._sharedData._sharedFormLabels$.subscribe((result:any)=>{
+    this._sharedData._sharedFormLabels$.subscribe((result:any)=>{
       
-    //   this.leftLabel = result.leftLabel,
-    //   this.rightLabel = result.rightLabel,
-    //   this.leftReadOnly = result.leftReadOnly,
-    //   this.rightReadOnly = result.rightReadOnly,
-    //   this.topReadOnly = result.topReadOnly,
-    //  this.bottomReadOnly = result.bottomReadOnly
-    // })
+      this.leftLabel = result.leftLabel,
+      this.rightLabel = result.rightLabel,
+      this.leftReadOnly = result.leftReadOnly,
+      this.rightReadOnly = result.rightReadOnly,
+      this.topReadOnly = result.topReadOnly,
+     this.bottomReadOnly = result.bottomReadOnly
+    })
 
     // this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
-      this.getCabnetData();
+    this.getFormValues()
+    this.getCabnetData();
     
-      this.imageBasedRender()
+    this.imageBasedRender()
       
      
      
@@ -89,8 +91,8 @@ leftBar;
         this.designImage = result;
         
       }
-      if(this.designImage == undefined) 
-      return;
+      // if(this.designImage == undefined) 
+      // return;
       console.log(this.designImage, 'result in images base render');
       if (result == '7.jpg'|| result=='3.jpg') {
         
@@ -101,7 +103,7 @@ leftBar;
         this.leftReadOnly = true;
         this._sharedData.updateSharedFormLabels(this.sharedFormLabels);
         this.onValueChange();
-        this.onValueChange();
+        
       }
   
       else if (result == '6.jpg'|| result=='1.jpg') {
@@ -125,17 +127,22 @@ leftBar;
       else{
         this.onValueChange();
       }
+      
       console.log('desing img in img base rende',this.designImage)
     });
     
     
   }
-
+ 
   sendImage(desinImage){
     this.designImage = desinImage;
     console.log('in send images', this.designImage)
+    
     this.sendImage = undefined;
   }
+
+
+ 
   getOuterColorImg(){
     this.price - this.priceOfColorSide;
     this._sharedData._colorImages$.subscribe((data:any)=>{
@@ -163,9 +170,7 @@ leftBar;
     this.cabnetWidth = result.cabnetWidth;
     this.cabnetWidth2 = result.cabnetWidth2;
     // this.imageBasedRender();
-    
-    this.onValueChange();
-    
+ 
   });
   
  }
@@ -187,19 +192,22 @@ leftBar;
 
   onValueChange(){
     this.getFormValues();
+    ;
     this._sharedData._sharedFormLabels$.subscribe((result:any)=>{
       this.leftLabel = result.leftLabel
       this.rightLabel = result.rightLabel
       this.leftReadOnly = result.leftReadOnly;
       this.rightReadOnly = result.rightReadOnly
     });
-    // this._sharedData._sharedForm$.subscribe((result:any) =>{
-    //   this.topBar = result.topBar;
-    //   this.rightBar = result.rightBar;
-    //   this.bottomBar = result.bottomBar;
-    //   this.leftBar = result.leftBar;
-    //   console.log('data of right form in shared form',result)
-    // });
+    this._sharedData._sharedForm$.subscribe((result:any) =>{
+      this.topBar = result.topBar;
+      this.rightBar = result.rightBar;
+      this.bottomBar = result.bottomBar;
+      this.leftBar = result.leftBar;
+      console.log('data of right form in shared form',result)
+      
+    });
+    
     // this.barForm ={
     //     topBar: this.topBar,
     //     rightBar: this.rightBar,
@@ -249,6 +257,7 @@ leftBar;
       this._sharedData.updatePrice(this.price);
       console.log(this.barForm.value)
       this._sharedData.updateSharedForm(this.barForm.value);
+      
     }
     
     

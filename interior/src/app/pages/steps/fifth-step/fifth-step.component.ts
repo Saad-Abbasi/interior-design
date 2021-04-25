@@ -156,7 +156,7 @@ constructor(private _DataSharing: DataSharingService,
 
     
 
-    if( colorType && colorType.includes("universal_colors") &&  !colorType.includes('1.jpg')){
+    if( colorType && colorType.includes("universal_colors") &&  !colorType.includes('1.jpg') &&  !colorType.includes('2.jpg')){
      this.selectedPercnt = this.uniColorPercent;
       this.totalPirceOfColorInner = parseFloat(this.price) + parseFloat(this.selectedPercnt);
       this.price = this.totalPirceOfColorInner;

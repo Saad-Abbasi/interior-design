@@ -62,6 +62,7 @@ export class SecondStepComponent implements OnInit {
       }
     });
     this._shareData._imageUrl$.subscribe((_imageUrl)=>{
+      
       this.imageUrl = 'assets/with_dimension/'+_imageUrl;
       if(_imageUrl == '1.jpg' || _imageUrl == '8.jpg'){
         this._shareData.updateSlopeDirection('left');
